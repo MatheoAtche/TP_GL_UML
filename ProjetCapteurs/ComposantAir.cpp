@@ -49,7 +49,7 @@ bool ComposantAir::verifierDate(string dateDebut, string dateFin, Mesure * mesur
 	int minuteF = atoi(dateFin.substr(13, 2).c_str());
 	double secF = stod(dateFin.substr(15, 7).c_str());
 
-	string time = mesure->getTimestamp;
+	string time = mesure->getTimestamp();
 
 	int anneeT = atoi(time.substr(0, 4).c_str());
 	int moisT = atoi(time.substr(5, 2).c_str());
