@@ -35,25 +35,25 @@ class ComposantAir
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-		double moyenne ( string dateDebut,string dateFin,double latitude1,double longitude1,double latitude2,double longitude2,set<Capteur> * tabCapteurs );
+		double moyenne ( string dateDebut,string dateFin,double latitude1,double longitude1,double latitude2,double longitude2, map<string, Capteur>* tabCapteurs);
 		// Mode d'emploi :
 		//
 		// Contrat :
 		//
 
-		double minimum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur> * tabCapteurs);
+		double minimum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs);
 		// Mode d'emploi :
 		//
 		// Contrat :
 		//
 
-		double maximum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur> * tabCapteurs);
+		double maximum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs);
 		// Mode d'emploi :
 		//
 		// Contrat :
 		//
 
-		double ecartType(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur> * tabCapteurs);
+		double ecartType(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs);
 		// Mode d'emploi :
 		//
 		// Contrat :

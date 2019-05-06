@@ -33,7 +33,7 @@ class OperationsDonnees
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-	int qualiteAirMoyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10,set<Capteur> * capteurs);
+	int qualiteAirMoyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, map<string, Capteur>* tabCapteurs);
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -45,7 +45,7 @@ public:
 	// Contrat :
 
 
-	int qualiteAirPointFixe(string dateDebut, string dateFin, double latitude1, double longitude1, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, set<Capteur> * capteurs );
+	int qualiteAirPointFixe(string dateDebut, string dateFin, double latitude1, double longitude1, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, map<string, Capteur>* tabCapteurs);
 	// Mode d'emploi :
 	//
 	// Contrat :
