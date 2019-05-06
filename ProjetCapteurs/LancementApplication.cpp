@@ -9,11 +9,29 @@ using namespace std;
 #include "Mesure.h"
 #include "OperationsDonnees.h"
 
+void testLireMesuresComposantAir() {
+
+	DataSet * dataSet =  new DataSet();
+	ComposantAir * o3 = new ComposantAir();
+	ComposantAir * no2 = new ComposantAir();
+	ComposantAir * so2 = new ComposantAir();
+	ComposantAir * pm10 = new ComposantAir();
+
+	dataSet->lireMesures("",o3,no2,so2,pm10);
+
+}
+
+
 int main() {
 
 	//Obligé pour qu'on voit que qql chose s'affiche !
 	char * a = new char[10];
 	cout << "coucou" << endl;
+
+
+	//Tests
+
+
 	cin >> a;
 	cout << a;
 	return 0;

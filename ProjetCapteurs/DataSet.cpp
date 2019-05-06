@@ -34,20 +34,15 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 //
 {
 
-} //----- Fin de Méthode
+	ifstream file(nomFichier.c_str(), ios::in);
 
-void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
-//
-{
+	if (file.fail()) {
 
-} //----- Fin de Méthode
+		cout << "Erreur lors de l'ouverture du fichier demandé" << endl;
+		return;
 
-void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
-//
-{
-
-	ifstream file(nomFichier.c_str(),ios::in);
-	if (file) {
+	}
+	else if (file) {
 
 		//Si le fichier s'est bien ouvert...
 
@@ -68,16 +63,35 @@ void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantA
 			//Récupération des informations de la ligne
 			getline(file, ligneFic);
 			parcoursLigne.str(ligneFic);
-			getline(parcoursLigne,date,';');
+			getline(parcoursLigne, date, ';');
 			getline(parcoursLigne, idCapteur, ';');
 			getline(parcoursLigne, typeDonnee, ';');
 			getline(parcoursLigne, valeurMesure);
+
+			cout << "Date : " << date << endl;
+			cout << "Capteur : " << date << endl;
+			cout << "Type : " << date << endl;
+			cout << "Valeur : " << date << endl;
 
 		}
 
 
 		file.close();
 	}
+
+} //----- Fin de Méthode
+
+void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
+//
+{
+
+} //----- Fin de Méthode
+
+void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
+//
+{
+
+	
 
 
 } //----- Fin de Méthode
@@ -106,9 +120,9 @@ DataSet::DataSet()
 // Algorithme :
 //
 {
-#ifdef MAP
-	cout << "Appel au constructeur de <DataSet>" << endl;
-#endif
+	#ifdef MAP
+		cout << "Appel au constructeur de <DataSet>" << endl;
+	#endif
 
 } //----- Fin de DataSet
 
@@ -117,9 +131,9 @@ DataSet::~DataSet()
 // Algorithme :
 //
 {
-#ifdef MAP
-	cout << "Appel au destructeur de <DataSet>" << endl;
-#endif
+	#ifdef MAP
+		cout << "Appel au destructeur de <DataSet>" << endl;
+	#endif
 } //----- Fin de ~DataSet
 
 
