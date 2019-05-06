@@ -65,9 +65,9 @@ Mesure::Mesure(string time, double val,string sensor)
 // Algorithme :
 //
 {
-#ifdef MAP
-	cout << "Appel au constructeur de <Mesure>" << endl;
-#endif
+	#ifdef MAP
+		cout << "Appel au constructeur de <Mesure>" << endl;
+	#endif
 	timestamp = time;
 	value = val;
 	sensorID = sensor;
@@ -78,9 +78,9 @@ Mesure::~Mesure()
 // Algorithme :
 //
 {
-#ifdef MAP
-	cout << "Appel au destructeur de <Mesure>" << endl;
-#endif
+	#ifdef MAP
+		cout << "Appel au destructeur de <Mesure>" << endl;
+	#endif
 } //----- Fin de ~Mesure
 
 

@@ -66,24 +66,101 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 			getline(parcoursLigne, date, ';');
 			getline(parcoursLigne, idCapteur, ';');
 			getline(parcoursLigne, typeDonnee, ';');
-			getline(parcoursLigne, valeurMesure);
+			getline(parcoursLigne, valeurMesure, ';');
 
 			cout << "Date : " << date << endl;
-			cout << "Capteur : " << date << endl;
-			cout << "Type : " << date << endl;
-			cout << "Valeur : " << date << endl;
+			cout << "Capteur : " << idCapteur << endl;
+			cout << "Type : " << typeDonnee << endl;
+			cout << "Valeur : " << valeurMesure << endl;
+
+
+			Mesure * mesure = new Mesure(date,atof(valeurMesure.c_str()),idCapteur);
+			
+			if (typeDonnee == "O3") {
+				o3->addMesure(mesure);
+			} else if (typeDonnee == "SO2") {
+				so2->addMesure(mesure);
+			} else if (typeDonnee == "NO2") {
+				no2->addMesure(mesure);
+			} else if (typeDonnee == "PM10") {
+				pm10->addMesure(mesure);
+			}
+			else { //Dans aucun des derniers cas
+				cout << "Composant d'air " << typeDonne << " inconnu" << endl;
+			}
 
 		}
-
 
 		file.close();
 	}
 
-} //----- Fin de Méthode
+} //----- Fin de lireMesures
 
 void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 //
 {
+	ifstream file(nomFichier.c_str(), ios::in);
+
+	if (file.fail()) {
+
+		cout << "Erreur lors de l'ouverture du fichier demandé" << endl;
+		return;
+
+	}
+	else if (file) {
+
+		//Si le fichier s'est bien ouvert...
+
+		//On décortique la ligne
+		string idCapteur;
+		string latitude;
+		string longitude;
+		string description;
+
+
+		//On récupère la première ligne
+		string ligneFic;
+		istringstream parcoursLigne;
+		getline(file, ligneFic);
+
+		while (!file.eof()) {
+
+			//Récupération des informations de la ligne
+			getline(file, ligneFic);
+			parcoursLigne.str(ligneFic);
+			getline(parcoursLigne, idCapteur, ';');
+			getline(parcoursLigne, latitude, ';');
+			getline(parcoursLigne, longitude, ';');
+			getline(parcoursLigne, description, ';');
+
+			cout << "Cpateur : " << idCapteur << endl;
+			cout << "Latitude : " << latitude << endl;
+			cout << "Longitude : " << longitude << endl;
+			cout << "Description : " << description << endl;
+
+
+			Mesure * mesure = new Mesure(date, atof(valeurMesure.c_str()), idCapteur);
+
+			if (typeDonnee == "O3") {
+				o3->addMesure(mesure);
+			}
+			else if (typeDonnee == "SO2") {
+				so2->addMesure(mesure);
+			}
+			else if (typeDonnee == "NO2") {
+				no2->addMesure(mesure);
+			}
+			else if (typeDonnee == "PM10") {
+				pm10->addMesure(mesure);
+			}
+			else { //Dans aucun des derniers cas
+				cout << "Composant d'air " << typeDonne << " inconnu" << endl;
+			}
+
+		}
+
+		file.close();
+	}
 
 } //----- Fin de Méthode
 
