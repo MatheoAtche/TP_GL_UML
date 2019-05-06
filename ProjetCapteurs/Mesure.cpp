@@ -27,12 +27,19 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-// type Mesure::Méthode ( liste de paramètres )
+double Mesure::getValue()
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
+{
+	return value;
+} //----- Fin de Méthode
 
+string Mesure::getSensorID()
+// Algorithme :
+//
+{
+	return sensorID;
+} //----- Fin de Méthode
 
 //------------------------------------------------- Surcharge d'opérateurs
 /*Mesure & Mesure::operator = (const Mesure &unMesure)

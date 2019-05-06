@@ -35,7 +35,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 
 } //----- Fin de Méthode
 
-void DataSet::lireCapteurs(string nomFichier, set<Capteur> * capteurs)
+void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 //
 {
 
