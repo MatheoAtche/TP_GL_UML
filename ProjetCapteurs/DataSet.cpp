@@ -96,6 +96,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 
 } //----- Fin de lireMesures
 
+//MANQUE INSERTION FIN 
 void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 //
 {
@@ -139,19 +140,73 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 			cout << "Description : " << description << endl;
 
 
-			Mesure * mesure = new Mesure(date, atof(valeurMesure.c_str()), idCapteur);
+			Capteur capteur(idCapteur, atof(latitude.c_str()), atof(longitude.c_str()), description);
 
-			if (typeDonnee == "O3") {
-				o3->addMesure(mesure);
+			//tabCapteurs->insert(idCapteur,capteur);
+		}
+
+		file.close();
+	}
+
+} //----- Fin de lireCapteurs
+
+//MANQUE SET COMPOSANTAIR
+void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
+//
+{
+
+	ifstream file(nomFichier.c_str(), ios::in);
+
+	if (file.fail()) {
+
+		cout << "Erreur lors de l'ouverture du fichier demandé" << endl;
+		return;
+
+	}
+	else if (file) {
+
+		//Si le fichier s'est bien ouvert...
+
+		//On décortique la ligne
+		string attribut;
+		string unite;
+		string description;
+
+
+		//On récupère la première ligne
+		string ligneFic;
+		istringstream parcoursLigne;
+		getline(file, ligneFic);
+
+		while (!file.eof()) {
+
+			//Récupération des informations de la ligne
+			getline(file, ligneFic);
+			parcoursLigne.str(ligneFic);
+			getline(parcoursLigne, attribut, ';');
+			getline(parcoursLigne, unite, ';');
+			getline(parcoursLigne, description, ';');
+
+			cout << "attribut : " << attribut << endl;
+			cout << "unite : " << unite << endl;
+			cout << "Type : " << description << endl;
+
+
+			if (attribut == "O3") {
+				//o3->setDescription(description);
+				//o3->setUnite(unite);
 			}
-			else if (typeDonnee == "SO2") {
-				so2->addMesure(mesure);
+			else if (attribut == "SO2") {
+				//so2->setDescription(description);
+				//so2->setUnite(unite);
 			}
-			else if (typeDonnee == "NO2") {
-				no2->addMesure(mesure);
+			else if (attribut == "NO2") {
+				//no2->setDescription(description);
+				//no2->setUnite(unite);
 			}
-			else if (typeDonnee == "PM10") {
-				pm10->addMesure(mesure);
+			else if (attribut == "PM10") {
+				//pm10->setDescription(description);
+				//pm10->setUnite(unite);
 			}
 			else { //Dans aucun des derniers cas
 				cout << "Composant d'air " << typeDonne << " inconnu" << endl;
@@ -161,17 +216,10 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 
 		file.close();
 	}
-
-} //----- Fin de Méthode
-
-void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
-//
-{
-
 	
 
 
-} //----- Fin de Méthode
+} //----- Fin de lireComposantsAirs
 
 //------------------------------------------------- Surcharge d'opérateurs
 /*DataSet & DataSet::operator = (const DataSet &unDataSet)
