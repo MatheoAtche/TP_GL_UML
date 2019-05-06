@@ -9,9 +9,9 @@ using namespace std;
 #include "Mesure.h"
 #include "OperationsDonnees.h"
 
-int main(int argc, char * argv[]) {
+int main() {
 
-	//Obligé pour qu'on voit qql chose s'affiche !
+	//Obligé pour qu'on voit que qql chose s'affiche !
 	char * a = new char[10];
 	cout << "coucou" << endl;
 	cin >> a;
