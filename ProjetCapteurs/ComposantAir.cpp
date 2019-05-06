@@ -17,7 +17,7 @@ using namespace std;
 #include "ComposantAir.h"
 
 //------------------------------------------------------------- Constantes
-#define TAILLE 20
+
 //---------------------------------------------------- Variables de classe
 
 //----------------------------------------------------------- Types privés
@@ -106,7 +106,7 @@ ComposantAir::ComposantAir(string attribute, string u, string descri,int taille)
 	unit = u;
 	description = descri;
 	tailleTab = taille;
-	tabMesure = new Mesure[tailleTab];
+	tabMesure = new Mesure*[tailleTab];
 } //----- Fin de ComposantAir
 
 

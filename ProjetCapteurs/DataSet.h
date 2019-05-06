@@ -1,14 +1,14 @@
 /*************************************************************************
-						   ComposantAir  -  description
+						   DataSet  -  description
 							 -------------------
 	début                : 06/05/2019
 	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
 *************************************************************************/
 #define CRT_SECURE_NO_WARNINGS
 
-//---------- Interface de la classe <ComposantAir> (fichier ComposantAir.h) ------
-#if ! defined ( COMPOSANTAIR_H )
-#define COMPOSANTAIR_H
+//---------- Interface de la classe <DataSet> (fichier DataSet.h) ------
+#if ! defined ( DATASET_H )
+#define DATASET_H
 
 //--------------------------------------------------- Interfaces utilisées
 using namespace std;
@@ -16,84 +16,65 @@ using namespace std;
 #include<cstring>
 #include<set>
 #include<map>
-#include"Mesure.h"
-#include"Capteur.h"
+#include"ComposantAir.h"
 
 //------------------------------------------------------------- Constantes 
-#define TAILLE 20
+
 //------------------------------------------------------------------ Types 
-typedef map<double, set<string>> valSimi;
 //------------------------------------------------------------------------ 
-// Rôle de la classe <ComposantAir>
+// Rôle de la classe <DataSet>
 //
 //
 //------------------------------------------------------------------------ 
 
-class ComposantAir
+class DataSet
 {
 	//----------------------------------------------------------------- PUBLIC
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-		double moyenne ( string dateDebut,string dateFin,double latitude1,double longitude1,double latitude2,double longitude2,set<Capteur> * tabCapteurs );
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
 
-		double minimum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur> * tabCapteurs);
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
-
-		double maximum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur> * tabCapteurs);
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
-
-		double ecartType(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur> * tabCapteurs);
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
-
-		valSimi valeursSimilaires(string dateDebut, string dateFin, double epsilon);
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
-
-		void addMesure(Mesure mesure);
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
-
-	//------------------------------------------------- Surcharge d'opérateurs
-	//ComposantAir & operator = (const ComposantAir & unComposantAir);
+	void lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
+	void lireCapteurs(string nomFichier, set<Capteur> * capteurs);
+	// Mode d'emploi :
+	//
+	// Contrat :
+
+
+	void lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
+	// Mode d'emploi :
+	//
+	// Contrat :
+	//
+
+//------------------------------------------------- Surcharge d'opérateurs
+//DataSet & operator = (const DataSet & unDataSet);
+// Mode d'emploi :
+//
+// Contrat :
+//
+
 
 //-------------------------------------------- Constructeurs - destructeur
-	//ComposantAir (const ComposantAir &unComposantAir);
+	//DataSet (const DataSet &unDataSet);
 	// Mode d'emploi (constructeur de copie) :
 	//
 	// Contrat :
 	//
 
 
-	ComposantAir(string attribute, string u,string descri,int taille=TAILLE);
+	DataSet();
 	// Mode d'emploi :
 	//
 	// Contrat :
 	//
 
-	virtual ~ComposantAir();
+	virtual ~DataSet();
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -112,11 +93,7 @@ protected:
 
 private:
 	//------------------------------------------------------- Attributs privés
-	string attributeID;
-	string unit;
-	string description;
-	Mesure** tabMesure;
-	int tailleTab;
+
 	//---------------------------------------------------------- Classes amies
 
 	//-------------------------------------------------------- Classes privées
@@ -125,6 +102,8 @@ private:
 
 };
 
-//----------------------------------------- Types dépendants de <ComposantAir>
+//----------------------------------------- Types dépendants de <DataSet>
 
-#endif // COMPOSANTAIR_H
+#endif // DATASET_H
+
+

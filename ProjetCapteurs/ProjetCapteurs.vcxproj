@@ -117,12 +117,14 @@
   <ItemGroup>
     <ClInclude Include="Capteur.h" />
     <ClInclude Include="ComposantAir.h" />
+    <ClInclude Include="DataSet.h" />
     <ClInclude Include="Mesure.h" />
     <ClInclude Include="OperationsDonnees.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Capteur.cpp" />
     <ClCompile Include="ComposantAir.cpp" />
+    <ClCompile Include="DataSet.cpp" />
     <ClCompile Include="Mesure.cpp" />
     <ClCompile Include="OperationsDonnees.cpp" />
   </ItemGroup>
