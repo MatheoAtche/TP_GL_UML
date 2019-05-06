@@ -32,10 +32,10 @@ using namespace std;
 int OperationsDonnees::qualiteAirMoyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, map<string, Capteur>* tabCapteurs)
 //
 {
-	double moyO3 = o3->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude2,longitude2, capteurs);
-	double moyNO2 = no2->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude2,longitude2, capteurs);
-	double moySO2 = so2->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude2,longitude2, capteurs);
-	double moyPM10 = pm10->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude2,longitude2, capteurs);
+	double moyO3 = o3->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude2,longitude2, tabCapteurs);
+	double moyNO2 = no2->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude2,longitude2, tabCapteurs);
+	double moySO2 = so2->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude2,longitude2, tabCapteurs);
+	double moyPM10 = pm10->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude2,longitude2, tabCapteurs);
 	int indice = 1;
 	if (moyO3>=30 || moySO2>=40 || moyNO2>=30 || moyPM10 >=7)
 	{
