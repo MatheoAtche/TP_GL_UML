@@ -125,6 +125,7 @@
     <ClCompile Include="Capteur.cpp" />
     <ClCompile Include="ComposantAir.cpp" />
     <ClCompile Include="DataSet.cpp" />
+    <ClCompile Include="LancementApplication.cpp" />
     <ClCompile Include="Mesure.cpp" />
     <ClCompile Include="OperationsDonnees.cpp" />
   </ItemGroup>
