@@ -29,7 +29,13 @@ class Capteur
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-		// type Méthode ( liste de paramètres );
+		double getLongitude();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		double getLatitude();
 		// Mode d'emploi :
 		//
 		// Contrat :

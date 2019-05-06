@@ -14,6 +14,7 @@
 using namespace std;
 
 #include<cstring>
+#include<string>
 #include<set>
 #include<map>
 #include"Mesure.h"
@@ -70,6 +71,19 @@ public:
 		//
 		// Contrat :
 		//
+
+		bool verifierDate(string dateDebut, string dateFin, Mesure * mesure);
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		bool verifierPosition(double latitude1, double longitude1, double latitude2, double longitude2, Capteur capteur);
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
 
 	//------------------------------------------------- Surcharge d'opérateurs
 	//ComposantAir & operator = (const ComposantAir & unComposantAir);

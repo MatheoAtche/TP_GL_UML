@@ -41,6 +41,13 @@ string Mesure::getSensorID()
 	return sensorID;
 } //----- Fin de Méthode
 
+string Mesure::getTimestamp()
+// Algorithme :
+//
+{
+	return timestamp;
+} //----- Fin de Méthode
+
 //------------------------------------------------- Surcharge d'opérateurs
 /*Mesure & Mesure::operator = (const Mesure &unMesure)
 // Algorithme :
