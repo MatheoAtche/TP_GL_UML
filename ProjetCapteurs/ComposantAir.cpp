@@ -68,10 +68,26 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 } //----- Fin de Méthode
 */
 
-void ComposantAir::addMesure(Mesure mesure)
+void ComposantAir::addMesure(Mesure * mesure)
 // Algorithme :
 //
 {
+	if (nbActuel == tailleTab) //Agrandissement de la taille du tableau si nécessaire
+	{
+		int i;
+		tailleTab += 10;
+		Mesure ** tabNouveau = new Mesure*[tailleTab];
+		Mesure ** temp = tabMesure;
+		for (i = 0; i < tailleTab - 10; i++)
+		{
+			tabNouveau[i] = tabMesure[i];
+		}
+		tabMesure = tabNouveau;
+		delete[]temp;
+	}
+
+	tabMesure[nbActuel] = mesure; //Ajout au tableau
+	nbActuel++;
 } //----- Fin de Méthode
 
 
@@ -106,6 +122,7 @@ ComposantAir::ComposantAir(string attribute, string u, string descri,int taille)
 	unit = u;
 	description = descri;
 	tailleTab = taille;
+	nbActuel = 0;
 	tabMesure = new Mesure*[tailleTab];
 } //----- Fin de ComposantAir
 
@@ -117,7 +134,7 @@ ComposantAir::~ComposantAir()
 #ifdef MAP
 	cout << "Appel au destructeur de <ComposantAir>" << endl;
 #endif
-for(int i=0;i<tailleTab;i++)
+for(int i=0;i<nbActuel;i++)
 {
 	delete tabMesure[i];
 }

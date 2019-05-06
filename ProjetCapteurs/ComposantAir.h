@@ -65,7 +65,7 @@ public:
 		// Contrat :
 		//
 
-		void addMesure(Mesure mesure);
+		void addMesure(Mesure * mesure);
 		// Mode d'emploi :
 		//
 		// Contrat :
@@ -87,7 +87,7 @@ public:
 	//
 
 
-	ComposantAir(string attribute, string u,string descri,int taille=TAILLE);
+	ComposantAir(string attribute="", string u="",string descri="",int taille=TAILLE);
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -117,6 +117,7 @@ private:
 	string description;
 	Mesure** tabMesure;
 	int tailleTab;
+	int nbActuel; // nombre d'elements actuellement dans le tableau
 	//---------------------------------------------------------- Classes amies
 
 	//-------------------------------------------------------- Classes privées
