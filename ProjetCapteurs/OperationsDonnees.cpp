@@ -1,15 +1,15 @@
 /***********************************************************************************************************************************
 						   OperationsDonnees  -  description
 							 -------------------
-	début                : 06/05/2019
-	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
+	dï¿½but                : 06/05/2019
+	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathï¿½o Atche
 *************************************************************************/
 
-//---------- Réalisation de la classe <OperationsDonnees> (fichier OperationsDonnees.cpp) --
+//---------- Rï¿½alisation de la classe <OperationsDonnees> (fichier OperationsDonnees.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systï¿½me
 using namespace std;
 #include <iostream>
 
@@ -20,26 +20,27 @@ using namespace std;
 #define TAILLE 20
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privï¿½s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- Mï¿½thodes publiques
 
 
 int OperationsDonnees::qualiteAirMoyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, map<string, Capteur>* tabCapteurs)
 //
 {
+	double moyO3 = o3->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude2,longitude2, capteurs);
 	return NULL;
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
 /*set<Capteur> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 // Algorithme :
 //
 {
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 */
 
 int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, double latitude1, double longitude1, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, map<string, Capteur>* tabCapteurs)
@@ -47,9 +48,9 @@ int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, dou
 //
 {
 	return NULL;
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opï¿½rateurs
 /*OperationsDonnees & OperationsDonnees::operator = (const OperationsDonnees &unOperationsDonnees)
 // Algorithme :
 //
@@ -91,6 +92,6 @@ OperationsDonnees::~OperationsDonnees()
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- Mï¿½thodes protï¿½gï¿½es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- Mï¿½thodes privï¿½es
