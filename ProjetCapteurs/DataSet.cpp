@@ -86,7 +86,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 				pm10->addMesure(mesure);
 			}
 			else { //Dans aucun des derniers cas
-				cout << "Composant d'air " << typeDonne << " inconnu" << endl;
+				cout << "Composant d'air " << typeDonnee << " inconnu" << endl;
 			}
 
 		}
@@ -209,7 +209,7 @@ void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantA
 				//pm10->setUnite(unite);
 			}
 			else { //Dans aucun des derniers cas
-				cout << "Composant d'air " << typeDonne << " inconnu" << endl;
+				cout << "Composant d'air " << attribut << " inconnu" << endl;
 			}
 
 		}
