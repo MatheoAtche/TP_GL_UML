@@ -27,11 +27,19 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-// type Capteur::Méthode ( liste de paramètres )
+double Capteur::getLongitude()
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
+{
+	return longitude;
+} //----- Fin de getLongitude
+
+double Capteur::getLatitude()
+// Algorithme :
+//
+{
+	return latitude;
+} //----- Fin de getLatitude
 
 
 //------------------------------------------------- Surcharge d'opérateurs

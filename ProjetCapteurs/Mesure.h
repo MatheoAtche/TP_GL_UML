@@ -42,6 +42,12 @@ public:
 		// Contrat :
 		//
 
+		string getTimestamp();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
 	//------------------------------------------------- Surcharge d'opérateurs
 	//Mesure & operator = (const Mesure & uneMesure);
 	// Mode d'emploi :

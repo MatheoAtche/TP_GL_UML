@@ -12,6 +12,7 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include<math.h>
 
 //------------------------------------------------------ Include personnel
 #include "ComposantAir.h"
@@ -28,6 +29,58 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+bool ComposantAir::verifierDate(string dateDebut, string dateFin, Mesure * mesure)
+// Algorithme :
+//
+{
+	int anneeD = atoi(dateDebut.substr(0, 4).c_str());
+	int moisD = atoi(dateDebut.substr(5, 2).c_str());
+	int jourD = atoi(dateDebut.substr(8, 2).c_str());
+
+	int heureD = atoi(dateDebut.substr(11, 2).c_str());
+	int minuteD = atoi(dateDebut.substr(13, 2).c_str());
+	double secD = stod(dateDebut.substr(15, 7).c_str());
+
+	int anneeF = atoi(dateFin.substr(0, 4).c_str());
+	int moisF = atoi(dateFin.substr(5, 2).c_str());
+	int jourF = atoi(dateFin.substr(8, 2).c_str());
+
+	int heureF = atoi(dateFin.substr(11, 2).c_str());
+	int minuteF = atoi(dateFin.substr(13, 2).c_str());
+	double secF = stod(dateFin.substr(15, 7).c_str());
+
+	string time = mesure->getTimestamp;
+
+	int anneeT = atoi(time.substr(0, 4).c_str());
+	int moisT = atoi(time.substr(5, 2).c_str());
+	int jourT = atoi(time.substr(8, 2).c_str());
+
+	int heureT = atoi(time.substr(11, 2).c_str());
+	int minuteT = atoi(time.substr(13, 2).c_str());
+	double secT = stod(time.substr(15, 7).c_str());
+
+	if (anneeT <= anneeF && anneeT >= anneeD && moisT <= moisF && moisT >= moisD && jourT <= jourF && jourT >= jourD && heureT <= heureF && heureT >= heureD && minuteT <= minuteF && minuteT >= minuteD && secT <= secF && secT >= secD) 
+	{
+		return true;
+	}
+	return false;
+
+} //----- Fin de verifierDate
+
+bool ComposantAir::verifierPosition(double latitude1, double longitude1, double latitude2, double longitude2, Capteur capteur)
+// Algorithme :
+//
+{
+	double lat = capteur.getLatitude();
+	double longi = capteur.getLongitude();
+
+	if (lat >= latitude2 && lat <= latitude1 && longi >= longitude1 && longi <= longitude2)
+	{
+		return true;
+	}
+	return false;
+
+}//----- Fin de Méthode
 
 double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string,Capteur>* tabCapteurs)
 // Algorithme :
@@ -36,15 +89,18 @@ double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1,
 	double sum = 0;
 	int compteur = 0; 
 	double moyenne = 0;
-	
+	map<string, Capteur>::iterator itCapt;
+
 	for (int i = 0; i < nbActuel; i++)
 	{
-		set<Capteur>::iterator itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
-		if (date ok && position ok) 
-		{
-			sum += tabMesure[i]->getValue();
-			compteur++;
-			
+		itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
+		if (itCapt != tabCapteurs->end()) {
+
+			if (verifierDate(dateDebut, dateFin, tabMesure[i]) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+			{
+				sum += tabMesure[i]->getValue();
+				compteur++;
+			}
 		}
 
 	}
@@ -54,21 +110,64 @@ double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1,
 		moyenne=sum/compteur;
 	}
 	return moyenne;
-} //----- Fin de Méthode
+
+} //----- Fin de moyenne
 
 double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
 //
 {
-	return NULL;
+	if (nbActuel > 0)
+	{
+		double minimum = tabMesure[0]->getValue();
+		map<string, Capteur>::iterator itCapt;
 
-} //----- Fin de Méthode
+		for (int i = 1; i < nbActuel; i++)
+		{
+			itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
+			if (itCapt != tabCapteurs->end()) {
+
+				if (verifierDate(dateDebut, dateFin, tabMesure[i]) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+				{
+					if (minimum > tabMesure[i]->getValue()) {
+						minimum = tabMesure[i]->getValue();
+					}
+				}
+			}
+
+		}
+		return minimum;
+	}
+	return -1;
+	
+} //----- Fin de minimum
 
 double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
 //
 {
-	return NULL;
+	if (nbActuel > 0)
+	{
+		double maximum = tabMesure[0]->getValue();
+		map<string, Capteur>::iterator itCapt;
+
+		for (int i = 1; i < nbActuel; i++)
+		{
+			itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
+			if (itCapt != tabCapteurs->end()) {
+
+				if (verifierDate(dateDebut, dateFin, tabMesure[i]) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+				{
+					if (maximum < tabMesure[i]->getValue()) {
+						maximum = tabMesure[i]->getValue();
+					}
+				}
+			}
+
+		}
+		return maximum;
+	}
+	return -1;
 
 } //----- Fin de Méthode
 
@@ -76,7 +175,32 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 // Algorithme :
 //
 {
-	return NULL;
+	double moy = moyenne(dateDebut, dateFin, latitude1, longitude1, latitude2, longitude2, tabCapteurs);
+	double sum = 0;
+	int compteur = 0;
+	double ecartT = 0;
+
+	map<string, Capteur>::iterator itCapt;
+
+	for (int i = 0; i < nbActuel; i++)
+	{
+		itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
+		if (itCapt != tabCapteurs->end()) {
+
+			if (verifierDate(dateDebut, dateFin, tabMesure[i]) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+			{
+				sum = sum + pow((tabMesure[i]->getValue()-moy),2);
+				compteur++;
+			}
+		}
+	}
+
+	if (compteur != 0)
+	{
+		ecartT = sqrt(sum / compteur);
+	}
+	return ecartT;
+	
 
 } //----- Fin de Méthode
 
