@@ -14,6 +14,7 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 //------------------------------------------------------ Include personnel
 #include "DataSet.h"
 
@@ -45,8 +46,38 @@ void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantA
 //
 {
 
-	istream file(nomFichier,ios::in);
-	//file.open(nomFichier);
+	ifstream file(nomFichier.c_str(),ios::in);
+	if (file) {
+
+		//Si le fichier s'est bien ouvert...
+
+		//On décortique la ligne
+		string date;
+		string idCapteur;
+		string typeDonnee;
+		string valeurMesure;
+
+
+		//On récupère la première ligne
+		string ligneFic;
+		istringstream parcoursLigne;
+		getline(file, ligneFic);
+
+		while (!file.eof()) {
+
+			//Récupération des informations de la ligne
+			getline(file, ligneFic);
+			parcoursLigne.str(ligneFic);
+			getline(parcoursLigne,date,';');
+			getline(parcoursLigne, idCapteur, ';');
+			getline(parcoursLigne, typeDonnee, ';');
+			getline(parcoursLigne, valeurMesure);
+
+		}
+
+
+		file.close();
+	}
 
 
 } //----- Fin de Méthode
