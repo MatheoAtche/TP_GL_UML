@@ -12,7 +12,8 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
+#include <fstream>
+#include <string>
 //------------------------------------------------------ Include personnel
 #include "DataSet.h"
 
@@ -34,7 +35,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 
 } //----- Fin de Méthode
 
-void DataSet::lireCapteurs(string nomFichier, set<Capteur> * capteurs)
+void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 //
 {
 
@@ -43,6 +44,10 @@ void DataSet::lireCapteurs(string nomFichier, set<Capteur> * capteurs)
 void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 //
 {
+
+	istream file(nomFichier,ios::in);
+	//file.open(nomFichier);
+
 
 } //----- Fin de Méthode
 

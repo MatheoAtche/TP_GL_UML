@@ -30,12 +30,17 @@ class Mesure
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-		// type Méthode ( liste de paramètres );
+		double getValue ();
 		// Mode d'emploi :
 		//
 		// Contrat :
 		//
 
+		string getSensorID();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
 
 	//------------------------------------------------- Surcharge d'opérateurs
 	//Mesure & operator = (const Mesure & uneMesure);

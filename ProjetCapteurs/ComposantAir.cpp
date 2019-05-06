@@ -29,14 +29,42 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 
-double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur>* tabCapteurs)
+double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string,Capteur>* tabCapteurs)
+// Algorithme :
+//
+{
+	double sum = 0;
+	int compteur = 0; 
+	double moyenne = 0;
+	
+	for (int i = 0; i < nbActuel; i++)
+	{
+		set<Capteur>::iterator itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
+		if (date ok && position ok) 
+		{
+			sum += tabMesure[i]->getValue();
+			compteur++;
+			
+		}
+
+	}
+
+	if (compteur != 0) 
+	{
+		moyenne=sum/compteur;
+	}
+	return moyenne;
+} //----- Fin de Méthode
+
+double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
 //
 {
 	return NULL;
+
 } //----- Fin de Méthode
 
-double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur> * tabCapteurs)
+double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
 //
 {
@@ -44,15 +72,7 @@ double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1,
 
 } //----- Fin de Méthode
 
-double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur> * tabCapteurs)
-// Algorithme :
-//
-{
-	return NULL;
-
-} //----- Fin de Méthode
-
-double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, set<Capteur> * tabCapteurs)
+double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
 //
 {

@@ -40,7 +40,7 @@ public:
 	// Contrat :
 	//
 
-	void lireCapteurs(string nomFichier, set<Capteur> * capteurs);
+	void lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs);
 	// Mode d'emploi :
 	//
 	// Contrat :
