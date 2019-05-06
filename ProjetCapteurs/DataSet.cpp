@@ -12,7 +12,9 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
+#include <fstream>
+#include <string>
+#include <sstream>
 //------------------------------------------------------ Include personnel
 #include "DataSet.h"
 
@@ -32,6 +34,51 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 //
 {
 
+	ifstream file(nomFichier.c_str(), ios::in);
+
+	if (file.fail()) {
+
+		cout << "Erreur lors de l'ouverture du fichier demandé" << endl;
+		return;
+
+	}
+	else if (file) {
+
+		//Si le fichier s'est bien ouvert...
+
+		//On décortique la ligne
+		string date;
+		string idCapteur;
+		string typeDonnee;
+		string valeurMesure;
+
+
+		//On récupère la première ligne
+		string ligneFic;
+		istringstream parcoursLigne;
+		getline(file, ligneFic);
+
+		while (!file.eof()) {
+
+			//Récupération des informations de la ligne
+			getline(file, ligneFic);
+			parcoursLigne.str(ligneFic);
+			getline(parcoursLigne, date, ';');
+			getline(parcoursLigne, idCapteur, ';');
+			getline(parcoursLigne, typeDonnee, ';');
+			getline(parcoursLigne, valeurMesure);
+
+			cout << "Date : " << date << endl;
+			cout << "Capteur : " << date << endl;
+			cout << "Type : " << date << endl;
+			cout << "Valeur : " << date << endl;
+
+		}
+
+
+		file.close();
+	}
+
 } //----- Fin de Méthode
 
 void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
@@ -43,6 +90,9 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 //
 {
+
+	
+
 
 } //----- Fin de Méthode
 
@@ -70,9 +120,9 @@ DataSet::DataSet()
 // Algorithme :
 //
 {
-#ifdef MAP
-	cout << "Appel au constructeur de <DataSet>" << endl;
-#endif
+	#ifdef MAP
+		cout << "Appel au constructeur de <DataSet>" << endl;
+	#endif
 
 } //----- Fin de DataSet
 
@@ -81,9 +131,9 @@ DataSet::~DataSet()
 // Algorithme :
 //
 {
-#ifdef MAP
-	cout << "Appel au destructeur de <DataSet>" << endl;
-#endif
+	#ifdef MAP
+		cout << "Appel au destructeur de <DataSet>" << endl;
+	#endif
 } //----- Fin de ~DataSet
 
 
