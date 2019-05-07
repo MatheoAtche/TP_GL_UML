@@ -241,6 +241,36 @@ void ComposantAir::addMesure(Mesure * mesure)
 // Algorithme :
 //
 {
+	int annee = mesure->getAnnee();
+	map<int, set<Mesure>>::iterator it2;
+	string sensorId = mesure->getSensorID();
+	tabMesure_type::iterator it1 = tabMesure.find(sensorId);
+
+	//Si le capteur est deja dans la map
+	if (it1 != tabMesure.end()) 
+	{
+		it2 = it1->second.find(annee);
+
+		//Si le set existe deja pour annee
+		if (it2 != it1->second.end()) 
+		{
+			//Inserer la mesure dans le set
+			it2->second.insert(*mesure);
+
+		} else {
+			//Creer le set et l'ajouter a la deuxieme map
+			set<Mesure> setMes = { *mesure };
+			it1->second.insert(make_pair(annee, setMes));
+		}
+
+	} else {
+		map<int, set<Mesure>> mapMes;
+		set<Mesure> setMes = { *mesure };
+		mapMes.insert(make_pair(annee,setMes));
+		tabMesure.insert(make_pair(sensorId,mapMes));
+	}
+	 
+	
 
 	/*if (nbActuel == tailleTab) //Agrandissement de la taille du tableau si nécessaire
 	{
