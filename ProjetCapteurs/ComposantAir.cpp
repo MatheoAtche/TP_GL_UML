@@ -270,8 +270,6 @@ void ComposantAir::addMesure(Mesure * mesure)
 		tabMesure.insert(make_pair(sensorId,mapMes));
 	}
 	 
-	
-
 	/*if (nbActuel == tailleTab) //Agrandissement de la taille du tableau si nécessaire
 	{
 		int i;
@@ -322,8 +320,6 @@ ComposantAir::ComposantAir(string attribute, string u, string descri,int taille)
 	attributeID = attribute;
 	unit = u;
 	description = descri;
-	tailleTab = taille;
-	nbActuel = 0;
 } //----- Fin de ComposantAir
 
 
