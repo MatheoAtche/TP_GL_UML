@@ -10,9 +10,9 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
+
 #include <iostream>
-#include<math.h>
+#include <math.h>
 
 //------------------------------------------------------ Include personnel
 #include "ComposantAir.h"
@@ -29,7 +29,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-bool ComposantAir::verifierDate(string dateDebut, string dateFin, Mesure * mesure)
+bool ComposantAir::verifierDate(string dateDebut, string dateFin, Mesure mesure)
 // Algorithme :
 //
 {
@@ -49,15 +49,13 @@ bool ComposantAir::verifierDate(string dateDebut, string dateFin, Mesure * mesur
 	int minuteF = atoi(dateFin.substr(13, 2).c_str());
 	double secF = stod(dateFin.substr(15, 7).c_str());
 
-	string time = mesure->getTimestamp;
+	int anneeT = mesure.getAnnee();
+	int moisT = mesure.getMois();
+	int jourT = mesure.getJour();
 
-	int anneeT = atoi(time.substr(0, 4).c_str());
-	int moisT = atoi(time.substr(5, 2).c_str());
-	int jourT = atoi(time.substr(8, 2).c_str());
-
-	int heureT = atoi(time.substr(11, 2).c_str());
-	int minuteT = atoi(time.substr(13, 2).c_str());
-	double secT = stod(time.substr(15, 7).c_str());
+	int heureT = mesure.getHeure();
+	int minuteT = mesure.getMinute();
+	double secT = mesure.getSeconde();
 
 	if (anneeT <= anneeF && anneeT >= anneeD && moisT <= moisF && moisT >= moisD && jourT <= jourF && jourT >= jourD && heureT <= heureF && heureT >= heureD && minuteT <= minuteF && minuteT >= minuteD && secT <= secF && secT >= secD) 
 	{
@@ -89,17 +87,44 @@ double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1,
 	double sum = 0;
 	int compteur = 0; 
 	double moyenne = 0;
+	int an = 0;
+	int anneeD = 0;
+	int anneeF = 0;
 	map<string, Capteur>::iterator itCapt;
+	tabMesure_type::iterator it1;
+	map<int, set<Mesure>>::iterator it2;
+	set<Mesure>::iterator it3;
 
-	for (int i = 0; i < nbActuel; i++)
+	map<int, set<Mesure>> tabM;
+	//parcourir la map
+	for (it1=tabMesure.begin();it1!=tabMesure.end();it1++)
 	{
-		itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
-		if (itCapt != tabCapteurs->end()) {
+		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
+		if (itCapt != tabCapteurs->end()) 
+		{
+			anneeD = atoi(dateDebut.substr(0, 4).c_str());
+			anneeF = atoi(dateFin.substr(0, 4).c_str());
 
-			if (verifierDate(dateDebut, dateFin, tabMesure[i]) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
+			//parcourir la set des mesure si annee ok
+			
+			//parcourir la map
+			for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
 			{
-				sum += tabMesure[i]->getValue();
-				compteur++;
+				an = it2->first;
+				if (an >= anneeD && an <= anneeF)
+				{
+					//parcourir le set des mesures
+					for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
+					{
+						if (verifierDate(dateDebut, dateFin, *it3) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+						{
+							Mesure mesure = *it3;
+							sum = sum + mesure.getValue(); 
+							compteur++;
+						}
+					}
+				}
 			}
 		}
 
@@ -216,7 +241,8 @@ void ComposantAir::addMesure(Mesure * mesure)
 // Algorithme :
 //
 {
-	if (nbActuel == tailleTab) //Agrandissement de la taille du tableau si nécessaire
+
+	/*if (nbActuel == tailleTab) //Agrandissement de la taille du tableau si nécessaire
 	{
 		int i;
 		tailleTab += 10;
@@ -231,7 +257,8 @@ void ComposantAir::addMesure(Mesure * mesure)
 	}
 
 	tabMesure[nbActuel] = mesure; //Ajout au tableau
-	nbActuel++;
+	nbActuel++;*/
+
 } //----- Fin de Méthode
 
 
@@ -267,7 +294,6 @@ ComposantAir::ComposantAir(string attribute, string u, string descri,int taille)
 	description = descri;
 	tailleTab = taille;
 	nbActuel = 0;
-	tabMesure = new Mesure*[tailleTab];
 } //----- Fin de ComposantAir
 
 
@@ -278,11 +304,7 @@ ComposantAir::~ComposantAir()
 #ifdef MAP
 	cout << "Appel au destructeur de <ComposantAir>" << endl;
 #endif
-for(int i=0;i<nbActuel;i++)
-{
-	delete tabMesure[i];
-}
-delete[]tabMesure;
+
 } //----- Fin de ~ComposantAir
 
 

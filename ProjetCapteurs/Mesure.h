@@ -14,6 +14,7 @@
 using namespace std;
 
 #include<cstring>
+#include<string>
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
@@ -42,12 +43,42 @@ public:
 		// Contrat :
 		//
 
-		string getTimestamp();
+
+		int getAnnee();
 		// Mode d'emploi :
 		//
 		// Contrat :
 		//
 
+		int getMois();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		int getJour();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		int getHeure();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		int getMinute();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		double getSeconde();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
 	//------------------------------------------------- Surcharge d'opérateurs
 	//Mesure & operator = (const Mesure & uneMesure);
 	// Mode d'emploi :
@@ -89,9 +120,15 @@ protected:
 
 private:
 	//------------------------------------------------------- Attributs privés
-	string timestamp;
 	double value;
 	string sensorID;
+	int annee;
+	int mois;
+	int jour;
+	int heure;
+	int minute;
+	double seconde;
+
 	//---------------------------------------------------------- Classes amies
 
 	//-------------------------------------------------------- Classes privées

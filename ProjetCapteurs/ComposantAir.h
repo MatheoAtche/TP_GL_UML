@@ -24,6 +24,7 @@ using namespace std;
 #define TAILLE 20
 //------------------------------------------------------------------ Types 
 typedef map<double, set<string>> valSimi;
+typedef map<string, map<int, set<Mesure>>> tabMesure_type;
 //------------------------------------------------------------------------ 
 // Rôle de la classe <ComposantAir>
 //
@@ -72,7 +73,7 @@ public:
 		// Contrat :
 		//
 
-		bool verifierDate(string dateDebut, string dateFin, Mesure * mesure);
+		bool verifierDate(string dateDebut, string dateFin, Mesure mesure);
 		// Mode d'emploi :
 		//
 		// Contrat :
@@ -129,9 +130,8 @@ private:
 	string attributeID;
 	string unit;
 	string description;
-	Mesure** tabMesure;
-	int tailleTab;
-	int nbActuel; // nombre d'elements actuellement dans le tableau
+	tabMesure_type tabMesure;
+	
 	//---------------------------------------------------------- Classes amies
 
 	//-------------------------------------------------------- Classes privées

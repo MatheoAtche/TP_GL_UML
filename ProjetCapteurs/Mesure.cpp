@@ -5,6 +5,7 @@
 	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
 *************************************************************************/
 
+
 //---------- Réalisation de la classe <Mesure> (fichier Mesure.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
@@ -12,7 +13,7 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
-
+#include <math.h>
 //------------------------------------------------------ Include personnel
 #include "Mesure.h"
 
@@ -41,11 +42,47 @@ string Mesure::getSensorID()
 	return sensorID;
 } //----- Fin de Méthode
 
-string Mesure::getTimestamp()
+
+int Mesure::getAnnee()
 // Algorithme :
 //
 {
-	return timestamp;
+	return annee;
+} //----- Fin de Méthode
+
+int Mesure::getMois()
+// Algorithme :
+//
+{
+	return mois;
+} //----- Fin de Méthode
+
+int Mesure::getJour()
+// Algorithme :
+//
+{
+	return jour;
+} //----- Fin de Méthode
+
+int Mesure::getHeure()
+// Algorithme :
+//
+{
+	return heure;
+} //----- Fin de Méthode
+
+int Mesure::getMinute()
+// Algorithme :
+//
+{
+	return minute;
+} //----- Fin de Méthode
+
+double Mesure::getSeconde()
+// Algorithme :
+//
+{
+	return seconde;
 } //----- Fin de Méthode
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -75,9 +112,16 @@ Mesure::Mesure(string time, double val,string sensor)
 #ifdef MAP
 	cout << "Appel au constructeur de <Mesure>" << endl;
 #endif
-	timestamp = time;
 	value = val;
 	sensorID = sensor;
+
+	 annee = atoi(time.substr(0, 4).c_str());
+	 mois = atoi(time.substr(5, 2).c_str());
+	 jour = atoi(time.substr(8, 2).c_str());
+
+	 heure = atoi(time.substr(11, 2).c_str());
+	 minute = atoi(time.substr(13, 2).c_str());
+	 seconde = stod(time.substr(15, 7).c_str());
 } //----- Fin de Mesure
 
 
