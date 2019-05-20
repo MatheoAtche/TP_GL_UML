@@ -30,6 +30,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+//En cours
 void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 //
 {
@@ -155,7 +156,7 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 
 } //----- Fin de lireCapteurs
 
-//MANQUE SET COMPOSANTAIR
+//OK
 void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 //
 {

@@ -18,7 +18,7 @@ void testLireMesuresComposantAir() {
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 
-	dataSet->lireMesures("data_10sensors_1year.cvs",o3,no2,so2,pm10);
+	dataSet->lireMesures("Fichiers/Mesures.cvs",o3,no2,so2,pm10);
 
 }
 
@@ -67,12 +67,10 @@ void testLireComposantsAirs() {
 
 int main() {
 
-	//Tests
-	//testLireMesuresComposantAir();
 	cout << "Bienvenue sur l'application ! " << endl;
 	cout << "Chargement des donnees en cours ..." << endl;
 
-	// APPEL AUX FONCTIONS DE LECTURE
+	// Appel aux fonctions de lecture
 	DataSet * dataSet = new DataSet();
 	ComposantAir * o3 = new ComposantAir();
 	ComposantAir * no2 = new ComposantAir();
@@ -85,6 +83,7 @@ int main() {
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
 	*/
 
+	cout << "Donnees chargees ! " << endl;
 	//Menu
 	/*
 	bool estFini = false;
