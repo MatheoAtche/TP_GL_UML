@@ -92,8 +92,8 @@ double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1,
 	int anneeF = 0;
 	map<string, Capteur>::iterator itCapt;
 	tabMesure_type::iterator it1;
-	map<int, set<Mesure>>::iterator it2;
-	set<Mesure>::iterator it3;
+	map<int, vector<Mesure>>::iterator it2;
+	vector<Mesure>::iterator it3;
 
 	map<int, set<Mesure>> tabM;
 	//parcourir la map
@@ -142,7 +142,7 @@ double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1,
 // Algorithme :
 //
 {
-	if (nbActuel > 0)
+	/*if (nbActuel > 0)
 	{
 		double minimum = tabMesure[0]->getValue();
 		map<string, Capteur>::iterator itCapt;
@@ -162,7 +162,7 @@ double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1,
 
 		}
 		return minimum;
-	}
+	}*/
 	return -1;
 	
 } //----- Fin de minimum
@@ -171,7 +171,7 @@ double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1,
 // Algorithme :
 //
 {
-	if (nbActuel > 0)
+	/*if (nbActuel > 0)
 	{
 		double maximum = tabMesure[0]->getValue();
 		map<string, Capteur>::iterator itCapt;
@@ -191,7 +191,7 @@ double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1,
 
 		}
 		return maximum;
-	}
+	}*/
 	return -1;
 
 } //----- Fin de Méthode
@@ -207,7 +207,7 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 
 	map<string, Capteur>::iterator itCapt;
 
-	for (int i = 0; i < nbActuel; i++)
+	/*for (int i = 0; i < nbActuel; i++)
 	{
 		itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
 		if (itCapt != tabCapteurs->end()) {
@@ -223,7 +223,7 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 	if (compteur != 0)
 	{
 		ecartT = sqrt(sum / compteur);
-	}
+	}*/
 	return ecartT;
 	
 
@@ -242,7 +242,7 @@ void ComposantAir::addMesure(Mesure * mesure)
 //
 {
 	int annee = mesure->getAnnee();
-	map<int, set<Mesure>>::iterator it2;
+	map<int, vector<Mesure>>::iterator it2;
 	string sensorId = mesure->getSensorID();
 	tabMesure_type::iterator it1 = tabMesure.find(sensorId);
 
@@ -255,18 +255,18 @@ void ComposantAir::addMesure(Mesure * mesure)
 		if (it2 != it1->second.end()) 
 		{
 			//Inserer la mesure dans le set
-			it2->second.insert(*mesure);
+			it2->second.push_back(*mesure);
 
 		} else {
 			//Creer le set et l'ajouter a la deuxieme map
-			set<Mesure> setMes = { *mesure };
-			it1->second.insert(make_pair(annee, setMes));
+			vector<Mesure> vecMes = { *mesure };
+			it1->second.insert(make_pair(annee, vecMes));
 		}
 
 	} else {
-		map<int, set<Mesure>> mapMes;
-		set<Mesure> setMes = { *mesure };
-		mapMes.insert(make_pair(annee,setMes));
+		map<int, vector<Mesure>> mapMes;
+		vector<Mesure> vecMes = { *mesure };
+		mapMes.insert(make_pair(annee,vecMes));
 		tabMesure.insert(make_pair(sensorId,mapMes));
 	}
 	 

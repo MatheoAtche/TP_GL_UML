@@ -134,7 +134,7 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 			getline(parcoursLigne, longitude, ';');
 			getline(parcoursLigne, description, ';');
 
-			cout << "Cpateur : " << idCapteur << endl;
+			cout << "Capteur : " << idCapteur << endl;
 			cout << "Latitude : " << latitude << endl;
 			cout << "Longitude : " << longitude << endl;
 			cout << "Description : " << description << endl;

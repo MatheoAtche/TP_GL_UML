@@ -17,6 +17,7 @@ using namespace std;
 #include<string>
 #include<set>
 #include<map>
+#include<vector>
 #include"Mesure.h"
 #include"Capteur.h"
 
@@ -24,7 +25,7 @@ using namespace std;
 #define TAILLE 20
 //------------------------------------------------------------------ Types 
 typedef map<double, set<string>> valSimi;
-typedef map<string, map<int, set<Mesure>>> tabMesure_type;
+typedef map<string, map<int, vector<Mesure>>> tabMesure_type;
 //------------------------------------------------------------------------ 
 // Rôle de la classe <ComposantAir>
 //
