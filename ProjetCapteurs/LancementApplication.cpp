@@ -95,11 +95,12 @@ int main() {
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 
-	
+	/*
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
 	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
-	
+	*/
+	testLireMesuresComposantAir();
 	cout << "Donnees chargees ! " << endl;
 
 	//Menu
