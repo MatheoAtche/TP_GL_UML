@@ -14,7 +14,7 @@
 using namespace std;
 
 #include<cstring>
-#include<set>
+#include<vector>
 #include<map>
 #include"ComposantAir.h"
 
@@ -39,7 +39,7 @@ public:
 	// Contrat :
 	//
 
-	set<Capteur> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
+	vector<Capteur> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
 	// Mode d'emploi :
 	//
 	// Contrat :
@@ -50,8 +50,6 @@ public:
 	//
 	// Contrat :
 	//
-
-	set<Capteur> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
 
 //------------------------------------------------- Surcharge d'op�rateurs
 //OperationsDonnees & operator = (const OperationsDonnees & unOperationsDonnees);

@@ -132,9 +132,10 @@ int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, dou
 	return NULL;
 } //----- Fin de M�thode
 
-set<Capteur> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
+vector<Capteur> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 {
-	
+	long cmptO3=0, cmptNO2=0, cmptSO2=0, cmptPM10=0;
+	for (int i=0; i<o3->tab)
 	return null;
 }
 
