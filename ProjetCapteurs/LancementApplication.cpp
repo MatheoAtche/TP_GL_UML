@@ -9,8 +9,10 @@ using namespace std;
 #include "Mesure.h"
 #include "OperationsDonnees.h"
 
-//Non testé
+//PB dans addMesure
 void testLireMesuresComposantAir() {
+
+	cout << "*** TEST DE LA LECTURE DES MESURES DES CAPTEURS ***" << endl;
 
 	DataSet * dataSet =  new DataSet();
 	ComposantAir * o3 = new ComposantAir();
@@ -18,7 +20,22 @@ void testLireMesuresComposantAir() {
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 
-	dataSet->lireMesures("Fichiers/Mesures.cvs",o3,no2,so2,pm10);
+	dataSet->lireMesures("Fichiers/Mesures.csv",o3,no2,so2,pm10);
+
+	tabMesure_type mesuresO3 = o3->getTabMesure();
+	tabMesure_type::iterator it1;
+	map<int, vector<Mesure>>::iterator it2;
+	vector<Mesure>::iterator it3;
+	for (it1 = mesuresO3.begin(); it1 != mesuresO3.end(); it1++)
+	{
+		for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
+		{
+			for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
+			{
+				cout << "Mesure faite par : " << (*it3).getSensorID() << " | Valeur : " << (*it3).getValue() << endl;
+			}
+		}
+	}
 
 }
 
@@ -72,18 +89,19 @@ int main() {
 
 	// Appel aux fonctions de lecture
 	DataSet * dataSet = new DataSet();
+	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
 	ComposantAir * o3 = new ComposantAir();
 	ComposantAir * no2 = new ComposantAir();
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 
-	/*
+	
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	*/
-
+	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
+	
 	cout << "Donnees chargees ! " << endl;
+
 	//Menu
 	/*
 	bool estFini = false;

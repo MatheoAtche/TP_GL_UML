@@ -31,6 +31,10 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //En cours
+// Algorithme :
+// On ouvre puis on parcourt le fichier. 
+// On identifie les donnees et on cree des mesures
+//Qu on ajoute a notre composant de l air aproprie
 void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 //
 {
@@ -69,25 +73,33 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 			getline(parcoursLigne, typeDonnee, ';');
 			getline(parcoursLigne, valeurMesure, ';');
 
+			
 			cout << "Date : " << date << endl;
 			cout << "Capteur : " << idCapteur << endl;
 			cout << "Type : " << typeDonnee << endl;
 			cout << "Valeur : " << valeurMesure << endl;
-
-
-			Mesure * mesure = new Mesure(date,atof(valeurMesure.c_str()),idCapteur);
 			
-			if (typeDonnee == "O3") {
-				o3->addMesure(mesure);
-			} else if (typeDonnee == "SO2") {
-				so2->addMesure(mesure);
-			} else if (typeDonnee == "NO2") {
-				no2->addMesure(mesure);
-			} else if (typeDonnee == "PM10") {
-				pm10->addMesure(mesure);
-			}
-			else { //Dans aucun des derniers cas
-				cout << "Composant d'air " << typeDonnee << " inconnu" << endl;
+			//On verifie que les donnees ne sont pas nulle
+			if (date != "" && valeurMesure != "" && idCapteur != "" && typeDonnee != "") {
+
+				Mesure * mesure = new Mesure(date, atof(valeurMesure.c_str()), idCapteur);
+
+				if (typeDonnee == "O3") {
+					o3->addMesure(mesure);
+				}
+				else if (typeDonnee == "SO2") {
+					so2->addMesure(mesure);
+				}
+				else if (typeDonnee == "NO2") {
+					no2->addMesure(mesure);
+				}
+				else if (typeDonnee == "PM10") {
+					pm10->addMesure(mesure);
+				}
+				else { //Dans aucun des derniers cas
+					cout << "Composant d'air " << typeDonnee << " inconnu" << endl;
+				}
+
 			}
 
 		}
@@ -97,9 +109,12 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 
 } //----- Fin de lireMesures
 
-// OK
+
 void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
-//
+// Algorithme :
+// On ouvre puis parcourt le fichier. 
+// On identifie les donnees et on cree des capteurs
+//Que l on ajoute a notre tableau de capteurs
 {
 	ifstream file(nomFichier.c_str(), ios::in);
 
@@ -112,7 +127,6 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 	else if (file) {
 
 		//Si le fichier s'est bien ouvert...
-		cout << "Fichier " << nomFichier << " en cours de lecture ..." << endl;
 
 		//On décortique la ligne
 		string idCapteur;
@@ -136,13 +150,6 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 			getline(parcoursLigne, longitude, ';');
 			getline(parcoursLigne, description, ';');
 
-			/*
-			cout << "Capteur : " << idCapteur << endl;
-			cout << "Latitude : " << latitude << endl;
-			cout << "Longitude : " << longitude << endl;
-			cout << "Description : " << description << endl;
-			*/
-
 			//On vérifie que les données essentielles sont présentes
 			if (idCapteur != "" && latitude != "" && longitude != "") {
 				Capteur * capteur = new Capteur(idCapteur, atof(latitude.c_str()), atof(longitude.c_str()), description);
@@ -156,9 +163,12 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 
 } //----- Fin de lireCapteurs
 
-//OK
+
 void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
-//
+// Algorithme :
+// On ouvre puis parcourt le fichier. 
+// On identifie les donnees et on met a jour les caracteristiques
+// des capteurs
 {
 
 	ifstream file(nomFichier.c_str(), ios::in);
@@ -193,12 +203,8 @@ void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantA
 			getline(parcoursLigne, unite, ';');
 			getline(parcoursLigne, description, ';');
 
-			/*
-			cout << "attribut : " << attribut << endl;
-			cout << "unite : " << unite << endl;
-			cout << "Type : " << description << endl;
-			*/
-
+			
+			//On verifie que la ligne n est pas vide
 			if (attribut != "" && unite != "" && description != "") {
 
 				if (attribut == "O3") {
