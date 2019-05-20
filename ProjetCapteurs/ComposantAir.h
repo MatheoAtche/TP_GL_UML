@@ -24,7 +24,7 @@ using namespace std;
 //------------------------------------------------------------- Constantes 
 #define TAILLE 20
 //------------------------------------------------------------------ Types 
-typedef map<double, set<string>> valSimi;
+
 typedef map<string, map<int, vector<Mesure>>> tabMesure_type;
 //------------------------------------------------------------------------ 
 // Rôle de la classe <ComposantAir>
@@ -62,7 +62,7 @@ public:
 		// Contrat :
 		//
 
-		valSimi valeursSimilaires(string dateDebut, string dateFin, double epsilon);
+		multimap<string,string> valeursSimilaires(string dateDebut, string dateFin, double epsilon);
 		// Mode d'emploi :
 		//
 		// Contrat :

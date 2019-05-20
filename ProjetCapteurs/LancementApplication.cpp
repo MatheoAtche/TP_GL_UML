@@ -49,7 +49,7 @@ int main() {
 
 	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	cout << *tabCapteurs << endl;
+	//cout << *tabCapteurs << endl;
 
 	//Menu
 	/*

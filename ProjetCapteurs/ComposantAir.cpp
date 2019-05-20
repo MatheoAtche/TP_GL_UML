@@ -88,8 +88,9 @@ double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1,
 	int compteur = 0; 
 	double moyenne = 0;
 	int an = 0;
-	int anneeD = 0;
-	int anneeF = 0;
+	int anneeD = atoi(dateDebut.substr(0, 4).c_str());
+	int anneeF = atoi(dateFin.substr(0, 4).c_str());
+
 	map<string, Capteur>::iterator itCapt;
 	tabMesure_type::iterator it1;
 	map<int, vector<Mesure>>::iterator it2;
@@ -101,8 +102,6 @@ double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1,
 		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
 		if (itCapt != tabCapteurs->end()) 
 		{
-			anneeD = atoi(dateDebut.substr(0, 4).c_str());
-			anneeF = atoi(dateFin.substr(0, 4).c_str());
 
 			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
 			//parcourir la set des mesure si annee ok
@@ -143,8 +142,9 @@ double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1,
 {
 
 	int an = 0;
-	int anneeD = 0;
-	int anneeF = 0;
+	int anneeD = atoi(dateDebut.substr(0, 4).c_str());
+	int anneeF = atoi(dateFin.substr(0, 4).c_str());
+
 	map<string, Capteur>::iterator itCapt;
 	tabMesure_type::iterator it1;
 	map<int, vector<Mesure>>::iterator it2;
@@ -158,8 +158,6 @@ double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1,
 		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
 		if (itCapt != tabCapteurs->end())
 		{
-			anneeD = atoi(dateDebut.substr(0, 4).c_str());
-			anneeF = atoi(dateFin.substr(0, 4).c_str());
 
 			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
 			//parcourir la set des mesure si annee ok
@@ -197,8 +195,9 @@ double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1,
 //
 {
 	int an = 0;
-	int anneeD = 0;
-	int anneeF = 0;
+	int anneeD = atoi(dateDebut.substr(0, 4).c_str());
+	int anneeF = atoi(dateFin.substr(0, 4).c_str());
+
 	map<string, Capteur>::iterator itCapt;
 	tabMesure_type::iterator it1;
 	map<int, vector<Mesure>>::iterator it2;
@@ -212,8 +211,6 @@ double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1,
 		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
 		if (itCapt != tabCapteurs->end())
 		{
-			anneeD = atoi(dateDebut.substr(0, 4).c_str());
-			anneeF = atoi(dateFin.substr(0, 4).c_str());
 
 			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
 			//parcourir la set des mesure si annee ok
@@ -256,8 +253,9 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 	double ecartT = 0;
 
 	int an = 0;
-	int anneeD = 0;
-	int anneeF = 0;
+	int anneeD = atoi(dateDebut.substr(0, 4).c_str());
+	int anneeF = atoi(dateFin.substr(0, 4).c_str());
+
 	map<string, Capteur>::iterator itCapt;
 	tabMesure_type::iterator it1;
 	map<int, vector<Mesure>>::iterator it2;
@@ -269,9 +267,6 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
 		if (itCapt != tabCapteurs->end())
 		{
-			anneeD = atoi(dateDebut.substr(0, 4).c_str());
-			anneeF = atoi(dateFin.substr(0, 4).c_str());
-
 			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
 			//parcourir la set des mesure si annee ok
 
@@ -307,18 +302,99 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 
 } //----- Fin de ecartType
 
-/*valSimi ComposantAir::valeursSimilaires(string dateDebut, string dateFin, double epsilon)
+multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string dateFin, double epsilon)
 // Algorithme :
 //
 {
+	map<string, vector<double>> mapPreTriee;
+	
+	int an = 0;
+	int anneeD = atoi(dateDebut.substr(0, 4).c_str());
+	int anneeF = atoi(dateFin.substr(0, 4).c_str());
 
-} //----- Fin de Méthode
-*/
+	tabMesure_type::iterator it1;
+	map<int, vector<Mesure>>::iterator it2;
+	vector<Mesure>::iterator it3;
+
+	//--------------------------------------Tri du tabMesure en une map<string,vector<double>>
+
+	//parcourir la map
+	for (it1 = tabMesure.begin(); it1 != tabMesure.end(); it1++)
+	{
+		vector<double> vecVal;
+
+		//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
+		//parcourir la set des mesures si annee ok
+
+		//parcourir la map
+		for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
+		{
+			an = it2->first;
+			if (an >= anneeD && an <= anneeF)
+			{
+				//parcourir le set des mesures
+				for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
+				{
+					
+					if (verifierDate(dateDebut, dateFin, *it3))
+					{
+						Mesure mesure = *it3;
+						vecVal.push_back(mesure.getValue());
+
+					}
+				}
+			}
+
+		}
+		if (!vecVal.empty()) {
+			mapPreTriee.insert(make_pair(it1->first, vecVal));
+		}
+	}
+
+	//--------------------------------------Trouver les valeurs similaires : pas fini
+
+	map<string, vector<double>>::iterator it5,it6;
+	vector<double>::iterator it7,it8;
+	double sum = 0;
+	double compTot = 0;
+	multimap<string, string>paireCapt;
+
+	//Autre facon de le faire avec moins de boucles for ?
+
+	for (it5 = mapPreTriee.begin(); it5 != mapPreTriee.end(); it5++) {
+		compTot = 0;
+
+		for (it6 = ++it5; it6 != mapPreTriee.end(); it6++) {
+			for (it7 = it5->second.begin(); it7 != it5->second.end() || it8 != it6->second.end(); it7++) {
+				it8 = it6->second.begin();
+
+				compTot++;
+				sum += abs(*it7 - *it8);
+			}
+			if (compTot != 0) {
+				sum = sum / compTot;
+
+				if (sum <= epsilon) {
+					paireCapt.insert(make_pair(it5->first, it6->first));
+				}
+			}
+		}
+		
+	}
+
+
+
+	return paireCapt;
+
+} //----- Fin de valeursSimilaires
+
 
 void ComposantAir::addMesure(Mesure * mesure)
 // Algorithme :
 //
 {
+	// typedef map<string, map<int, vector<Mesure>>> tabMesure_type;
+
 	int annee = mesure->getAnnee();
 	map<int, vector<Mesure>>::iterator it2;
 	string sensorId = mesure->getSensorID();
