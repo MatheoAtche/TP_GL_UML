@@ -158,7 +158,7 @@ vector<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, st
 		}
 		if ((double)cmptO3/totalMesO3>0.1)
 		{
-			CapteurNonFonctionnel.push_back(it1->first)
+			CapteurNonFonctionnel.push_back(it1->first);
 		}
 	}
 	return CapteurNonFonctionnel;
