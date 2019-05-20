@@ -132,15 +132,35 @@ int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, dou
 	return NULL;
 } //----- Fin de M�thode
 
-vector<Capteur> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
+vector<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 {
-	vector<Capteur> CapteurNonFonctionnel;
-	tabMesure_type MesO3 = o3->getTabMesure();
-	tabMesure_type MesSO2 = so2->getTabMesure();
-	tabMesure_type MesNO2 = no2->getTabMesure();
-	tabMesure_type MesPM10 = pm10->getTabMesure();
-	long cmptO3=0, cmptNO2=0, cmptSO2=0, cmptPM10=0;
-	
+	vector<string> CapteurNonFonctionnel;
+	tabMesure_type mesO3 = o3->getTabMesure();
+	tabMesure_type mesSO2 = so2->getTabMesure();
+	tabMesure_type mesNO2 = no2->getTabMesure();
+	tabMesure_type mesPM10 = pm10->getTabMesure();
+	long cmptO3=0, cmptNO2=0, cmptSO2=0, cmptPM10=0, totalMesO3=0, totalMesNO2=0, totalMesSO2=0, totalMesPM10=0;
+	tabMesure_type::iterator it1;
+	map<int, vector<Mesure>>::iterator it2;
+	vector<Mesure>::iterator it3;
+	for (it1=mesO3.begin(); it1!=mesO3.end(); it1++)
+	{
+		for (it2=it1->second.begin();it2!=it1->second.end(); it2++)
+		{
+			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
+			{
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && *it3->getValue==0)
+				{
+					cmptO3++;
+				}
+			}
+			totalMesO3+=it2->second.size();
+		}
+		if ((double)cmptO3/totalMesO3>0.1)
+		{
+			CapteurNonFonctionnel.push_back(it1->first)
+		}
+	}
 	return CapteurNonFonctionnel;
 }
 

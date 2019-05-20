@@ -41,7 +41,7 @@ public:
 	// Contrat :
 	//
 
-	vector<Capteur> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
+	vector<string> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
 	// Mode d'emploi :
 	//
 	// Contrat :
