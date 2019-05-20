@@ -96,7 +96,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 
 } //----- Fin de lireMesures
 
-//MANQUE INSERTION FIN 
+
 void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 //
 {
@@ -111,6 +111,7 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 	else if (file) {
 
 		//Si le fichier s'est bien ouvert...
+		cout << "Fichier " << nomFichier << " en cours de lecture ..." << endl;
 
 		//On décortique la ligne
 		string idCapteur;
@@ -134,15 +135,14 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 			getline(parcoursLigne, longitude, ';');
 			getline(parcoursLigne, description, ';');
 
-			cout << "Cpateur : " << idCapteur << endl;
+			cout << "Capteur : " << idCapteur << endl;
 			cout << "Latitude : " << latitude << endl;
 			cout << "Longitude : " << longitude << endl;
 			cout << "Description : " << description << endl;
 
+			Capteur * capteur = new Capteur(idCapteur, atof(latitude.c_str()), atof(longitude.c_str()), description);
 
-			Capteur capteur(idCapteur, atof(latitude.c_str()), atof(longitude.c_str()), description);
-
-			//tabCapteurs->insert(idCapteur,capteur);
+			tabCapteurs->insert(make_pair(idCapteur,*capteur));
 		}
 
 		file.close();

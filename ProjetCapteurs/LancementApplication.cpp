@@ -9,6 +9,7 @@ using namespace std;
 #include "Mesure.h"
 #include "OperationsDonnees.h"
 
+//Non testé
 void testLireMesuresComposantAir() {
 
 	DataSet * dataSet =  new DataSet();
@@ -21,6 +22,15 @@ void testLireMesuresComposantAir() {
 
 }
 
+//En cours de test
+void testLireCaracteristiquesCapteurs() {
+
+	cout << "*** TEST DE LA LECTURE DES CARACTERISTIQUES DES CAPTEURS ***" << endl;
+	DataSet * dataSet = new DataSet();
+	map<string, Capteur>* tabCapteurs = new map<string,Capteur>();
+	dataSet->lireCapteurs("Fichiers/Sensors.csv",tabCapteurs);
+
+}
 
 int main() {
 
@@ -31,6 +41,20 @@ int main() {
 
 	//Tests
 	//testLireMesuresComposantAir();
+	cout << "Bienvenue sur l'application ! " << endl;
+	cout << "Chargement des données en cours ..." << endl;
+
+	// APPEL AUX FONCTIONS DE LECTURE
+	testLireCaracteristiquesCapteurs();
+
+	//Menu
+	/*
+	bool estFini = false;
+	while (!estFini) {
+		cout << "Que souhaitez-vous faire ? " << endl;
+	}
+	*/
+	
 
 	//
 	cin >> a;

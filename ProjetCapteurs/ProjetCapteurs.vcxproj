@@ -129,6 +129,10 @@
     <ClCompile Include="Mesure.cpp" />
     <ClCompile Include="OperationsDonnees.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\AttributeType.csv" />
+    <None Include="..\..\Sensors.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
