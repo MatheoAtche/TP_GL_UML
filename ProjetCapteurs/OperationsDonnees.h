@@ -21,6 +21,8 @@ using namespace std;
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
+typedef map<string, map<int, vector<Mesure>>> tabMesure_type;
+
 //------------------------------------------------------------------------ 
 // R�le de la classe <OperationsDonnees>
 //

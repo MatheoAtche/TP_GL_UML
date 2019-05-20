@@ -1,15 +1,15 @@
 /***********************************************************************************************************************************
 						   ComposantAir  -  description
 							 -------------------
-	début                : 06/05/2019
-	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
+	dï¿½but                : 06/05/2019
+	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathï¿½o Atche
 *************************************************************************/
 
-//---------- Réalisation de la classe <ComposantAir> (fichier ComposantAir.cpp) --
+//---------- Rï¿½alisation de la classe <ComposantAir> (fichier ComposantAir.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systï¿½me
 
 #include <iostream>
 #include <math.h>
@@ -21,13 +21,13 @@
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privï¿½s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- Mï¿½thodes publiques
 
 bool ComposantAir::verifierDate(string dateDebut, string dateFin, Mesure mesure)
 // Algorithme :
@@ -78,7 +78,7 @@ bool ComposantAir::verifierPosition(double latitude1, double longitude1, double 
 	}
 	return false;
 
-}//----- Fin de Méthode
+}//----- Fin de Mï¿½thode
 
 double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string,Capteur>* tabCapteurs)
 // Algorithme :
@@ -194,7 +194,7 @@ double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1,
 	}*/
 	return -1;
 
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
 double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
@@ -227,14 +227,14 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 	return ecartT;
 	
 
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
 /*valSimi ComposantAir::valeursSimilaires(string dateDebut, string dateFin, double epsilon)
 // Algorithme :
 //
 {
 
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 */
 
 void ComposantAir::addMesure(Mesure * mesure)
@@ -270,7 +270,7 @@ void ComposantAir::addMesure(Mesure * mesure)
 		tabMesure.insert(make_pair(sensorId,mapMes));
 	}
 	 
-	/*if (nbActuel == tailleTab) //Agrandissement de la taille du tableau si nécessaire
+	/*if (nbActuel == tailleTab) //Agrandissement de la taille du tableau si nï¿½cessaire
 	{
 		int i;
 		tailleTab += 10;
@@ -287,10 +287,14 @@ void ComposantAir::addMesure(Mesure * mesure)
 	tabMesure[nbActuel] = mesure; //Ajout au tableau
 	nbActuel++;*/
 
-} //----- Fin de Méthode
+} //----- Fin de Mï¿½thode
 
+tabMesure_type ComposantAir::getTabMesure()
+{
+	return tabMesure;
+}
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opï¿½rateurs
 /*ComposantAir & ComposantAir::operator = (const ComposantAir &unComposantAir)
 // Algorithme :
 //
@@ -336,6 +340,6 @@ ComposantAir::~ComposantAir()
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- Mï¿½thodes protï¿½gï¿½es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- Mï¿½thodes privï¿½es

@@ -131,16 +131,19 @@ int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, dou
 	return indice;
 	return NULL;
 } //----- Fin de M�thode
-/*
+
 vector<Capteur> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 {
+	vector<Capteur> CapteurNonFonctionnel;
+	tabMesure_type MesO3 = o3->getTabMesure();
+	tabMesure_type MesSO2 = so2->getTabMesure();
+	tabMesure_type MesNO2 = no2->getTabMesure();
+	tabMesure_type MesPM10 = pm10->getTabMesure();
 	long cmptO3=0, cmptNO2=0, cmptSO2=0, cmptPM10=0;
-	for (int i=0; i<2;i++){
-		
-	}
-	return NULL;
+	
+	return CapteurNonFonctionnel;
 }
-*/
+
 //------------------------------------------------- Surcharge d'op�rateurs
 /*OperationsDonnees & OperationsDonnees::operator = (const OperationsDonnees &unOperationsDonnees)
 // Algorithme :
