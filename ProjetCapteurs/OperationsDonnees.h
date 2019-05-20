@@ -21,6 +21,8 @@ using namespace std;
 //------------------------------------------------------------- Constantes 
 
 //------------------------------------------------------------------ Types 
+typedef map<string, map<int, vector<Mesure>>> tabMesure_type;
+
 //------------------------------------------------------------------------ 
 // R�le de la classe <OperationsDonnees>
 //
@@ -39,7 +41,7 @@ public:
 	// Contrat :
 	//
 
-	vector<Capteur> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
+	vector<string> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
 	// Mode d'emploi :
 	//
 	// Contrat :

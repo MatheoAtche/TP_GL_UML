@@ -1,8 +1,8 @@
 /*************************************************************************
 						   ComposantAir  -  description
 							 -------------------
-	début                : 06/05/2019
-	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
+	dÃ©but                : 06/05/2019
+	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, MathÃ©o Atche
 *************************************************************************/
 #define CRT_SECURE_NO_WARNINGS
 
@@ -10,7 +10,7 @@
 #if ! defined ( COMPOSANTAIR_H )
 #define COMPOSANTAIR_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
 using namespace std;
 
 #include<cstring>
@@ -27,7 +27,7 @@ using namespace std;
 typedef map<double, set<string>> valSimi;
 typedef map<string, map<int, vector<Mesure>>> tabMesure_type;
 //------------------------------------------------------------------------ 
-// Rôle de la classe <ComposantAir>
+// RÃ´le de la classe <ComposantAir>
 //
 //
 //------------------------------------------------------------------------ 
@@ -37,7 +37,7 @@ class ComposantAir
 	//----------------------------------------------------------------- PUBLIC
 
 public:
-	//----------------------------------------------------- Méthodes publiques
+	//----------------------------------------------------- Mï¿½thodes publiques
 		double moyenne ( string dateDebut,string dateFin,double latitude1,double longitude1,double latitude2,double longitude2, map<string, Capteur>* tabCapteurs);
 		// Mode d'emploi :
 		//
@@ -122,8 +122,13 @@ public:
 		// Contrat :
 		//
 
+		tabMesure_type getTabMesure();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
 
-	//------------------------------------------------- Surcharge d'opérateurs
+	//------------------------------------------------- Surcharge d'opÃ©rateurs
 	//ComposantAir & operator = (const ComposantAir & unComposantAir);
 	// Mode d'emploi :
 	//
@@ -154,16 +159,16 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-	//----------------------------------------------------- Méthodes protégées
+	//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
 private:
-	//------------------------------------------------------- Méthodes privées
+	//------------------------------------------------------- MÃ©thodes privÃ©es
 
 protected:
-	//----------------------------------------------------- Attributs protégés
+	//----------------------------------------------------- Attributs protÃ©gÃ©s
 
 private:
-	//------------------------------------------------------- Attributs privés
+	//------------------------------------------------------- Attributs privÃ©s
 	string attributeID;
 	string unit;
 	string description;
@@ -171,12 +176,12 @@ private:
 	
 	//---------------------------------------------------------- Classes amies
 
-	//-------------------------------------------------------- Classes privées
+	//-------------------------------------------------------- Classes privÃ©es
 
-	//----------------------------------------------------------- Types privés
+	//----------------------------------------------------------- Types privÃ©s
 
 };
 
-//----------------------------------------- Types dépendants de <ComposantAir>
+//----------------------------------------- Types dÃ©pendants de <ComposantAir>
 
 #endif // COMPOSANTAIR_H

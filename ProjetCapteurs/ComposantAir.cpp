@@ -1,15 +1,15 @@
 /***********************************************************************************************************************************
 						   ComposantAir  -  description
 							 -------------------
-	début                : 06/05/2019
-	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
+	dÃ©but                : 06/05/2019
+	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, MathÃ©o Atche
 *************************************************************************/
 
-//---------- Réalisation de la classe <ComposantAir> (fichier ComposantAir.cpp) --
+//---------- RÃ©alisation de la classe <ComposantAir> (fichier ComposantAir.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 
 #include <iostream>
 #include <math.h>
@@ -21,13 +21,13 @@
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 
 bool ComposantAir::verifierDate(string dateDebut, string dateFin, Mesure mesure)
 // Algorithme :
@@ -78,7 +78,7 @@ bool ComposantAir::verifierPosition(double latitude1, double longitude1, double 
 	}
 	return false;
 
-}//----- Fin de Méthode
+}//----- Fin de MÃ©thode
 
 double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string,Capteur>* tabCapteurs)
 // Algorithme :
@@ -312,7 +312,7 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 //
 {
 
-} //----- Fin de Méthode
+} //----- Fin de MÃ©thode
 */
 
 void ComposantAir::addMesure(Mesure * mesure)
@@ -374,8 +374,12 @@ string ComposantAir::getAttributeID() {
 	return this->attributeID;
 }
 
+tabMesure_type ComposantAir::getTabMesure()
+{
+	return tabMesure;
+}
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
 /*ComposantAir & ComposantAir::operator = (const ComposantAir &unComposantAir)
 // Algorithme :
 //
@@ -421,6 +425,6 @@ ComposantAir::~ComposantAir()
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es
