@@ -1,8 +1,8 @@
 /*************************************************************************
 						   OperationsDonnees  -  description
 							 -------------------
-	début                : 06/05/2019
-	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
+	dï¿½but                : 06/05/2019
+	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathï¿½o Atche
 *************************************************************************/
 #define CRT_SECURE_NO_WARNINGS
 
@@ -10,7 +10,7 @@
 #if ! defined ( OPERATIONSDONNEES_H )
 #define OPERATIONSDONNEES_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisï¿½es
 using namespace std;
 
 #include<cstring>
@@ -22,7 +22,7 @@ using namespace std;
 
 //------------------------------------------------------------------ Types 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <OperationsDonnees>
+// Rï¿½le de la classe <OperationsDonnees>
 //
 //
 //------------------------------------------------------------------------ 
@@ -32,7 +32,7 @@ class OperationsDonnees
 	//----------------------------------------------------------------- PUBLIC
 
 public:
-	//----------------------------------------------------- Méthodes publiques
+	//----------------------------------------------------- Mï¿½thodes publiques
 	int qualiteAirMoyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, map<string, Capteur>* tabCapteurs);
 	// Mode d'emploi :
 	//
@@ -51,7 +51,9 @@ public:
 	// Contrat :
 	//
 
-//------------------------------------------------- Surcharge d'opérateurs
+	set<Capteur> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
+
+//------------------------------------------------- Surcharge d'opï¿½rateurs
 //OperationsDonnees & operator = (const OperationsDonnees & unOperationsDonnees);
 // Mode d'emploi :
 //
@@ -82,25 +84,25 @@ public:
 //------------------------------------------------------------------ PRIVE 
 
 protected:
-	//----------------------------------------------------- Méthodes protégées
+	//----------------------------------------------------- Mï¿½thodes protï¿½gï¿½es
 
 private:
-	//------------------------------------------------------- Méthodes privées
+	//------------------------------------------------------- Mï¿½thodes privï¿½es
 
 protected:
-	//----------------------------------------------------- Attributs protégés
+	//----------------------------------------------------- Attributs protï¿½gï¿½s
 
 private:
-	//------------------------------------------------------- Attributs privés
+	//------------------------------------------------------- Attributs privï¿½s
 
 	//---------------------------------------------------------- Classes amies
 
-	//-------------------------------------------------------- Classes privées
+	//-------------------------------------------------------- Classes privï¿½es
 
-	//----------------------------------------------------------- Types privés
+	//----------------------------------------------------------- Types privï¿½s
 
 };
 
-//----------------------------------------- Types dépendants de <OperationsDonnees>
+//----------------------------------------- Types dï¿½pendants de <OperationsDonnees>
 
 #endif // OPERATIONSDONNEES_H
