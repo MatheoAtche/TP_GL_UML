@@ -17,7 +17,7 @@ void testLireMesuresComposantAir() {
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 
-	dataSet->lireMesures("",o3,no2,so2,pm10);
+	dataSet->lireMesures("data_10sensors_1year.cvs",o3,no2,so2,pm10);
 
 }
 
@@ -30,8 +30,9 @@ int main() {
 
 
 	//Tests
+	//testLireMesuresComposantAir();
 
-
+	//
 	cin >> a;
 	cout << a;
 	return 0;
