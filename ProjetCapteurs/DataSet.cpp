@@ -96,7 +96,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 
 } //----- Fin de lireMesures
 
-
+// OK
 void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 //
 {
@@ -135,14 +135,19 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 			getline(parcoursLigne, longitude, ';');
 			getline(parcoursLigne, description, ';');
 
+			/*
 			cout << "Capteur : " << idCapteur << endl;
 			cout << "Latitude : " << latitude << endl;
 			cout << "Longitude : " << longitude << endl;
 			cout << "Description : " << description << endl;
+			*/
 
-			Capteur * capteur = new Capteur(idCapteur, atof(latitude.c_str()), atof(longitude.c_str()), description);
-
-			tabCapteurs->insert(make_pair(idCapteur,*capteur));
+			//On vérifie que les données essentielles sont présentes
+			if (idCapteur != "" && latitude != "" && longitude != "") {
+				Capteur * capteur = new Capteur(idCapteur, atof(latitude.c_str()), atof(longitude.c_str()), description);
+				tabCapteurs->insert(make_pair(idCapteur, *capteur));
+			}
+			
 		}
 
 		file.close();
@@ -187,29 +192,38 @@ void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantA
 			getline(parcoursLigne, unite, ';');
 			getline(parcoursLigne, description, ';');
 
+			/*
 			cout << "attribut : " << attribut << endl;
 			cout << "unite : " << unite << endl;
 			cout << "Type : " << description << endl;
+			*/
 
+			if (attribut != "" && unite != "" && description != "") {
 
-			if (attribut == "O3") {
-				//o3->setDescription(description);
-				//o3->setUnite(unite);
-			}
-			else if (attribut == "SO2") {
-				//so2->setDescription(description);
-				//so2->setUnite(unite);
-			}
-			else if (attribut == "NO2") {
-				//no2->setDescription(description);
-				//no2->setUnite(unite);
-			}
-			else if (attribut == "PM10") {
-				//pm10->setDescription(description);
-				//pm10->setUnite(unite);
-			}
-			else { //Dans aucun des derniers cas
-				cout << "Composant d'air " << attribut << " inconnu" << endl;
+				if (attribut == "O3") {
+					o3->setDescription(description);
+					o3->setUnite(unite);
+					o3->setAttributeID(attribut);
+				}
+				else if (attribut == "SO2") {
+					so2->setDescription(description);
+					so2->setUnite(unite);
+					so2->setAttributeID(attribut);
+				}
+				else if (attribut == "NO2") {
+					no2->setDescription(description);
+					no2->setUnite(unite);
+					no2->setAttributeID(attribut);
+				}
+				else if (attribut == "PM10") {
+					pm10->setDescription(description);
+					pm10->setUnite(unite);
+					pm10->setAttributeID(attribut);
+				}
+				else { //Dans aucun des derniers cas
+					cout << "Composant d'air " << attribut << " inconnu" << endl;
+				}
+
 			}
 
 		}

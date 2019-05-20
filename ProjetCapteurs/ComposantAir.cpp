@@ -350,6 +350,30 @@ void ComposantAir::addMesure(Mesure * mesure)
 
 } //----- Fin de addMesure
 
+void ComposantAir::setDescription(string description) {
+	this->description = description;
+}
+
+void ComposantAir::setUnite(string unite) {
+	this->unit = unite;
+}
+
+void ComposantAir::setAttributeID(string attributeId) {
+	this->attributeID = attributeId;
+}
+
+string ComposantAir::getDescription() {
+	return this->description;
+}
+
+string ComposantAir::getUnite() {
+	return this->unit;
+}
+
+string ComposantAir::getAttributeID() {
+	return this->attributeID;
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 /*ComposantAir & ComposantAir::operator = (const ComposantAir &unComposantAir)

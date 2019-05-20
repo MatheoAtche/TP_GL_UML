@@ -86,6 +86,42 @@ public:
 		// Contrat :
 		//
 
+		void setDescription(string description);
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		void setUnite(string unite);
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		void setAttributeID(string attributeId);
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		string getDescription();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		string getUnite();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
+		string getAttributeID();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
 
 	//------------------------------------------------- Surcharge d'opérateurs
 	//ComposantAir & operator = (const ComposantAir & unComposantAir);
