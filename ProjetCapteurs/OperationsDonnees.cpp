@@ -132,9 +132,9 @@ int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, dou
 	return NULL;
 } //----- Fin de M�thode
 
-vector<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
+set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 {
-	vector<string> CapteurNonFonctionnel;
+	set<string> CapteurNonFonctionnel;
 	tabMesure_type mesO3 = o3->getTabMesure();
 	tabMesure_type mesSO2 = so2->getTabMesure();
 	tabMesure_type mesNO2 = no2->getTabMesure();
@@ -158,7 +158,61 @@ vector<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, st
 		}
 		if ((double)cmptO3/totalMesO3>0.1)
 		{
-			CapteurNonFonctionnel.push_back(it1->first);
+			CapteurNonFonctionnel.insert(it1->first);
+		}
+	}
+	for (it1=mesSO2.begin(); it1!=mesSO2.end(); it1++)
+	{
+		for (it2=it1->second.begin();it2!=it1->second.end(); it2++)
+		{
+			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
+			{
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && *it3->getValue==0)
+				{
+					cmptSO2++;
+				}
+			}
+			totalMesSO2+=it2->second.size();
+		}
+		if ((double)cmptSO2/totalMesSO2>0.1)
+		{
+			CapteurNonFonctionnel.insert(it1->first);
+		}
+	}
+	for (it1=mesNO2.begin(); it1!=mesNO2.end(); it1++)
+	{
+		for (it2=it1->second.begin();it2!=it1->second.end(); it2++)
+		{
+			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
+			{
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && *it3->getValue==0)
+				{
+					cmptNO2++;
+				}
+			}
+			totalMesNO2+=it2->second.size();
+		}
+		if ((double)cmptNO2/totalMesNO2>0.1)
+		{
+			CapteurNonFonctionnel.insert(it1->first);
+		}
+	}
+	for (it1=mesPM10.begin(); it1!=mesPM10.end(); it1++)
+	{
+		for (it2=it1->second.begin();it2!=it1->second.end(); it2++)
+		{
+			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
+			{
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && *it3->getValue==0)
+				{
+					cmptPM10++;
+				}
+			}
+			totalMesO3+=it2->second.size();
+		}
+		if ((double)cmptPM10/totalMesPM10>0.1)
+		{
+			CapteurNonFonctionnel.insert(it1->first);
 		}
 	}
 	return CapteurNonFonctionnel;

@@ -14,7 +14,8 @@
 using namespace std;
 
 #include<cstring>
-#include<vector>
+#include<set>
+#include<set>
 #include<map>
 #include"ComposantAir.h"
 
@@ -41,7 +42,7 @@ public:
 	// Contrat :
 	//
 
-	vector<string> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
+	set<string> bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
 	// Mode d'emploi :
 	//
 	// Contrat :
