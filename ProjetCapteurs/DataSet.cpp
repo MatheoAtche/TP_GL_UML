@@ -38,7 +38,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 
 	if (file.fail()) {
 
-		cout << "Erreur lors de l'ouverture du fichier demandé" << endl;
+		cout << "Erreur lors de l'ouverture du fichier demande" << endl;
 		return;
 
 	}
@@ -104,7 +104,7 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 
 	if (file.fail()) {
 
-		cout << "Erreur lors de l'ouverture du fichier demandé" << endl;
+		cout << "Erreur lors de l'ouverture du fichier demande" << endl;
 		return;
 
 	}

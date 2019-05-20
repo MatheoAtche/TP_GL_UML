@@ -95,7 +95,6 @@ double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1,
 	map<int, vector<Mesure>>::iterator it2;
 	vector<Mesure>::iterator it3;
 
-	map<int, set<Mesure>> tabM;
 	//parcourir la map
 	for (it1=tabMesure.begin();it1!=tabMesure.end();it1++)
 	{
@@ -142,59 +141,110 @@ double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1,
 // Algorithme :
 //
 {
-	/*if (nbActuel > 0)
+
+	int an = 0;
+	int anneeD = 0;
+	int anneeF = 0;
+	map<string, Capteur>::iterator itCapt;
+	tabMesure_type::iterator it1;
+	map<int, vector<Mesure>>::iterator it2;
+	vector<Mesure>::iterator it3;
+
+	double minimum = 10000;
+
+	//parcourir la map
+	for (it1 = tabMesure.begin(); it1 != tabMesure.end(); it1++)
 	{
-		double minimum = tabMesure[0]->getValue();
-		map<string, Capteur>::iterator itCapt;
-
-		for (int i = 1; i < nbActuel; i++)
+		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
+		if (itCapt != tabCapteurs->end())
 		{
-			itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
-			if (itCapt != tabCapteurs->end()) {
+			anneeD = atoi(dateDebut.substr(0, 4).c_str());
+			anneeF = atoi(dateFin.substr(0, 4).c_str());
 
-				if (verifierDate(dateDebut, dateFin, tabMesure[i]) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
+			//parcourir la set des mesure si annee ok
+
+			//parcourir la map
+			for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
+			{
+				an = it2->first;
+				if (an >= anneeD && an <= anneeF)
 				{
-					if (minimum > tabMesure[i]->getValue()) {
-						minimum = tabMesure[i]->getValue();
+					//parcourir le set des mesures
+					for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
+					{
+						if (verifierDate(dateDebut, dateFin, *it3) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+						{
+							Mesure mesure = *it3;
+							double value = mesure.getValue();
+							if ( value< minimum) {
+								minimum = value;
+							}
+						}
 					}
 				}
 			}
-
 		}
-		return minimum;
-	}*/
-	return -1;
-	
+
+	}
+
+	return minimum;
+
 } //----- Fin de minimum
 
 double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
 //
 {
-	/*if (nbActuel > 0)
+	int an = 0;
+	int anneeD = 0;
+	int anneeF = 0;
+	map<string, Capteur>::iterator itCapt;
+	tabMesure_type::iterator it1;
+	map<int, vector<Mesure>>::iterator it2;
+	vector<Mesure>::iterator it3;
+
+	double maximum = -1;
+
+	//parcourir la map
+	for (it1 = tabMesure.begin(); it1 != tabMesure.end(); it1++)
 	{
-		double maximum = tabMesure[0]->getValue();
-		map<string, Capteur>::iterator itCapt;
-
-		for (int i = 1; i < nbActuel; i++)
+		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
+		if (itCapt != tabCapteurs->end())
 		{
-			itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
-			if (itCapt != tabCapteurs->end()) {
+			anneeD = atoi(dateDebut.substr(0, 4).c_str());
+			anneeF = atoi(dateFin.substr(0, 4).c_str());
 
-				if (verifierDate(dateDebut, dateFin, tabMesure[i]) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
+			//parcourir la set des mesure si annee ok
+
+			//parcourir la map
+			for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
+			{
+				an = it2->first;
+				if (an >= anneeD && an <= anneeF)
 				{
-					if (maximum < tabMesure[i]->getValue()) {
-						maximum = tabMesure[i]->getValue();
+					//parcourir le set des mesures
+					for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
+					{
+						if (verifierDate(dateDebut, dateFin, *it3) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+						{
+							Mesure mesure = *it3;
+							double value = mesure.getValue();
+							if (value > maximum) {
+								maximum = value;
+							}
+						}
 					}
 				}
 			}
-
 		}
-		return maximum;
-	}*/
-	return -1;
 
-} //----- Fin de M�thode
+	}
+
+	return maximum;
+
+} //----- Fin de maximum
 
 double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
@@ -205,29 +255,57 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 	int compteur = 0;
 	double ecartT = 0;
 
+	int an = 0;
+	int anneeD = 0;
+	int anneeF = 0;
 	map<string, Capteur>::iterator itCapt;
+	tabMesure_type::iterator it1;
+	map<int, vector<Mesure>>::iterator it2;
+	vector<Mesure>::iterator it3;
 
-	/*for (int i = 0; i < nbActuel; i++)
+	//parcourir la map
+	for (it1 = tabMesure.begin(); it1 != tabMesure.end(); it1++)
 	{
-		itCapt = tabCapteurs->find(tabMesure[i]->getSensorID());
-		if (itCapt != tabCapteurs->end()) {
+		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
+		if (itCapt != tabCapteurs->end())
+		{
+			anneeD = atoi(dateDebut.substr(0, 4).c_str());
+			anneeF = atoi(dateFin.substr(0, 4).c_str());
 
-			if (verifierDate(dateDebut, dateFin, tabMesure[i]) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
+			//parcourir la set des mesure si annee ok
+
+			//parcourir la map
+			for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
 			{
-				sum = sum + pow((tabMesure[i]->getValue()-moy),2);
-				compteur++;
+				an = it2->first;
+				if (an >= anneeD && an <= anneeF)
+				{
+					//parcourir le set des mesures
+					for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
+					{
+						if (verifierDate(dateDebut, dateFin, *it3) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
+						{
+							Mesure mesure = *it3;
+							double value = mesure.getValue();
+							sum = sum + pow((value - moy), 2);
+							compteur++;
+						}
+					}
+				}
 			}
 		}
+
 	}
 
 	if (compteur != 0)
 	{
 		ecartT = sqrt(sum / compteur);
-	}*/
-	return ecartT;
+	}
 	
+	return ecartT;	
 
-} //----- Fin de M�thode
+} //----- Fin de ecartType
 
 /*valSimi ComposantAir::valeursSimilaires(string dateDebut, string dateFin, double epsilon)
 // Algorithme :
@@ -269,25 +347,8 @@ void ComposantAir::addMesure(Mesure * mesure)
 		mapMes.insert(make_pair(annee,vecMes));
 		tabMesure.insert(make_pair(sensorId,mapMes));
 	}
-	 
-	/*if (nbActuel == tailleTab) //Agrandissement de la taille du tableau si n�cessaire
-	{
-		int i;
-		tailleTab += 10;
-		Mesure ** tabNouveau = new Mesure*[tailleTab];
-		Mesure ** temp = tabMesure;
-		for (i = 0; i < tailleTab - 10; i++)
-		{
-			tabNouveau[i] = tabMesure[i];
-		}
-		tabMesure = tabNouveau;
-		delete[]temp;
-	}
 
-	tabMesure[nbActuel] = mesure; //Ajout au tableau
-	nbActuel++;*/
-
-} //----- Fin de M�thode
+} //----- Fin de addMesure
 
 tabMesure_type ComposantAir::getTabMesure()
 {

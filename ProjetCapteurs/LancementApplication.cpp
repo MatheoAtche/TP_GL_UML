@@ -22,13 +22,13 @@ void testLireMesuresComposantAir() {
 
 }
 
-//En cours de test
+//Validé
 void testLireCaracteristiquesCapteurs() {
 
 	cout << "*** TEST DE LA LECTURE DES CARACTERISTIQUES DES CAPTEURS ***" << endl;
 	DataSet * dataSet = new DataSet();
 	map<string, Capteur>* tabCapteurs = new map<string,Capteur>();
-	dataSet->lireCapteurs("../Fichiers/Sensors.csv",tabCapteurs);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv",tabCapteurs);
 
 }
 
@@ -42,10 +42,14 @@ int main() {
 	//Tests
 	//testLireMesuresComposantAir();
 	cout << "Bienvenue sur l'application ! " << endl;
-	cout << "Chargement des données en cours ..." << endl;
+	cout << "Chargement des donnees en cours ..." << endl;
 
 	// APPEL AUX FONCTIONS DE LECTURE
-	testLireCaracteristiquesCapteurs();
+	DataSet * dataSet = new DataSet();
+
+	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
+	cout << *tabCapteurs << endl;
 
 	//Menu
 	/*
