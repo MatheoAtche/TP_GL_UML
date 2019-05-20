@@ -28,7 +28,7 @@ void testLireCaracteristiquesCapteurs() {
 	cout << "*** TEST DE LA LECTURE DES CARACTERISTIQUES DES CAPTEURS ***" << endl;
 	DataSet * dataSet = new DataSet();
 	map<string, Capteur>* tabCapteurs = new map<string,Capteur>();
-	dataSet->lireCapteurs("Fichiers/Sensors.csv",tabCapteurs);
+	dataSet->lireCapteurs("../Fichiers/Sensors.csv",tabCapteurs);
 
 }
 

@@ -13,7 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers">
+    <Filter Include="Fichiers sources\Fichiers">
       <UniqueIdentifier>{51a9db01-f598-4c54-a528-7eb15912984a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -56,10 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Sensors.csv">
-      <Filter>Fichiers</Filter>
+      <Filter>Fichiers sources\Fichiers</Filter>
     </None>
     <None Include="..\..\AttributeType.csv">
-      <Filter>Fichiers</Filter>
+      <Filter>Fichiers sources\Fichiers</Filter>
     </None>
   </ItemGroup>
 </Project>
