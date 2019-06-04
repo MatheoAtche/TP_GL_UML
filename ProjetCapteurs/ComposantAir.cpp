@@ -351,7 +351,7 @@ multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string
 		}
 	}
 
-	//--------------------------------------Trouver les valeurs similaires : pas fini
+	//--------------------------------------Trouver les valeurs similaires 
 
 	map<string, vector<double>>::iterator it5,it6;
 	vector<double>::iterator it7,it8;
@@ -365,9 +365,8 @@ multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string
 		compTot = 0;
 
 		for (it6 = ++it5; it6 != mapPreTriee.end(); it6++) {
-			for (it7 = it5->second.begin(); it7 != it5->second.end() || it8 != it6->second.end(); it7++) {
-				it8 = it6->second.begin();
-
+			for (it7 = it5->second.begin(),it8 = it6->second.begin(); it7 != it5->second.end() || it8 != it6->second.end(); it7++,it8++) {
+				
 				compTot++;
 				sum += abs(*it7 - *it8);
 			}
@@ -381,8 +380,6 @@ multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string
 		}
 		
 	}
-
-
 
 	return paireCapt;
 
