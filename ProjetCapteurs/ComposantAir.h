@@ -85,8 +85,8 @@ public:
 		//
 		// Contrat :
 		//
-
-		void setDescription(string description);
+		
+		void setDescription(string descri);
 		// Mode d'emploi :
 		//
 		// Contrat :
@@ -127,6 +127,7 @@ public:
 		//
 		// Contrat :
 		//
+		
 
 	//------------------------------------------------- Surcharge d'opérateurs
 	//ComposantAir & operator = (const ComposantAir & unComposantAir);

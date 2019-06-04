@@ -82,7 +82,7 @@ void testLireComposantsAirs() {
 
 }
 
-void testMoyenne() {
+void testCalculsComposantAir() {
 
 	DataSet * dataSet = new DataSet();
 	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
@@ -93,48 +93,30 @@ void testMoyenne() {
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
 
-	double moyenneO3 = o3->moyenne("2017-01-01T02:30:11.1550000", "2017-01-01T03:01:24.6000000",-10.0, -40.0, 40.0, 2.0, tabCapteurs);
+	string dateDebut = "2017-01-01T00:00:10.0100000";
+	string dateFin = "2018-01-01T00:00:24.5880000";
+
+	double lat1 = -31.0;
+	double longi1 = -90.0;
+	double lat2 = 40.0;
+	double longi2 = -34.0;
+
+	double moyenneO3 = o3->moyenne(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
 	cout << "Moyenne du composant o3 : " << moyenneO3<<endl;
-}
 
-void testMinimum() {
+	double ecartTypeO3 = o3->ecartType(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
+	cout << "Ecart Type du composant o3 : " << ecartTypeO3 << endl;
 
-	DataSet * dataSet = new DataSet();
-	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
-	ComposantAir * o3 = new ComposantAir();
-	ComposantAir * no2 = new ComposantAir();
-	ComposantAir * so2 = new ComposantAir();
-	ComposantAir * pm10 = new ComposantAir();
-
-	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
-
-	double minimumO3 = o3->minimum("2017-01-01T02:30:11.1550000", "2017-01-01T03:01:24.6000000", -10.0, -40.0, 40.0, 2.0, tabCapteurs);
+	double minimumO3 = o3->minimum(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
 	cout << "Minimum du composant o3 : " << minimumO3 << endl;
-}
 
-void testMaximum() {
-
-	DataSet * dataSet = new DataSet();
-	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
-	ComposantAir * o3 = new ComposantAir();
-	ComposantAir * no2 = new ComposantAir();
-	ComposantAir * so2 = new ComposantAir();
-	ComposantAir * pm10 = new ComposantAir();
-
-	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
-
-	double maximumO3 = o3->maximum("2017-01-01T02:30:11.1550000", "2017-01-01T03:01:24.6000000", -10.0, -40.0, 40.0, 2.0, tabCapteurs);
+	double maximumO3 = o3->maximum(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
 	cout << "Maximum du composant o3 : " << maximumO3 << endl;
 }
 
-void testEcartType() {
-
+void testValeursSimilaires() {
 	DataSet * dataSet = new DataSet();
 	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
 	ComposantAir * o3 = new ComposantAir();
@@ -144,11 +126,23 @@ void testEcartType() {
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
 
-	double ecartTypeO3 = o3->ecartType("2017-01-01T02:30:11.1550000", "2017-01-01T03:01:24.6000000", -10.0, -40.0, 40.0, 2.0, tabCapteurs);
-	cout << "Ecart Type du composant o3 : " << ecartTypeO3 << endl;
+	string dateDebut = "2017-01-01T00:00:10.0100000";
+	string dateFin = "2018-01-01T00:00:24.5880000";
+
+	double epsilon = 20.0;
+
+	multimap<string, string> mapValSim = o3->valeursSimilaires(dateDebut, dateFin, epsilon);
+	cout << "Paires de capteurs :" << endl;
+	for (multimap <string, string>::iterator it = mapValSim.begin(); it != mapValSim.end(); it++) {
+		cout << "{" << it->first <<", "<< endl;
+		cout << it->second << "}"<< endl;
+	}
+
 }
+
+
 int main() {
 
 	cout << "Bienvenue sur l'application ! " << endl;
@@ -167,8 +161,8 @@ int main() {
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
 	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
 	*/
-	testLireMesuresComposantAir();
-	cout << "Donnees chargees ! " << endl;
+	/*testLireMesuresComposantAir();
+	cout << "Donnees chargees ! " << endl;*/
 
 	//Menu
 	/*
@@ -178,8 +172,8 @@ int main() {
 	}
 	*/
 	
-	testMoyenne();
-	cout << "Moyenne o3 " << endl;
+	//testCalculsComposantAir();
+	testValeursSimilaires();
 
 	//
 	//Obligé pour qu'on voit que qql chose s'affiche !
