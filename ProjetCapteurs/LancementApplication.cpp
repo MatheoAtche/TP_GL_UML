@@ -267,6 +267,28 @@ void testQualiteAirMoyenne()
 	cout << "Qualite de l'air : " << op->qualiteAirMoyenne(dateDebut,dateFin,lat1,long1,lat2,long2,o3,no2,so2,pm10,tabCapteurs);
 }
 
+void testQualiteAirPointFixe()
+{
+	DataSet * dataSet = new DataSet();
+	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
+	ComposantAir * o3 = new ComposantAir();
+	ComposantAir * no2 = new ComposantAir();
+	ComposantAir * so2 = new ComposantAir();
+	ComposantAir * pm10 = new ComposantAir();
+	OperationsDonnees * op = new OperationsDonnees();
+	string dateDebut = "2017-01-01T00:00:10.0100000";
+	string dateFin = "2018-01-01T00:00:24.5880000";
+	double lat = -8.15758888291083;
+	double longi = -34.7692487876719;
+
+	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+
+	cout << "La qualite de l'air au capteur 0 est : " << op->qualiteAirPointFixe(dateDebut,dateFin,lat,longi,o3,no2,so2,pm10,tabCapteurs);
+
+}
+
 int main() {
 
 	cout << "Bienvenue sur l'application ! " << endl;
