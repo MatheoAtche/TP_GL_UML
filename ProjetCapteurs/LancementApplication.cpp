@@ -186,6 +186,40 @@ void testValeursSimilaires() {
 
 }
 
+// methode pour obliger l'utilisateur a entrer une date bien formee
+string lectureDate ()
+{
+	string date;
+	cin >> date;
+	string an = date.substr(0, 4);
+	string sep [5] ={date.substr(4,1), date.substr(7,1), date.substr(10,1), date.substr(13,1), date.substr(16,1)};
+	string mois = date.substr(5,2);
+	string jour = date.substr(8,2);
+	string heure = date.substr(11,2);
+	string minute = date.substr(14,2);
+	string sec = date.substr(17,2);
+	while (!isdigit(an[0]) || !isdigit(an[1]) || !isdigit(an[2]) || !isdigit(an[3]) 
+		|| !isdigit(mois[0]) || !isdigit(mois[1]) || !isdigit(jour[0]) || !isdigit(jour[1]) 
+		|| !isdigit(heure[0]) || !isdigit(heure[1]) || !isdigit(minute[0]) 
+		|| !isdigit(minute[1]) || !isdigit(sec[0]) || !isdigit(sec[1])
+		|| sep[0]!="-" || sep[1]!="-" || sep[2]!="T" || sep[3]!=":" || sep[4]!=":")
+	{
+		cout << "La date que vous avez indique n'est pas bien formee" << endl;
+		cout << "Elle doit etre de la forme aaaa-mm-jjThh:mm:ss" << endl;
+		cout << "Exemple : 2019-05-19T19:36:22" << endl;
+		cout << "Entrez de nouveau votre date : " << endl;
+		cin >> date;
+		string an = date.substr(0, 4);
+		string sep [5] ={date.substr(4,1), date.substr(7,1), date.substr(10,1), date.substr(13,1), date.substr(16,1)};
+		string mois = date.substr(5,2);
+		string jour = date.substr(8,2);
+		string heure = date.substr(11,2);
+		string minute = date.substr(14,2);
+		string sec = date.substr(17,2);
+	}
+	return date;
+}
+
 int main() {
 
 	cout << "Bienvenue sur l'application ! " << endl;
@@ -257,9 +291,9 @@ int main() {
 			cout << "Sur quel composant voulez vous calculer les informations ? (no2, so2, pm10 ou o3)" << endl;
 			cin >> compo;
 			cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
-			cin >> dateDebut;
+			dateDebut = lectureDate();
 			cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
-			cin >> dateFin;
+			dateFin = lectureDate();
 			cout << "Entrez la premiere latitude" << endl;
 			cin >> lat1;
 			cout << "Entrez la premiere longitude" << endl;
@@ -323,9 +357,9 @@ int main() {
 			if (secondChoice==1)
 			{
 				cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
-				cin >> dateDebut;
+				dateDebut = lectureDate();
 				cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
-				cin >> dateFin;
+				dateFin = lectureDate();
 				cout << "Entrez la latitude exacte" << endl;
 				cin >> lat1;
 				cout << "Entrez la longitude exacte" << endl;
@@ -336,9 +370,9 @@ int main() {
 			else if (secondChoice==2)
 			{
 				cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
-				cin >> dateDebut;
+				dateDebut = lectureDate();
 				cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
-				cin >> dateFin;
+				dateFin = lectureDate();
 				cout << "Entrez la premiere latitude" << endl;
 				cin >> lat1;
 				cout << "Entrez la premiere longitude" << endl;
@@ -360,9 +394,9 @@ int main() {
 			cout << "Sur quel composant voulez vous chercher des valeurs similaires ? (no2, so2, pm10 ou o3)" << endl;
 			cin >> compo;
 			cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
-			cin >> dateDebut;
+			dateDebut  = lectureDate();
 			cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
-			cin >> dateFin;
+			dateFin  = lectureDate();
 			cout << "Entrez la tolerance pour vos valeurs similaires (epsilon)" << endl;
 			cin >> epsilon;
 			
@@ -408,9 +442,9 @@ int main() {
 
 		case 4:
 			cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
-			cin >> dateDebut;
+			dateDebut = lectureDate();
 			cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
-			cin >> dateFin;
+			dateFin = lectureDate();
 			cout << "Verification du bon fonctionnement des capteurs sur cette periode..." << endl;
 			capteursNonFonctionnel = op->bonFonctionnementCapteurs(dateDebut,dateFin,o3,no2,so2,pm10);
 			cout << "les capteurs non fonctionnel sont : " << endl;
