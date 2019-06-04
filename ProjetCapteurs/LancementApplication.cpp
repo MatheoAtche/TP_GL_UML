@@ -2,14 +2,55 @@
 
 using namespace std;
 #include <iostream>
-
+#include <fstream>
+#include <string>
+#include <sstream>
+#include<ctime>
+#include<time.h>
 #include "Capteur.h"
 #include "ComposantAir.h"
 #include "DataSet.h"
 #include "Mesure.h"
 #include "OperationsDonnees.h"
 
-//PB dans addMesure
+void ajouteFichierLog(string typeAction) {
+
+	ofstream of;
+
+	time_t date = time(NULL);
+
+	of.open("Fichiers/fichierLog.txt", ofstream::app);
+	char chaineDate[26];
+	ctime_s(chaineDate,sizeof(chaineDate), &date);
+
+	of << chaineDate << "/" << typeAction << endl;
+	of.close();
+
+}
+
+void testQualiteAirMoyenne() {
+	cout << "Test de la qualité de l'air moyenne" << endl;
+
+	DataSet * dataSet = new DataSet();
+	ComposantAir * o3 = new ComposantAir();
+	ComposantAir * no2 = new ComposantAir();
+	ComposantAir * so2 = new ComposantAir();
+	ComposantAir * pm10 = new ComposantAir();
+
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+
+	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
+
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
+
+	OperationsDonnees * op = new OperationsDonnees();
+
+	int qualite = op->qualiteAirMoyenne("2017-01-01", "2019-05-05", -8.0, -34.0, 36.0, 1.0 , o3, no2, so2, pm10, tabCapteurs);
+
+	cout << "la qualité moyenne de l'air est : " << qualite << endl;
+}
+
+//Validé
 void testLireMesuresComposantAir() {
 
 	cout << "*** TEST DE LA LECTURE DES MESURES DES CAPTEURS ***" << endl;
@@ -20,7 +61,7 @@ void testLireMesuresComposantAir() {
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 
-	dataSet->lireMesures("Fichiers/Mesures.csv",o3,no2,so2,pm10);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv",o3,no2,so2,pm10);
 
 	tabMesure_type mesuresO3 = o3->getTabMesure();
 	tabMesure_type::iterator it1;
@@ -28,8 +69,10 @@ void testLireMesuresComposantAir() {
 	vector<Mesure>::iterator it3;
 	for (it1 = mesuresO3.begin(); it1 != mesuresO3.end(); it1++)
 	{
+		cout << it1->first << endl;
 		for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
 		{
+			cout << it2->first << endl;
 			for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
 			{
 				cout << "Mesure faite par : " << (*it3).getSensorID() << " | Valeur : " << (*it3).getValue() << endl;
@@ -39,7 +82,7 @@ void testLireMesuresComposantAir() {
 
 }
 
-//Valid�
+//Validï¿½
 void testLireCaracteristiquesCapteurs() {
 
 	cout << "*** TEST DE LA LECTURE DES CARACTERISTIQUES DES CAPTEURS ***" << endl;
@@ -56,7 +99,7 @@ void testLireCaracteristiquesCapteurs() {
 
 }
 
-//Valid�
+//Validï¿½
 void testLireComposantsAirs() {
 
 	cout << "*** TEST DE LA LECTURE DES COMPOSANTS DE L'AIR ***" << endl;
@@ -82,73 +125,6 @@ void testLireComposantsAirs() {
 
 }
 
-void testMoyenne() {
-
-	DataSet * dataSet = new DataSet();
-	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
-	ComposantAir * o3 = new ComposantAir();
-	ComposantAir * no2 = new ComposantAir();
-	ComposantAir * so2 = new ComposantAir();
-	ComposantAir * pm10 = new ComposantAir();
-
-	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
-
-	double moyenneO3 = o3->moyenne("2017-01-01T02:30:11.1550000", "2017-01-01T03:01:24.6000000",-10.0, -40.0, 40.0, 2.0, tabCapteurs);
-	cout << "Moyenne du composant o3 : " << moyenneO3<<endl;
-}
-
-void testMinimum() {
-
-	DataSet * dataSet = new DataSet();
-	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
-	ComposantAir * o3 = new ComposantAir();
-	ComposantAir * no2 = new ComposantAir();
-	ComposantAir * so2 = new ComposantAir();
-	ComposantAir * pm10 = new ComposantAir();
-
-	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
-
-	double minimumO3 = o3->minimum("2017-01-01T02:30:11.1550000", "2017-01-01T03:01:24.6000000", -10.0, -40.0, 40.0, 2.0, tabCapteurs);
-	cout << "Minimum du composant o3 : " << minimumO3 << endl;
-}
-
-void testMaximum() {
-
-	DataSet * dataSet = new DataSet();
-	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
-	ComposantAir * o3 = new ComposantAir();
-	ComposantAir * no2 = new ComposantAir();
-	ComposantAir * so2 = new ComposantAir();
-	ComposantAir * pm10 = new ComposantAir();
-
-	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
-
-	double maximumO3 = o3->maximum("2017-01-01T02:30:11.1550000", "2017-01-01T03:01:24.6000000", -10.0, -40.0, 40.0, 2.0, tabCapteurs);
-	cout << "Maximum du composant o3 : " << maximumO3 << endl;
-}
-
-void testEcartType() {
-
-	DataSet * dataSet = new DataSet();
-	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
-	ComposantAir * o3 = new ComposantAir();
-	ComposantAir * no2 = new ComposantAir();
-	ComposantAir * so2 = new ComposantAir();
-	ComposantAir * pm10 = new ComposantAir();
-
-	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
-
-	double ecartTypeO3 = o3->ecartType("2017-01-01T02:30:11.1550000", "2017-01-01T03:01:24.6000000", -10.0, -40.0, 40.0, 2.0, tabCapteurs);
-	cout << "Ecart Type du composant o3 : " << ecartTypeO3 << endl;
-}
 int main() {
 
 	cout << "Bienvenue sur l'application ! " << endl;
@@ -161,6 +137,7 @@ int main() {
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
 	
+
 
 	//Lecture des donnees
 	cout << "Entrez le chemin du fichier contenant vos informations de capteurs" << endl;
@@ -185,6 +162,7 @@ int main() {
 	string cheminMesure;
 	cin >> cheminMesure;
 	dataSet->lireMesures(cheminMesure,o3,no2,so2,pm10);
+
 
 	//Menu
 	bool estFini = false;
@@ -374,14 +352,16 @@ int main() {
 		}
 	}
 	
+
 	//testLireMesuresComposantAir();
 	//cout << "Donnees chargees ! " << endl;
 
 	//testMoyenne();
 	//cout << "Moyenne o3 " << endl;
 
+
 	//
-	//Oblig� pour qu'on voit que qql chose s'affiche !
+	//Obligï¿½ pour qu'on voit que qql chose s'affiche !
 	/*char * a = new char[10];
 	cin >> a;
 	cout << a;

@@ -357,7 +357,7 @@ multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string
 	for (it5 = mapPreTriee.begin(); it5 != mapPreTriee.end(); it5++) {
 		compTot = 0;
 
-		for (it6 = ++it5; it6 != mapPreTriee.end(); it6++) {
+		for (it6 = ++it5; it6 != mapPreTriee.end()&& it5 != mapPreTriee.end(); it6++) {
 			for (it7 = it5->second.begin(),it8 = it6->second.begin(); it7 != it5->second.end() && it8 != it6->second.end(); it7++,it8++) {
 				
 				compTot++;

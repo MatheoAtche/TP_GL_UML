@@ -44,41 +44,19 @@ public:
 		//
 
 
+		string getDate();
+		// Mode d'emploi :
+		//
+		// Contrat :
+		//
+
 		int getAnnee();
 		// Mode d'emploi :
 		//
 		// Contrat :
 		//
 
-		int getMois();
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
 
-		int getJour();
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
-
-		int getHeure();
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
-
-		int getMinute();
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
-
-		double getSeconde();
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
 	//------------------------------------------------- Surcharge d'opérateurs
 	//Mesure & operator = (const Mesure & uneMesure);
 	// Mode d'emploi :
@@ -122,12 +100,8 @@ private:
 	//------------------------------------------------------- Attributs privés
 	double value;
 	string sensorID;
+	string date;
 	int annee;
-	int mois;
-	int jour;
-	int heure;
-	int minute;
-	double seconde;
 
 	//---------------------------------------------------------- Classes amies
 
