@@ -413,6 +413,7 @@ int main() {
 			break;
 		
 		default:
+			estFini=true;
 			break;
 		}
 	}
