@@ -23,7 +23,7 @@ void ajouteFichierLog(string typeAction) {
 	char chaineDate[26];
 	ctime_s(chaineDate,sizeof(chaineDate), &date);
 
-	of << chaineDate << "/" << typeAction << endl;
+	of << chaineDate << "---->" << typeAction << endl;
 	of.close();
 
 }
@@ -50,7 +50,7 @@ void testQualiteAirMoyenne() {
 	cout << "la qualité moyenne de l'air est : " << qualite << endl;
 }
 
-//Validé
+//Valide
 void testLireMesuresComposantAir() {
 
 	cout << "*** TEST DE LA LECTURE DES MESURES DES CAPTEURS ***" << endl;
@@ -82,7 +82,7 @@ void testLireMesuresComposantAir() {
 
 }
 
-//Validï¿½
+//Valide
 void testLireCaracteristiquesCapteurs() {
 
 	cout << "*** TEST DE LA LECTURE DES CARACTERISTIQUES DES CAPTEURS ***" << endl;
@@ -99,7 +99,7 @@ void testLireCaracteristiquesCapteurs() {
 
 }
 
-//Validï¿½
+//Valide
 void testLireComposantsAirs() {
 
 	cout << "*** TEST DE LA LECTURE DES COMPOSANTS DE L'AIR ***" << endl;
@@ -187,6 +187,9 @@ int main() {
 		double epsilon;
 		multimap<string,string> valsimi;
 		set <string> capteursNonFonctionnel;
+		bool check = false;
+		multimap<string, string>::iterator it1;
+		set<string>::iterator it2;
 		switch (choix)
 		{
 		case 1:
@@ -207,34 +210,35 @@ int main() {
 			if (compo == "no2")
 			{
 				cout << "la moyenne de no2 est " << no2->moyenne(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs);
-				cout << " " << no2->getUnite << endl;
-				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<enl;
-				cout << "la valeur maximale est : " << no2->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
-				cout << "la valeur minimale est : " << no2->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+				cout << " " << no2->getUnite() << endl;
+				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<endl;
+				cout << "la valeur maximale est : " << no2->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
+				cout << "la valeur minimale est : " << no2->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
+				ajouteFichierLog("Calcul no2");
 			}
 			else if (compo == "o3")
 			{
 				cout << "la moyenne de o3 est " << o3->moyenne(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs);
-				cout << " " << o3->getUnite << endl;
-				cout << "l'ecart-type est : " << o3->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<enl;
-				cout << "la valeur maximale est : " << o3->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
-				cout << "la valeur minimale est : " << o3->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+				cout << " " << o3->getUnite() << endl;
+				cout << "l'ecart-type est : " << o3->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<endl;
+				cout << "la valeur maximale est : " << o3->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
+				cout << "la valeur minimale est : " << o3->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
 			}
 			else if (compo == "so2")
 			{
 				cout << "la moyenne de so2 est " << so2->moyenne(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs);
-				cout << " " << so2->getUnite << endl;
-				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<enl;
-				cout << "la valeur maximale est : " << so2->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
-				cout << "la valeur minimale est : " << so2->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+				cout << " " << so2->getUnite() << endl;
+				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<endl;
+				cout << "la valeur maximale est : " << so2->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
+				cout << "la valeur minimale est : " << so2->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
 			}
 			else if (compo == "pm10")
 			{
 				cout << "la moyenne de pm10 est " << pm10->moyenne(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs);
-				cout << " " << pm10->getUnite << endl;
-				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<enl;
-				cout << "la valeur maximale est : " << pm10->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
-				cout << "la valeur minimale est : " << pm10->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+				cout << " " << pm10->getUnite() << endl;
+				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<endl;
+				cout << "la valeur maximale est : " << pm10->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
+				cout << "la valeur minimale est : " << pm10->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
 			}
 			else
 			{
@@ -295,7 +299,7 @@ int main() {
 			cin >> dateFin;
 			cout << "Entrez la tolerance pour vos valeurs similaires (epsilon)" << endl;
 			cin >> epsilon;
-			bool check = false;
+			
 			if (compo == "no2")
 			{
 				valsimi = no2->valeursSimilaires(dateDebut,dateFin,epsilon);
@@ -324,10 +328,10 @@ int main() {
 			if(check)
 			{
 				cout << "les id des capteurs ayant des valeurs similaires sont : " << endl;
-				multimap<string,string>::iterator it;
-				for (it=valsimi.begin(); it!=valsimi.end(); it++)
+				
+				for (it1=valsimi.begin(); it1!=valsimi.end(); it1++)
 				{
-					cout << (*it).first << " " << (*it).second << endl;
+					cout << (*it1).first << " " << (*it1).second << endl;
 				}
 			}
 			break;
@@ -340,10 +344,10 @@ int main() {
 			cout << "Verification du bon fonctionnement des capteurs sur cette periode..." << endl;
 			capteursNonFonctionnel = op->bonFonctionnementCapteurs(dateDebut,dateFin,o3,no2,so2,pm10);
 			cout << "les capteurs non fonctionnel sont : " << endl;
-			set<string>::iterator it;
-			for (it=capteursNonFonctionnel.begin(); it!=capteursNonFonctionnel.end(); it++)
+			
+			for (it2=capteursNonFonctionnel.begin(); it2!=capteursNonFonctionnel.end(); it2++)
 			{
-				cout << *it << endl;
+				cout << *it2 << endl;
 			}
 			break;
 		

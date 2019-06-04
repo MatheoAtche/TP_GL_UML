@@ -73,10 +73,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 			getline(parcoursLigne, valeurMesure, ';');
 
 			
-			cout << "Date : " << date << endl;
-			cout << "Capteur : " << idCapteur << endl;
-			cout << "Type : " << typeDonnee << endl;
-			cout << "Valeur : " << valeurMesure << endl;
+			
 			
 			//On verifie que les donnees ne sont pas nulle
 			if (date != "" && valeurMesure != "" && idCapteur != "" && typeDonnee != "") {
