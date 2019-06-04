@@ -129,7 +129,7 @@ int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, dou
 	return indice;
 	return NULL;
 } //----- Fin de qualitéAirPointFixe
-
+//
 set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 // Algorithme :
 // La totalite des mesures capteurs sont recuperees selon le type de particule, puis pour chaque capteur
@@ -151,7 +151,8 @@ set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, strin
 		{
 			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
 			{
-				if (o3->verifierDate(dateDebut,dateFin,*it3) && *it3->getValue==0)
+				//Mesure *m = (Mesure*) it3;
+				if (o3->verifierDate(dateDebut,dateFin, *it3) && (*it3).getValue()==0)
 				{
 					cmptO3++;
 				}
@@ -169,7 +170,7 @@ set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, strin
 		{
 			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
 			{
-				if (o3->verifierDate(dateDebut,dateFin,*it3) && *it3->getValue==0)
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && (*it3).getValue()==0)
 				{
 					cmptSO2++;
 				}
@@ -187,7 +188,7 @@ set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, strin
 		{
 			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
 			{
-				if (o3->verifierDate(dateDebut,dateFin,*it3) && *it3->getValue==0)
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && (*it3).getValue()==0)
 				{
 					cmptNO2++;
 				}
@@ -205,7 +206,7 @@ set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, strin
 		{
 			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
 			{
-				if (o3->verifierDate(dateDebut,dateFin,*it3) && *it3->getValue==0)
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && (*it3).getValue()==0)
 				{
 					cmptPM10++;
 				}
