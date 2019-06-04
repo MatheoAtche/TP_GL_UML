@@ -30,7 +30,6 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-//En cours
 // Algorithme :
 // On ouvre puis on parcourt le fichier. 
 // On identifie les donnees et on cree des mesures

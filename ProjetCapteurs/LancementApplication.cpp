@@ -2,14 +2,55 @@
 
 using namespace std;
 #include <iostream>
-
+#include <fstream>
+#include <string>
+#include <sstream>
+#include<ctime>
+#include<time.h>
 #include "Capteur.h"
 #include "ComposantAir.h"
 #include "DataSet.h"
 #include "Mesure.h"
 #include "OperationsDonnees.h"
 
-//PB dans addMesure
+void ajouteFichierLog(string typeAction) {
+
+	ofstream of;
+
+	time_t date = time(NULL);
+
+	of.open("Fichiers/fichierLog.txt", ofstream::app);
+	char chaineDate[26];
+	ctime_s(chaineDate,sizeof(chaineDate), &date);
+
+	of << chaineDate << "/" << typeAction << endl;
+	of.close();
+
+}
+
+void testQualiteAirMoyenne() {
+	cout << "Test de la qualité de l'air moyenne" << endl;
+
+	DataSet * dataSet = new DataSet();
+	ComposantAir * o3 = new ComposantAir();
+	ComposantAir * no2 = new ComposantAir();
+	ComposantAir * so2 = new ComposantAir();
+	ComposantAir * pm10 = new ComposantAir();
+
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+
+	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
+
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
+
+	OperationsDonnees * op = new OperationsDonnees();
+
+	int qualite = op->qualiteAirMoyenne("2017-01-01", "2019-05-05", -8.0, -34.0, 36.0, 1.0 , o3, no2, so2, pm10, tabCapteurs);
+
+	cout << "la qualité moyenne de l'air est : " << qualite << endl;
+}
+
+//Validé
 void testLireMesuresComposantAir() {
 
 	cout << "*** TEST DE LA LECTURE DES MESURES DES CAPTEURS ***" << endl;
@@ -20,7 +61,7 @@ void testLireMesuresComposantAir() {
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 
-	dataSet->lireMesures("Fichiers/Mesures.csv",o3,no2,so2,pm10);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv",o3,no2,so2,pm10);
 
 	tabMesure_type mesuresO3 = o3->getTabMesure();
 	tabMesure_type::iterator it1;
@@ -28,8 +69,10 @@ void testLireMesuresComposantAir() {
 	vector<Mesure>::iterator it3;
 	for (it1 = mesuresO3.begin(); it1 != mesuresO3.end(); it1++)
 	{
+		cout << it1->first << endl;
 		for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
 		{
+			cout << it2->first << endl;
 			for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
 			{
 				cout << "Mesure faite par : " << (*it3).getSensorID() << " | Valeur : " << (*it3).getValue() << endl;
@@ -100,8 +143,11 @@ int main() {
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
 	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
 	*/
-	testLireMesuresComposantAir();
-	cout << "Donnees chargees ! " << endl;
+	//testLireMesuresComposantAir();
+	//cout << "Donnees chargees ! " << endl;
+
+	//testQualiteAirMoyenne();
+	ajouteFichierLog("Moyenne 03");
 
 	//Menu
 	/*
