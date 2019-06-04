@@ -124,6 +124,67 @@ void testLireComposantsAirs() {
 	cout << "AttributeID = " << pm10->getAttributeID() << " | Unite = " << pm10->getUnite() << " | Description = " << pm10->getDescription() << endl;
 
 }
+//Valide
+void testCalculsComposantAir() {
+
+	DataSet * dataSet = new DataSet();
+	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
+	ComposantAir * o3 = new ComposantAir();
+	ComposantAir * no2 = new ComposantAir();
+	ComposantAir * so2 = new ComposantAir();
+	ComposantAir * pm10 = new ComposantAir();
+
+	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+
+	string dateDebut = "2017-01-01T00:00:10.0100000";
+	string dateFin = "2018-01-01T00:00:24.5880000";
+
+	double lat1 = -31.0;
+	double longi1 = -90.0;
+	double lat2 = 40.0;
+	double longi2 = -34.0;
+
+	double moyenneO3 = o3->moyenne(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
+	cout << "Moyenne du composant o3 : " << moyenneO3 << endl;
+
+	double ecartTypeO3 = o3->ecartType(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
+	cout << "Ecart Type du composant o3 : " << ecartTypeO3 << endl;
+
+	double minimumO3 = o3->minimum(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
+	cout << "Minimum du composant o3 : " << minimumO3 << endl;
+
+	double maximumO3 = o3->maximum(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
+	cout << "Maximum du composant o3 : " << maximumO3 << endl;
+}
+
+//Valide
+void testValeursSimilaires() {
+	DataSet * dataSet = new DataSet();
+	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
+	ComposantAir * o3 = new ComposantAir();
+	ComposantAir * no2 = new ComposantAir();
+	ComposantAir * so2 = new ComposantAir();
+	ComposantAir * pm10 = new ComposantAir();
+
+	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+
+	string dateDebut = "2017-01-01T00:00:10.0100000";
+	string dateFin = "2018-01-01T00:00:24.5880000";
+
+	double epsilon = 10.0;
+
+	multimap<string, string> mapValSim = o3->valeursSimilaires(dateDebut, dateFin, epsilon);
+	cout << "Paires de capteurs :" << endl;
+	for (multimap <string, string>::iterator it = mapValSim.begin(); it != mapValSim.end(); it++) {
+		cout << "{" << it->first << ", ";
+		cout << it->second << "}" << endl;
+	}
+
+}
 
 int main() {
 
