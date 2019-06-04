@@ -275,7 +275,7 @@ int main() {
 				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<endl;
 				cout << "la valeur maximale est : " << no2->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
 				cout << "la valeur minimale est : " << no2->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
-				ajouteFichierLog("Calcul no2");
+				ajouteFichierLog("Calcul de moyenne, ecart-type, max et min sur no2");
 			}
 			else if (compo == "o3")
 			{
@@ -284,6 +284,7 @@ int main() {
 				cout << "l'ecart-type est : " << o3->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<endl;
 				cout << "la valeur maximale est : " << o3->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
 				cout << "la valeur minimale est : " << o3->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
+				ajouteFichierLog("Calcul de moyenne, ecart-type, max et min sur o3");
 			}
 			else if (compo == "so2")
 			{
@@ -292,6 +293,7 @@ int main() {
 				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<endl;
 				cout << "la valeur maximale est : " << so2->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
 				cout << "la valeur minimale est : " << so2->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
+				ajouteFichierLog("Calcul de moyenne, ecart-type, max et min sur so2");
 			}
 			else if (compo == "pm10")
 			{
@@ -300,6 +302,7 @@ int main() {
 				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<endl;
 				cout << "la valeur maximale est : " << pm10->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
 				cout << "la valeur minimale est : " << pm10->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite() << endl;
+				ajouteFichierLog("Calcul de moyenne, ecart-type, max et min sur pm10");
 			}
 			else
 			{
@@ -328,6 +331,7 @@ int main() {
 				cout << "Entrez la longitude exacte" << endl;
 				cin >> long1;
 				cout << "L'indice ATMO de ce point est : " << op->qualiteAirPointFixe(dateDebut,dateFin,lat1,lat2,o3,no2,so2,pm10,tabCapteurs) << endl;
+				ajouteFichierLog("Calcul de la qualité de l'air à un point fixe");
 			}
 			else if (secondChoice==2)
 			{
@@ -344,6 +348,7 @@ int main() {
 				cout << "Entrez la seconde longitude" << endl;
 				cin >> long2;
 				cout << "L'indice ATMO de cette zone geographique est : " << op->qualiteAirMoyenne(dateDebut,dateFin,lat1,long1,lat2,long2,o3,no2,so2,pm10,tabCapteurs);
+				ajouteFichierLog("Calcul de la qualite moyenne de l'air dans une certaine zone geographique");
 			}
 			else
 			{
@@ -365,21 +370,25 @@ int main() {
 			{
 				valsimi = no2->valeursSimilaires(dateDebut,dateFin,epsilon);
 				check = true;
+				ajouteFichierLog("Recherche de valeurs similaires sur no2");
 			}
 			else if (compo == "o3")
 			{
 				valsimi = o3->valeursSimilaires(dateDebut,dateFin,epsilon);
 				check = true;
+				ajouteFichierLog("Recherche de valeurs similaires sur o3");
 			}
 			else if (compo == "so2")
 			{
 				valsimi = so2->valeursSimilaires(dateDebut,dateFin,epsilon);
 				check = true;
+				ajouteFichierLog("Recherche de valeurs similaires sur so2");
 			}
 			else if (compo == "pm10")
 			{
 				valsimi = pm10->valeursSimilaires(dateDebut,dateFin,epsilon);
 				check = true;
+				ajouteFichierLog("Recherche de valeurs similaires sur pm10");
 			}
 			else
 			{
@@ -410,6 +419,8 @@ int main() {
 			{
 				cout << *it2 << endl;
 			}
+
+			ajouteFichierLog("Verification du bon fonctionnement des capteurs");
 			break;
 		
 		default:
