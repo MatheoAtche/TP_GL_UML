@@ -39,7 +39,7 @@ void testLireMesuresComposantAir() {
 
 }
 
-//Validé
+//Validï¿½
 void testLireCaracteristiquesCapteurs() {
 
 	cout << "*** TEST DE LA LECTURE DES CARACTERISTIQUES DES CAPTEURS ***" << endl;
@@ -56,7 +56,7 @@ void testLireCaracteristiquesCapteurs() {
 
 }
 
-//Validé
+//Validï¿½
 void testLireComposantsAirs() {
 
 	cout << "*** TEST DE LA LECTURE DES COMPOSANTS DE L'AIR ***" << endl;
@@ -152,41 +152,234 @@ void testEcartType() {
 int main() {
 
 	cout << "Bienvenue sur l'application ! " << endl;
-	cout << "Chargement des donnees en cours ..." << endl;
 
-	// Appel aux fonctions de lecture
 	DataSet * dataSet = new DataSet();
 	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
 	ComposantAir * o3 = new ComposantAir();
 	ComposantAir * no2 = new ComposantAir();
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
+	OperationsDonnees * op = new OperationsDonnees();
 
 	/*
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
 	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
 	*/
-	testLireMesuresComposantAir();
-	cout << "Donnees chargees ! " << endl;
+	//testLireMesuresComposantAir();
+	//cout << "Donnees chargees ! " << endl;
+
+	//Lecture des donnees
+	cout << "Entrez le chemin du fichier contenant vos informations de capteurs" << endl;
+	string cheminCapteur;
+	cin >> cheminCapteur;
+	dataSet->lireCapteurs(cheminCapteur,tabCapteurs);
+
+	cout << "Entrez le chemin du fichier contenant vos informations sur les composants de l'air" << endl;
+	string cheminComposant;
+	cin >> cheminComposant;
+	dataSet->lireComposantsAirs(cheminComposant,o3,no2,so2,pm10);
+	cout << "Pour O3 : " << endl;
+	cout << "AttributeID = " << o3->getAttributeID() << " | Unite = " << o3->getUnite() << " | Description = " << o3->getDescription() << endl;
+	cout << "Pour NO2 : " << endl;
+	cout << "AttributeID = " << no2->getAttributeID() << " | Unite = " << no2->getUnite() << " | Description = " << no2->getDescription() << endl;
+	cout << "Pour SO2 : " << endl;
+	cout << "AttributeID = " << so2->getAttributeID() << " | Unite = " << so2->getUnite() << " | Description = " << so2->getDescription() << endl;
+	cout << "Pour PM10 : " << endl;
+	cout << "AttributeID = " << pm10->getAttributeID() << " | Unite = " << pm10->getUnite() << " | Description = " << pm10->getDescription() << endl;
+
+	cout << "Entrez le chemin du fichier contenant vos mesures" << endl;
+	string cheminMesure;
+	cin >> cheminMesure;
+	dataSet->lireMesures(cheminMesure,o3,no2,so2,pm10);
 
 	//Menu
-	/*
 	bool estFini = false;
 	while (!estFini) {
+		cout << "------------------- Menu Principal -------------------" << endl;
+		cout << "1 : Calcul d'informations agregees (moyenne, ecart-type, minimum, maximum)" << endl;
+		cout << "2 : Calculer la qualite de l'air" << endl;
+		cout << "3 : Chercher des capteurs ayant des valeurs similaires" << endl;
+		cout << "4 : Verifier le bon fonctionnement des capteurs" << endl;
 		cout << "Que souhaitez-vous faire ? " << endl;
+		int choix;
+		cin >> choix;
+		//ajouter garde fou si le temps, pour verifier que c'est un chiffre
+		string compo, dateDebut, dateFin;
+		double lat1, lat2, long1, long2;
+		int secondChoice;
+		double epsilon;
+		multimap<string,string> valsimi;
+		set <string> capteursNonFonctionnel;
+		switch (choix)
+		{
+		case 1:
+			cout << "Sur quel composant voulez vous calculer les informations ? (no2, so2, pm10 ou o3)" << endl;
+			cin >> compo;
+			cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
+			cin >> dateDebut;
+			cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
+			cin >> dateFin;
+			cout << "Entrez la premiere latitude" << endl;
+			cin >> lat1;
+			cout << "Entrez la premiere longitude" << endl;
+			cin >> long1;
+			cout << "Entrez la seconde latitude" << endl;
+			cin >> lat2;
+			cout << "Entrez la seconde longitude" << endl;
+			cin >> long2;
+			if (compo == "no2")
+			{
+				cout << "la moyenne de no2 est " << no2->moyenne(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs);
+				cout << " " << no2->getUnite << endl;
+				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<enl;
+				cout << "la valeur maximale est : " << no2->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+				cout << "la valeur minimale est : " << no2->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+			}
+			else if (compo == "o3")
+			{
+				cout << "la moyenne de o3 est " << o3->moyenne(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs);
+				cout << " " << o3->getUnite << endl;
+				cout << "l'ecart-type est : " << o3->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<enl;
+				cout << "la valeur maximale est : " << o3->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+				cout << "la valeur minimale est : " << o3->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+			}
+			else if (compo == "so2")
+			{
+				cout << "la moyenne de so2 est " << so2->moyenne(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs);
+				cout << " " << so2->getUnite << endl;
+				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<enl;
+				cout << "la valeur maximale est : " << so2->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+				cout << "la valeur minimale est : " << so2->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+			}
+			else if (compo == "pm10")
+			{
+				cout << "la moyenne de pm10 est " << pm10->moyenne(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs);
+				cout << " " << pm10->getUnite << endl;
+				cout << "l'ecart-type est : " << no2->ecartType(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) <<enl;
+				cout << "la valeur maximale est : " << pm10->maximum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+				cout << "la valeur minimale est : " << pm10->minimum(dateDebut,dateFin,lat1,long1,lat2,long2,tabCapteurs) << " " << no2->getUnite << endl;
+			}
+			else
+			{
+				cout << "votre composant n'est pas connu (pensez a tout ecrire en minuscule)" << endl;
+			}
+			break;
+		
+		case 2:
+			cout << "Voulez vous calculer la qualite de l'air a un point precis (1)" << endl;
+			cout << "ou dans une certaine zone geographique (2) ?" << endl;
+			cin >> secondChoice;
+			if (secondChoice==1)
+			{
+				cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
+				cin >> dateDebut;
+				cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
+				cin >> dateFin;
+				cout << "Entrez la latitude exacte" << endl;
+				cin >> lat1;
+				cout << "Entrez la longitude exacte" << endl;
+				cin >> long1;
+				cout << "L'indice ATMO de ce point est : " << op->qualiteAirPointFixe(dateDebut,dateFin,lat1,lat2,o3,no2,so2,pm10,tabCapteurs) << endl;
+			}
+			else if (secondChoice==2)
+			{
+				cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
+				cin >> dateDebut;
+				cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
+				cin >> dateFin;
+				cout << "Entrez la premiere latitude" << endl;
+				cin >> lat1;
+				cout << "Entrez la premiere longitude" << endl;
+				cin >> long1;
+				cout << "Entrez la seconde latitude" << endl;
+				cin >> lat2;
+				cout << "Entrez la seconde longitude" << endl;
+				cin >> long2;
+				cout << "L'indice ATMO de cette zone geographique est : " << op->qualiteAirMoyenne(dateDebut,dateFin,lat1,long1,lat2,long2,o3,no2,so2,pm10,tabCapteurs);
+			}
+			else
+			{
+				cout << "choix inconnu" << endl;
+			}
+			break;
+
+		case 3:
+			cout << "Sur quel composant voulez vous chercher des valeurs similaires ? (no2, so2, pm10 ou o3)" << endl;
+			cin >> compo;
+			cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
+			cin >> dateDebut;
+			cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
+			cin >> dateFin;
+			cout << "Entrez la tolerance pour vos valeurs similaires (epsilon)" << endl;
+			cin >> epsilon;
+			bool check = false;
+			if (compo == "no2")
+			{
+				valsimi = no2->valeursSimilaires(dateDebut,dateFin,epsilon);
+				check = true;
+			}
+			else if (compo == "o3")
+			{
+				valsimi = o3->valeursSimilaires(dateDebut,dateFin,epsilon);
+				check = true;
+			}
+			else if (compo == "so2")
+			{
+				valsimi = so2->valeursSimilaires(dateDebut,dateFin,epsilon);
+				check = true;
+			}
+			else if (compo == "pm10")
+			{
+				valsimi = pm10->valeursSimilaires(dateDebut,dateFin,epsilon);
+				check = true;
+			}
+			else
+			{
+				cout << "votre composant n'est pas connu (pensez a tout ecrire en minuscule)" << endl;
+			}
+			
+			if(check)
+			{
+				cout << "les id des capteurs ayant des valeurs similaires sont : " << endl;
+				multimap<string,string>::iterator it;
+				for (it=valsimi.begin(); it!=valsimi.end(); it++)
+				{
+					cout << (*it).first << " " << (*it).second << endl;
+				}
+			}
+			break;
+
+		case 4:
+			cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
+			cin >> dateDebut;
+			cout << "Entrez la date de fin (aaaa-mm-jjThh:mm:ss)" << endl;
+			cin >> dateFin;
+			cout << "Verification du bon fonctionnement des capteurs sur cette periode..." << endl;
+			capteursNonFonctionnel = op->bonFonctionnementCapteurs(dateDebut,dateFin,o3,no2,so2,pm10);
+			cout << "les capteurs non fonctionnel sont : " << endl;
+			set<string>::iterator it;
+			for (it=capteursNonFonctionnel.begin(); it!=capteursNonFonctionnel.end(); it++)
+			{
+				cout << *it << endl;
+			}
+			break;
+		
+		default:
+			break;
+		}
 	}
-	*/
 	
-	testMoyenne();
-	cout << "Moyenne o3 " << endl;
+	
+	//testMoyenne();
+	//cout << "Moyenne o3 " << endl;
 
 	//
-	//Obligé pour qu'on voit que qql chose s'affiche !
-	char * a = new char[10];
+	//Obligï¿½ pour qu'on voit que qql chose s'affiche !
+	/*char * a = new char[10];
 	cin >> a;
 	cout << a;
-	return 0;
+	return 0;*/
 
 
 }
