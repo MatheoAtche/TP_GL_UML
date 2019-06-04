@@ -160,14 +160,7 @@ int main() {
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
-
-	/*
-	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/Mesures.csv", o3, no2, so2, pm10);
-	*/
-	//testLireMesuresComposantAir();
-	//cout << "Donnees chargees ! " << endl;
+	
 
 	//Lecture des donnees
 	cout << "Entrez le chemin du fichier contenant vos informations de capteurs" << endl;
@@ -204,7 +197,12 @@ int main() {
 		cout << "Que souhaitez-vous faire ? " << endl;
 		int choix;
 		cin >> choix;
-		//ajouter garde fou si le temps, pour verifier que c'est un chiffre
+		while(cin.fail()) {
+			cout << "Entrez un entier !" <<endl;
+			cin.clear();
+			cin.ignore(256,'\n');
+			cin >> choix;
+		}
 		string compo, dateDebut, dateFin;
 		double lat1, lat2, long1, long2;
 		int secondChoice;
@@ -268,8 +266,14 @@ int main() {
 		
 		case 2:
 			cout << "Voulez vous calculer la qualite de l'air a un point precis (1)" << endl;
-			cout << "ou dans une certaine zone geographique (2) ?" << endl;
+			cout << "ou la qualite moyenne dans une certaine zone geographique (2) ?" << endl;
 			cin >> secondChoice;
+			while(cin.fail()) {
+				cout << "Entrez un entier !" <<endl;
+				cin.clear();
+				cin.ignore(256,'\n');
+				cin >> secondChoice;
+			}
 			if (secondChoice==1)
 			{
 				cout << "Entrez la date de debut (aaaa-mm-jjThh:mm:ss)" << endl;
@@ -370,7 +374,9 @@ int main() {
 		}
 	}
 	
-	
+	//testLireMesuresComposantAir();
+	//cout << "Donnees chargees ! " << endl;
+
 	//testMoyenne();
 	//cout << "Moyenne o3 " << endl;
 
