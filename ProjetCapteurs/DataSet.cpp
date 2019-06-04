@@ -30,7 +30,6 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-//En cours
 // Algorithme :
 // On ouvre puis on parcourt le fichier. 
 // On identifie les donnees et on cree des mesures
@@ -74,10 +73,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 			getline(parcoursLigne, valeurMesure, ';');
 
 			
-			cout << "Date : " << date << endl;
-			cout << "Capteur : " << idCapteur << endl;
-			cout << "Type : " << typeDonnee << endl;
-			cout << "Valeur : " << valeurMesure << endl;
+			
 			
 			//On verifie que les donnees ne sont pas nulle
 			if (date != "" && valeurMesure != "" && idCapteur != "" && typeDonnee != "") {
