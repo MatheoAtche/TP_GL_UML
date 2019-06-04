@@ -217,7 +217,31 @@ string lectureDate ()
 		string minute = date.substr(14,2);
 		string sec = date.substr(17,2);
 	}
-	return date;
+	return date+".0000000";
+}
+
+void testFonctionnementCapteurs()
+{
+	DataSet * dataSet = new DataSet();
+	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
+	ComposantAir * o3 = new ComposantAir();
+	ComposantAir * no2 = new ComposantAir();
+	ComposantAir * so2 = new ComposantAir();
+	ComposantAir * pm10 = new ComposantAir();
+	OperationsDonnees * op = new OperationsDonnees();
+	string dateDebut = "2017-01-01T00:00:10.0100000";
+	string dateFin = "2018-01-01T00:00:24.5880000";
+
+	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+
+	set<string> capteursNonFonctionnel = op->bonFonctionnementCapteurs(dateDebut,dateFin,o3,no2,so2,pm10);
+	set<string>::iterator it;
+	for (it=capteursNonFonctionnel.begin(); it!=capteursNonFonctionnel.end(); it++)
+	{
+		cout << *it << endl;
+	}
 }
 
 int main() {
