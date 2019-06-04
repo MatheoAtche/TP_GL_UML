@@ -131,12 +131,12 @@ void testValeursSimilaires() {
 	string dateDebut = "2017-01-01T00:00:10.0100000";
 	string dateFin = "2018-01-01T00:00:24.5880000";
 
-	double epsilon = 20.0;
+	double epsilon = 10.0;
 
 	multimap<string, string> mapValSim = o3->valeursSimilaires(dateDebut, dateFin, epsilon);
 	cout << "Paires de capteurs :" << endl;
 	for (multimap <string, string>::iterator it = mapValSim.begin(); it != mapValSim.end(); it++) {
-		cout << "{" << it->first <<", "<< endl;
+		cout << "{" << it->first <<", ";
 		cout << it->second << "}"<< endl;
 	}
 

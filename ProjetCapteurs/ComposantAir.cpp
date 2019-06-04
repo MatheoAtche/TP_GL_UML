@@ -350,16 +350,22 @@ multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string
 	vector<double>::iterator it7,it8;
 	double sum = 0.0;
 	double compTot = 0.0;
-	multimap<string, string>paireCapt;
+	multimap<string, string>paireCapt = {};
 
-	//Autre facon de le faire avec moins de boucles for ?
+	if (mapPreTriee.empty()) {
+		return paireCapt;
+	}
 
-	for (it5 = mapPreTriee.begin(); it5 != mapPreTriee.end(); it5++) {
-		compTot = 0;
+	for (it5 = mapPreTriee.begin(); it5 != mapPreTriee.end(); it5++) {		
 
-		for (it6 = ++it5; it6 != mapPreTriee.end(); it6++) {
+		if (it5 == mapPreTriee.end()) {
+			break;
+		}
+		for (it6 = next(it5,1); it6 != mapPreTriee.end(); it6++) {
+			compTot = 0.0;
+			sum = 0.0;
+
 			for (it7 = it5->second.begin(),it8 = it6->second.begin(); it7 != it5->second.end() && it8 != it6->second.end(); it7++,it8++) {
-				
 				compTot++;
 				sum += abs(*it7 - *it8);
 			}
@@ -416,25 +422,6 @@ void ComposantAir::addMesure(Mesure * mesure)
 
 } //----- Fin de addMesure
 
-
-//------------------------------------------------- Surcharge d'opérateurs
-/*ComposantAir & ComposantAir::operator = (const ComposantAir &unComposantAir)
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-*/
-
-//-------------------------------------------- Constructeurs - destructeur
-/*ComposantAir::ComposantAir(const ComposantAir &unComposantAir)
-// Algorithme :
-//
-{
-#ifdef MAP
-	cout << "Appel au constructeur de copie de <ComposantAir>" << endl;
-#endif
-} //----- Fin de ComposantAir (constructeur de copie)
-*/
 
 string ComposantAir::getDescription()
 // Algorithme :
@@ -506,6 +493,26 @@ ComposantAir::~ComposantAir()
 #ifdef MAP
 	cout << "Appel au destructeur de <ComposantAir>" << endl;
 #endif
+
+	tabMesure_type::iterator it1;
+	map<int, vector<Mesure>>::iterator it2;
+	vector<Mesure>::iterator it3;
+	cout << "destructeur composant air " << endl;
+	//parcourir la premiere map
+	for (it1 = tabMesure.begin(); it1 != tabMesure.end(); it1++)
+	{
+		//parcourir la deuxieme map
+		for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
+		{
+			//parcourir le vector des mesures
+			for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
+			{
+				delete &it3;
+				cout << "destructeur composant air delete" << endl;
+			}
+		}
+	}
+
 
 } //----- Fin de ~ComposantAir
 
