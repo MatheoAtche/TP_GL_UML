@@ -13,6 +13,9 @@ using namespace std;
 #include "Mesure.h"
 #include "OperationsDonnees.h"
 
+
+// Permet d'ecrire les actions effectuees dans un fichier txt
+// pour avoir un historique de l'utilisation de l'application
 void ajouteFichierLog(string typeAction) {
 
 	ofstream of;
