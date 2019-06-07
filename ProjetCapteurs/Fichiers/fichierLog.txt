@@ -1,3 +1,9 @@
 Voici toutes les operations effectuees depuis le debut de l installation :
 Tue Jun  4 12:06:47 2019
 /Calcul no2
+Fri Jun  7 09:01:34 2019
+---->Recherche de valeurs similaires sur no2
+Fri Jun  7 09:02:37 2019
+---->Recherche de valeurs similaires sur no2
+Fri Jun  7 09:03:47 2019
+---->Calcul de moyenne, ecart-type, max et min sur o3

@@ -169,6 +169,14 @@ string lectureDate ()
 {
 	string date;
 	cin >> date;
+	while (date.length() <= 19)
+	{
+		cout << "La date que vous avez indique n'est pas bien formee" << endl;
+		cout << "Elle doit etre de la forme aaaa-mm-jjThh:mm:ss" << endl;
+		cout << "Exemple : 2019-05-19T19:36:22" << endl;
+		cout << "Entrez de nouveau votre date : " << endl;
+		cin >> date;
+	}
 	string an = date.substr(0, 4);
 	string sep [5] ={date.substr(4,1), date.substr(7,1), date.substr(10,1), date.substr(13,1), date.substr(16,1)};
 	string mois = date.substr(5,2);
@@ -214,6 +222,7 @@ void testFonctionnementCapteurs()
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
 	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
 
+	cout << "les capteurs non fonctionneles sont" << endl;
 	set<string> capteursNonFonctionnel = op->bonFonctionnementCapteurs(dateDebut,dateFin,o3,no2,so2,pm10);
 	set<string>::iterator it;
 	for (it=capteursNonFonctionnel.begin(); it!=capteursNonFonctionnel.end(); it++)
@@ -254,8 +263,8 @@ void testQualiteAirPointFixe()
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
-	string dateDebut = "2017-01-01T00:00:10.0100000";
-	string dateFin = "2018-01-01T00:00:24.5880000";
+	string dateDebut = "2016-05-01T00:00:10.0100000";
+	string dateFin = "2019-02-01T00:00:24.5880000";
 	double lat = -8.15758888291083;
 	double longi = -34.7692487876719;
 
@@ -270,7 +279,7 @@ void testQualiteAirPointFixe()
 int main() {
 
 	cout << "Bienvenue sur l'application ! " << endl;
-
+	/*
 	DataSet * dataSet = new DataSet();
 	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
 	ComposantAir * o3 = new ComposantAir();
@@ -508,22 +517,39 @@ int main() {
 			estFini=true;
 			break;
 		}
-	}
-	
+	}*/
 
+	//TestMethode Date
+	/*cout << "Entrez une date (aaaa-mm-jjThh:mm:ss)"<<endl;
+	string date=lectureDate();
+	cout << date << endl;*/
+
+	//bizarre ne renvoie les valeurs que du premier capteur, alors que plusieurs sont dans les plages temprelles et spatiales
+	testCalculsComposantAir();
+	
+	//pas ok
+	//testFonctionnementCapteurs();
+
+	//pas ok
+	//testValeursSimilaires();
+
+	//comment savoir si le resultat est bon?
+	//testQualiteAirMoyenne();
+
+	//meme cas que pour la qualite moyenne
+	//testQualiteAirPointFixe();
+
+	//ok
 	//testLireMesuresComposantAir();
 	//cout << "Donnees chargees ! " << endl;
 
-	//testMoyenne();
-	//cout << "Moyenne o3 " << endl;
 
-
-	//
-	//Obligï¿½ pour qu'on voit que qql chose s'affiche !
-	/*char * a = new char[10];
+	
+	//Oblige pour qu'on voit que qql chose s'affiche !
+	char * a = new char[10];
 	cin >> a;
 	cout << a;
-	return 0;*/
+	return 0;
 
 
 }
