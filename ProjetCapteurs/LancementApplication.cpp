@@ -28,28 +28,6 @@ void ajouteFichierLog(string typeAction) {
 
 }
 
-void testQualiteAirMoyenne() {
-	cout << "Test de la qualité de l'air moyenne" << endl;
-
-	DataSet * dataSet = new DataSet();
-	ComposantAir * o3 = new ComposantAir();
-	ComposantAir * no2 = new ComposantAir();
-	ComposantAir * so2 = new ComposantAir();
-	ComposantAir * pm10 = new ComposantAir();
-
-	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
-
-	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
-
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-
-	OperationsDonnees * op = new OperationsDonnees();
-
-	int qualite = op->qualiteAirMoyenne("2017-01-01", "2019-05-05", -8.0, -34.0, 36.0, 1.0 , o3, no2, so2, pm10, tabCapteurs);
-
-	cout << "la qualité moyenne de l'air est : " << qualite << endl;
-}
-
 //Valide
 void testLireMesuresComposantAir() {
 
