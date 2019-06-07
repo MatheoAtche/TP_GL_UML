@@ -1,5 +1,5 @@
 /*************************************************************************
-						   Capteur  -  description
+						   Capteur  -  Cette classe modélise un capteur
 							 -------------------
 	début                : 06/05/2019
 	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
@@ -13,14 +13,11 @@
 //--------------------------------------------------- Interfaces utilisées
 using namespace std;
 #include<cstring>
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <Capteur>
-//
-//
+// Cette classe modélise un capteur en utilisant un identifiant ainsi
+// que sa position et une description
 //------------------------------------------------------------------------ 
 
 class Capteur
@@ -29,57 +26,15 @@ class Capteur
 
 public:
 	//----------------------------------------------------- Méthodes publiques
-		double getLongitude();
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
+	double getLongitude();
 
-		double getLatitude();
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
-
-
-	//------------------------------------------------- Surcharge d'opérateurs
-	//Capteur & operator = (const Capteur & unCapteur);
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
-
-
-//-------------------------------------------- Constructeurs - destructeur
-	//Capteur (const Capteur &unCapteur);
-	// Mode d'emploi (constructeur de copie) :
-	//
-	// Contrat :
-	//
-
+	double getLatitude();
 
 	Capteur(string sensor="", double lat=0.0, double longi=0.0, string descri="");
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
 
 	virtual ~Capteur ();
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
 
 //------------------------------------------------------------------ PRIVE 
-
-protected:
-	//----------------------------------------------------- Méthodes protégées
-
-private:
-	//------------------------------------------------------- Méthodes privées
-
-protected:
-	//----------------------------------------------------- Attributs protégés
 
 private:
 	//------------------------------------------------------- Attributs privés
@@ -87,14 +42,7 @@ private:
 	double latitude;
 	double longitude;
 	string descrption;
-	//---------------------------------------------------------- Classes amies
-
-	//-------------------------------------------------------- Classes privées
-
-	//----------------------------------------------------------- Types privés
 
 };
-
-//----------------------------------------- Types dépendants de <Capteur>
 
 #endif // CAPTEUR_H

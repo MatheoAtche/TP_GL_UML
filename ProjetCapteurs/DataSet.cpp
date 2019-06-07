@@ -1,5 +1,5 @@
 /*************************************************************************
-						   DataSet  -  description
+						   DataSet  -  Cette classe permet de lire les fichiers
 							 -------------------
 	début                : 06/05/2019
 	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
@@ -18,15 +18,7 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "DataSet.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 
@@ -71,9 +63,6 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 			getline(parcoursLigne, idCapteur, ';');
 			getline(parcoursLigne, typeDonnee, ';');
 			getline(parcoursLigne, valeurMesure, ';');
-
-			
-			
 			
 			//On verifie que les donnees ne sont pas nulle
 			if (date != "" && valeurMesure != "" && idCapteur != "" && typeDonnee != "") {
@@ -238,29 +227,8 @@ void DataSet::lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantA
 
 } //----- Fin de lireComposantsAirs
 
-//------------------------------------------------- Surcharge d'opérateurs
-/*DataSet & DataSet::operator = (const DataSet &unDataSet)
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-*/
-
-//-------------------------------------------- Constructeurs - destructeur
-/*DataSet::DataSet(const DataSet &unDataSet)
-// Algorithme :
-//
-{
-#ifdef MAP
-	cout << "Appel au constructeur de copie de <DataSet>" << endl;
-#endif
-} //----- Fin de DataSet (constructeur de copie)
-*/
-
 
 DataSet::DataSet()
-// Algorithme :
-//
 {
 	#ifdef MAP
 		cout << "Appel au constructeur de <DataSet>" << endl;
@@ -270,17 +238,9 @@ DataSet::DataSet()
 
 
 DataSet::~DataSet()
-// Algorithme :
-//
 {
 	#ifdef MAP
 		cout << "Appel au destructeur de <DataSet>" << endl;
 	#endif
 } //----- Fin de ~DataSet
 
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées

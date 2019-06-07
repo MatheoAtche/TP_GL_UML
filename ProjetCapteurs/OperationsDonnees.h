@@ -1,5 +1,6 @@
 /*************************************************************************
-						   OperationsDonnees  -  description
+						   OperationsDonnees  -  Cette classe regroupe les fonctionnalites qui mettent 
+												 en commun les differents composants de l air
 							 -------------------
 	debut                : 06/05/2019
 	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Matheo Atche
@@ -19,14 +20,11 @@ using namespace std;
 #include<map>
 #include"ComposantAir.h"
 
-//------------------------------------------------------------- Constantes 
-
 //------------------------------------------------------------------ Types 
 typedef map<string, map<int, vector<Mesure>>> tabMesure_type;
 
 //------------------------------------------------------------------------ 
 // Role de la classe <OperationsDonnees>
-// 
 // Cette classe va réaliser des opérations sur l'ensemble des données capteurs
 // telles que le mesure de la qualité de l'air ou la vérification du bon
 // fonctionnement des capteurs
@@ -56,56 +54,10 @@ public:
 	// Cette methode est presque exactement la meme que qualiteAirMoyenne, sauf qu'elle ne prend
 	// en parametre la position que d'un seul capteur
 
-//------------------------------------------------- Surcharge d'op�rateurs
-//OperationsDonnees & operator = (const OperationsDonnees & unOperationsDonnees);
-// Mode d'emploi :
-//
-// Contrat :
-//
-
-
-//-------------------------------------------- Constructeurs - destructeur
-	//OperationsDonnees (const OperationsDonnees &unOperationsDonnees);
-	// Mode d'emploi (constructeur de copie) :
-	//
-	// Contrat :
-	//
-
-
 	OperationsDonnees();
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
 
 	virtual ~OperationsDonnees();
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
-
-//------------------------------------------------------------------ PRIVE 
-
-protected:
-	//----------------------------------------------------- M�thodes prot�g�es
-
-private:
-	//------------------------------------------------------- M�thodes priv�es
-
-protected:
-	//----------------------------------------------------- Attributs prot�g�s
-
-private:
-	//------------------------------------------------------- Attributs priv�s
-
-	//---------------------------------------------------------- Classes amies
-
-	//-------------------------------------------------------- Classes priv�es
-
-	//----------------------------------------------------------- Types priv�s
 
 };
-
-//----------------------------------------- Types d�pendants de <OperationsDonnees>
 
 #endif // OPERATIONSDONNEES_H

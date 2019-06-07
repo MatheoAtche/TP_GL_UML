@@ -123,7 +123,7 @@ void testCalculsComposantAir() {
 	double longi1 = -90.0;
 	double lat2 = 40.0;
 	double longi2 = -34.0;
-
+	
 	double moyenneO3 = o3->moyenne(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
 	cout << "Moyenne du composant o3 : " << moyenneO3 << endl;
 
@@ -279,6 +279,7 @@ void testQualiteAirPointFixe()
 int main() {
 
 	cout << "Bienvenue sur l'application ! " << endl;
+	testCalculsComposantAir();
 	/*
 	DataSet * dataSet = new DataSet();
 	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
@@ -525,7 +526,7 @@ int main() {
 	cout << date << endl;*/
 
 	//bizarre ne renvoie les valeurs que du premier capteur, alors que plusieurs sont dans les plages temprelles et spatiales
-	testCalculsComposantAir();
+	
 	
 	//pas ok
 	//testFonctionnementCapteurs();

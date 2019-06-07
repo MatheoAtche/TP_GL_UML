@@ -1,5 +1,5 @@
 /***********************************************************************************************************************************
-						   ComposantAir  -  description
+						   ComposantAir  -  Cette classe modélise un composant de l'air
 							 -------------------
 	début                : 06/05/2019
 	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
@@ -17,21 +17,16 @@
 //------------------------------------------------------ Include personnel
 #include "ComposantAir.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
 
 bool ComposantAir::verifierDate(string dateDebut, string dateFin, Mesure mesure)
 // Algorithme :
-//
+// On compare la chaine de valeur correspondant a la date de la mesure en parametre 
+// avec les chaines de valeurs correspondant aux dates du debut et de fin de
+// l intervalle de temps souhaite
+// Renvoie vrai si la date de mesure est dans l intervalle et faux sinon
 {
 	string date = mesure.getDate();
 	
@@ -45,7 +40,11 @@ bool ComposantAir::verifierDate(string dateDebut, string dateFin, Mesure mesure)
 
 bool ComposantAir::verifierPosition(double latitude1, double longitude1, double latitude2, double longitude2, Capteur capteur)
 // Algorithme :
-//
+// On definit un intervalle de latitudes et un intervalle de longitudes
+// a partir des latitudes et longitudes des points 1 et 2 passees en parametres
+// On regarde si la latitude et la longitude du capteur en parametre 
+// sont dans les intervalles correspondants
+// Renvoie vrai si la position du capteur est dans l intervalle et faux sinon
 {
 	double lat = capteur.getLatitude();
 	double longi = capteur.getLongitude();
@@ -71,11 +70,13 @@ bool ComposantAir::verifierPosition(double latitude1, double longitude1, double 
 	}
 	return false;
 
-}//----- Fin de Méthode
+}//----- Fin de verifierPosition
 
 double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string,Capteur>* tabCapteurs)
 // Algorithme :
-//
+// Calcul de la moyenne des valeurs de ce composant mesurees par un capteur
+// se trouvant dans la bonne zone geographique
+// en selectionnant les valeurs prises dans une periode
 {
 	double sum = 0.0;
 	int compteur = 0; 
@@ -89,25 +90,22 @@ double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1,
 	map<int, vector<Mesure>>::iterator it2;
 	vector<Mesure>::iterator it3;
 
-	cout << "Methode moyenne" << endl;
 	//parcourir la map
 	for (it1=tabMesure.begin();it1!=tabMesure.end();it1++)
 	{
 		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
 		if (itCapt != tabCapteurs->end()) 
 		{
-			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
-			//parcourir la set des mesure si annee ok
-			
 			//parcourir la map
 			for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
 			{
 				an = it2->first;
 				if (an >= anneeD && an <= anneeF)
 				{
-					//parcourir le set des mesures
+					//parcourir le vector des mesures
 					for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
 					{
+						//verifier que la mesure se trouve dans l intervalle de temps et est mesuree par un capteur situe dans les intervalles de positions
 						if (verifierDate(dateDebut, dateFin, *it3) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
 						{
 							Mesure mesure = *it3;
@@ -131,7 +129,9 @@ double ComposantAir::moyenne(string dateDebut, string dateFin, double latitude1,
 
 double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
-//
+// Calcul du minimum des valeurs de ce composant mesurees par un capteur
+// se trouvant dans la bonne zone geographique
+// en selectionnant les valeurs prises dans une periode
 {
 
 	int an = 0;
@@ -151,19 +151,16 @@ double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1,
 		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
 		if (itCapt != tabCapteurs->end())
 		{
-
-			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
-			//parcourir la set des mesure si annee ok
-
 			//parcourir la map
 			for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
 			{
 				an = it2->first;
 				if (an >= anneeD && an <= anneeF)
 				{
-					//parcourir le set des mesures
+					//parcourir le vector des mesures
 					for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
 					{
+						//verifier que la mesure se trouve dans l intervalle de temps et est mesuree par un capteur situe dans les intervalles de positions
 						if (verifierDate(dateDebut, dateFin, *it3) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
 						{
 							Mesure mesure = *it3;
@@ -185,7 +182,9 @@ double ComposantAir::minimum(string dateDebut, string dateFin, double latitude1,
 
 double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
-//
+// Calcul du maximum des valeurs de ce composant mesurees par un capteur
+// se trouvant dans la bonne zone geographique
+// en selectionnant les valeurs prises dans une periode
 {
 	int an = 0;
 	int anneeD = atoi(dateDebut.substr(0, 4).c_str());
@@ -204,19 +203,16 @@ double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1,
 		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
 		if (itCapt != tabCapteurs->end())
 		{
-
-			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
-			//parcourir la set des mesure si annee ok
-
 			//parcourir la map
 			for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
 			{
 				an = it2->first;
 				if (an >= anneeD && an <= anneeF)
 				{
-					//parcourir le set des mesures
+					//parcourir le vector des mesures
 					for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
 					{
+						//verifier que la mesure se trouve dans l intervalle de temps et est mesuree par un capteur situe dans les intervalles de positions
 						if (verifierDate(dateDebut, dateFin, *it3) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
 						{
 							Mesure mesure = *it3;
@@ -238,7 +234,9 @@ double ComposantAir::maximum(string dateDebut, string dateFin, double latitude1,
 
 double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude1, double longitude1, double latitude2, double longitude2, map<string, Capteur>* tabCapteurs)
 // Algorithme :
-//
+// Calcul de l ecart type des valeurs de ce composant mesurees par un capteur
+// se trouvant dans la bonne zone geographique
+// en selectionnant les valeurs prises dans une perio
 {
 	double moy = moyenne(dateDebut, dateFin, latitude1, longitude1, latitude2, longitude2, tabCapteurs);
 	double sum = 0;
@@ -260,18 +258,16 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 		itCapt = tabCapteurs->find(it1->first); //trouver le capteur dans tabCapteurs
 		if (itCapt != tabCapteurs->end())
 		{
-			//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
-			//parcourir la set des mesure si annee ok
-
 			//parcourir la map
 			for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
 			{
 				an = it2->first;
 				if (an >= anneeD && an <= anneeF)
 				{
-					//parcourir le set des mesures
+					//parcourir le vector des mesures
 					for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
 					{
+						//verifier que la mesure se trouve dans l intervalle de temps et est mesuree par un capteur situe dans les intervalles de positions
 						if (verifierDate(dateDebut, dateFin, *it3) && verifierPosition(latitude1, longitude1, latitude2, longitude2, itCapt->second))
 						{
 							Mesure mesure = *it3;
@@ -297,8 +293,14 @@ double ComposantAir::ecartType(string dateDebut, string dateFin, double latitude
 
 multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string dateFin, double epsilon)
 // Algorithme :
-//
+// On commence par trier le tableau de mesures du composant en les mettant
+// dans une mapPreTriee dans laquelle on met seulement les valeurs de
+// mesures faites dans la periode donnee par les parametres dateDebut et dateFin
+// On fait la difference des valeurs deux a deux (ordonnees dans le temps) de 2 capteurs 
+// On fait la moyenne de ces differences et si elle est inferieure ou egale a epsilon,
+// on considere que ces 2 capteurs sont similaires et on ajoute cette paire dans une multimap
 {
+	// une map avec : l'id du capteur et l'ensemble des valeurs faites par ce capteur dans la bonne periode
 	map<string, vector<double>> mapPreTriee;
 	
 	int an = 0;
@@ -316,19 +318,16 @@ multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string
 	{
 		vector<double> vecVal;
 
-		//recuperer l'annee et verifier qu'elle est entre annee debut et annee fin
-		//parcourir la set des mesures si annee ok
-
 		//parcourir la map
 		for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
 		{
 			an = it2->first;
 			if (an >= anneeD && an <= anneeF)
 			{
-				//parcourir le set des mesures
+				//parcourir le vector des mesures
 				for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
 				{
-					
+					//verifier que la mesure se trouve dans l intervalle de temps
 					if (verifierDate(dateDebut, dateFin, *it3))
 					{
 						Mesure mesure = *it3;
@@ -356,15 +355,18 @@ multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string
 		return paireCapt;
 	}
 
+	//parcourir la map du debut
 	for (it5 = mapPreTriee.begin(); it5 != mapPreTriee.end(); it5++) {		
 
 		if (it5 == mapPreTriee.end()) {
 			break;
 		}
+		//parcourir la map en commencant au capteur suivant
 		for (it6 = next(it5,1); it6 != mapPreTriee.end(); it6++) {
 			compTot = 0.0;
 			sum = 0.0;
 
+			//parcourir les valeurs des deux capteurs
 			for (it7 = it5->second.begin(),it8 = it6->second.begin(); it7 != it5->second.end() && it8 != it6->second.end(); it7++,it8++) {
 				compTot++;
 				sum += abs(*it7 - *it8);
@@ -387,7 +389,7 @@ multimap<string,string> ComposantAir::valeursSimilaires(string dateDebut, string
 
 void ComposantAir::addMesure(Mesure * mesure)
 // Algorithme :
-//
+// On ajoute une mesure au tabMesure d un composant
 {
 	// typedef map<string, map<int, vector<Mesure>>> tabMesure_type;
 
@@ -424,58 +426,42 @@ void ComposantAir::addMesure(Mesure * mesure)
 
 
 string ComposantAir::getDescription()
-// Algorithme :
-//
 {
 	return description;
-}
+} //----- Fin de getDescription
 
 string ComposantAir::getUnite()
-// Algorithme :
-//
 {
 	return unit;
-}
+} //----- Fin de getUnite
 
 string ComposantAir::getAttributeID()
-// Algorithme :
-//
 {
 	return attributeID;
-}
+} //----- Fin de getAttributeID
 
 
 tabMesure_type ComposantAir::getTabMesure()
-// Algorithme :
-//
 {
 	return tabMesure;
-}
+} //----- Fin de getTabMesure
 
 void ComposantAir::setDescription(string descri) 
-// Algorithme :
-//
 {
 		description = descri;
-}
+} //----- Fin de setDescription
 
 void ComposantAir::setUnite(string unite)
-// Algorithme :
-//
 {
 	unit = unite;
-}
+} //----- Fin de setUnite
 
 void ComposantAir::setAttributeID(string attributeId)
-// Algorithme :
-//
 {
 	attributeID = attributeId;
-}
+} //----- Fin de setAttributeID
 
 ComposantAir::ComposantAir(string attribute, string u, string descri,int taille)
-// Algorithme :
-//
 {
 #ifdef MAP
 	cout << "Appel au constructeur de <ComposantAir>" << endl;
@@ -487,38 +473,10 @@ ComposantAir::ComposantAir(string attribute, string u, string descri,int taille)
 
 
 ComposantAir::~ComposantAir()
-// Algorithme :
-//
 {
 #ifdef MAP
 	cout << "Appel au destructeur de <ComposantAir>" << endl;
 #endif
 
-	tabMesure_type::iterator it1;
-	map<int, vector<Mesure>>::iterator it2;
-	vector<Mesure>::iterator it3;
-	cout << "destructeur composant air " << endl;
-	//parcourir la premiere map
-	for (it1 = tabMesure.begin(); it1 != tabMesure.end(); it1++)
-	{
-		//parcourir la deuxieme map
-		for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++)
-		{
-			//parcourir le vector des mesures
-			for (it3 = it2->second.begin(); it3 != it2->second.end(); it3++)
-			{
-				delete &it3;
-				cout << "destructeur composant air delete" << endl;
-			}
-		}
-	}
-
-
 } //----- Fin de ~ComposantAir
 
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées

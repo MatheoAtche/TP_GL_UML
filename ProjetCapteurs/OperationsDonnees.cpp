@@ -1,5 +1,6 @@
 /***********************************************************************************************************************************
-						   OperationsDonnees  -  description
+						   OperationsDonnees  -  Cette classe regroupe les fonctionnalites qui mettent 
+												 en commun les differents composants de l air
 							 -------------------
 	debut                : 06/05/2019
 	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Matheo Atche
@@ -18,13 +19,8 @@ using namespace std;
 
 //------------------------------------------------------------- Constantes
 #define TAILLE 20
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types prives
-
 
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Methodes publiques
 
@@ -128,7 +124,7 @@ int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, dou
 	}
 	return indice;
 	return NULL;
-} //----- Fin de qualitéAirPointFixe
+} //----- Fin de qualiteAirPointFixe
 //
 set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
 // Algorithme :

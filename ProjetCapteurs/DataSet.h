@@ -1,5 +1,5 @@
 /*************************************************************************
-						   DataSet  -  description
+						   DataSet  -  Cette classe permet de lire les fichiers
 							 -------------------
 	début                : 06/05/2019
 	copyright            : (C) 2019 par Alice d'Oncieu, Andrea Croc, Sophie Laboucheix, Mathéo Atche
@@ -18,13 +18,10 @@ using namespace std;
 #include<map>
 #include"ComposantAir.h"
 
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
 //------------------------------------------------------------------------ 
 // Rôle de la classe <DataSet>
-//
-//
+// Cette classe permet de lire les fichiers à travers les methodes : 
+// lireMesures, lireCapteurs et lireComposantsAirs
 //------------------------------------------------------------------------ 
 
 class DataSet
@@ -44,7 +41,7 @@ public:
 	// - so2 : le composant so2
 	// - pm10 : le composant pm10
 	// Contrat :
-	// Aucun
+	// Fichier bien forme
 
 	void lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs);
 	// Mode d'emploi :
@@ -53,7 +50,7 @@ public:
 	// - nomFichier : nom du fichier a lire
 	// - tabCapteur : tableau contenant tous les capteurs
 	// Contrat :
-	// Aucun
+	// Fichier bien forme
 
 
 	void lireComposantsAirs(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
@@ -66,46 +63,16 @@ public:
 	// - so2 : le composant so2
 	// - pm10 : le composant pm10
 	// Contrat :
-	// Aucun
+	// Fichier bien forme
 
 
 //-------------------------------------------- Constructeurs - destructeur
 
 	DataSet();
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
 
 	virtual ~DataSet();
-	// Mode d'emploi :
-	//
-	// Contrat :
-	//
-
-//------------------------------------------------------------------ PRIVE 
-
-protected:
-	//----------------------------------------------------- Méthodes protégées
-
-private:
-	//------------------------------------------------------- Méthodes privées
-
-protected:
-	//----------------------------------------------------- Attributs protégés
-
-private:
-	//------------------------------------------------------- Attributs privés
-
-	//---------------------------------------------------------- Classes amies
-
-	//-------------------------------------------------------- Classes privées
-
-	//----------------------------------------------------------- Types privés
 
 };
-
-//----------------------------------------- Types dépendants de <DataSet>
 
 #endif // DATASET_H
 
