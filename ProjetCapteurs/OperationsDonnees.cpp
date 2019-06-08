@@ -75,17 +75,19 @@ int OperationsDonnees::qualiteAirMoyenne(string dateDebut, string dateFin, doubl
 	return indice;
 } //----- Fin de qualiteAirMoyenne
 
-int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, double latitude1, double longitude1, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, map<string, Capteur>* tabCapteurs)
+int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, double latitude, double longitude, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, map<string, Capteur>* tabCapteurs)
 // Algorithme :
 // L'algo est presque le meme que pour qualiteAirMoyenne, seulement nous entrons deux fois
 // les memes coordonnees pour la localisation dans le calcul de moyenne, de sorte à ne calculer
 // la qualite de l'air que sur un capteur
 {
-	double moyO3 = o3->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude1,longitude1, tabCapteurs);
+	int indice = qualiteAirMoyenne(dateDebut, dateFin, latitude - 10, longitude - 10, latitude + 10, longitude + 10, o3, no2, so2, pm10, tabCapteurs);
+
+	/*double moyO3 = o3->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude1,longitude1, tabCapteurs);
 	double moyNO2 = no2->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude1,longitude1, tabCapteurs);
 	double moySO2 = so2->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude1,longitude1, tabCapteurs);
 	double moyPM10 = pm10->moyenne(dateDebut,dateFin,latitude1,longitude1,latitude1,longitude1, tabCapteurs);
-	int indice = 1;
+	
 	if (moyO3>=30 || moySO2>=40 || moyNO2>=30 || moyPM10 >=7)
 	{
 		indice =2;
@@ -121,9 +123,8 @@ int OperationsDonnees::qualiteAirPointFixe(string dateDebut, string dateFin, dou
 	else if (moyO3>=240 || moySO2>=500 || moyNO2>=400 || moyPM10 >=80)
 	{
 		indice =10;
-	}
+	}*/
 	return indice;
-	return NULL;
 } //----- Fin de qualiteAirPointFixe
 //
 set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, string dateFin, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
@@ -147,8 +148,7 @@ set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, strin
 		{
 			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
 			{
-				//Mesure *m = (Mesure*) it3;
-				if (o3->verifierDate(dateDebut,dateFin, *it3) && (*it3).getValue()==0)
+				if (o3->verifierDate(dateDebut,dateFin, *it3) && (*it3).getValue()==0.0)
 				{
 					cmptO3++;
 				}
@@ -166,7 +166,7 @@ set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, strin
 		{
 			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
 			{
-				if (o3->verifierDate(dateDebut,dateFin,*it3) && (*it3).getValue()==0)
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && (*it3).getValue()==0.0)
 				{
 					cmptSO2++;
 				}
@@ -184,7 +184,7 @@ set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, strin
 		{
 			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
 			{
-				if (o3->verifierDate(dateDebut,dateFin,*it3) && (*it3).getValue()==0)
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && (*it3).getValue()==0.0)
 				{
 					cmptNO2++;
 				}
@@ -202,7 +202,7 @@ set<string> OperationsDonnees::bonFonctionnementCapteurs(string dateDebut, strin
 		{
 			for (it3= it2->second.begin(); it3!=it2->second.end(); it3++)
 			{
-				if (o3->verifierDate(dateDebut,dateFin,*it3) && (*it3).getValue()==0)
+				if (o3->verifierDate(dateDebut,dateFin,*it3) && (*it3).getValue()==0.0)
 				{
 					cmptPM10++;
 				}

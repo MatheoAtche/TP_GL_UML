@@ -172,8 +172,9 @@ string lectureDate ()
 {
 	string date;
 	cin >> date;
-	while (date.length() <= 19)
+	while (date.length() < 19)
 	{
+		cout << "manque des carateres" << endl;
 		cout << "La date que vous avez indique n'est pas bien formee" << endl;
 		cout << "Elle doit etre de la forme aaaa-mm-jjThh:mm:ss" << endl;
 		cout << "Exemple : 2019-05-19T19:36:22" << endl;
@@ -193,6 +194,7 @@ string lectureDate ()
 		|| !isdigit(minute[1]) || !isdigit(sec[0]) || !isdigit(sec[1])
 		|| sep[0]!="-" || sep[1]!="-" || sep[2]!="T" || sep[3]!=":" || sep[4]!=":")
 	{
+		cout << "probleme de substr" << endl;
 		cout << "La date que vous avez indique n'est pas bien formee" << endl;
 		cout << "Elle doit etre de la forme aaaa-mm-jjThh:mm:ss" << endl;
 		cout << "Exemple : 2019-05-19T19:36:22" << endl;
@@ -206,7 +208,7 @@ string lectureDate ()
 		string minute = date.substr(14,2);
 		string sec = date.substr(17,2);
 	}
-	return date+".0000000";
+	return date+".0100000";
 }
 
 void testFonctionnementCapteurs()
@@ -219,13 +221,13 @@ void testFonctionnementCapteurs()
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
 	string dateDebut = "2017-01-01T00:00:10.0100000";
-	string dateFin = "2018-01-01T00:00:24.5880000";
+	string dateFin = "2019-02-15T00:00:24.5880000";
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
 	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
 
-	cout << "les capteurs non fonctionneles sont" << endl;
+	cout << "les capteurs non fonctionnels sont" << endl;
 	set<string> capteursNonFonctionnel = op->bonFonctionnementCapteurs(dateDebut,dateFin,o3,no2,so2,pm10);
 	set<string>::iterator it;
 	for (it=capteursNonFonctionnel.begin(); it!=capteursNonFonctionnel.end(); it++)
@@ -243,18 +245,20 @@ void testQualiteAirMoyenne()
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
+
 	string dateDebut = "2017-01-01T00:00:10.0100000";
 	string dateFin = "2018-01-01T00:00:24.5880000";
-	double lat1 = 66.907150;
-	double long1 = -59.102526;
-	double lat2 = -47.911142; 
-	double long2 = 176.267375;
+
+	double lat1 = -31.0;
+	double long1 = -90.0;
+	double lat2 = 40.0;
+	double long2 = -34.0;
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
 	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
 
-	cout << "Qualite de l'air : " << op->qualiteAirMoyenne(dateDebut,dateFin,lat1,long1,lat2,long2,o3,no2,so2,pm10,tabCapteurs);
+	cout << "Qualite de l'air : " << op->qualiteAirMoyenne(dateDebut,dateFin,lat1,long1,lat2,long2,o3,no2,so2,pm10,tabCapteurs) << endl;
 }
 
 void testQualiteAirPointFixe()
@@ -266,8 +270,10 @@ void testQualiteAirPointFixe()
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
-	string dateDebut = "2016-05-01T00:00:10.0100000";
-	string dateFin = "2019-02-01T00:00:24.5880000";
+
+	string dateDebut = "2017-01-01T00:00:10.0100000";
+	string dateFin = "2018-01-01T00:00:24.5880000";
+
 	double lat = -8.15758888291083;
 	double longi = -34.7692487876719;
 
@@ -275,15 +281,15 @@ void testQualiteAirPointFixe()
 	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
 	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
 
-	cout << "La qualite de l'air au capteur 0 est : " << op->qualiteAirPointFixe(dateDebut,dateFin,lat,longi,o3,no2,so2,pm10,tabCapteurs);
+	cout << "La qualite de l'air autour du point demande est : " << op->qualiteAirPointFixe(dateDebut,dateFin,lat,longi,o3,no2,so2,pm10,tabCapteurs) << endl;
 
 }
 
 int main() {
 
 	cout << "Bienvenue sur l'application ! " << endl;
-	testCalculsComposantAir();
-	/*
+	
+	
 	DataSet * dataSet = new DataSet();
 	map<string, Capteur>* tabCapteurs = new map<string, Capteur>();
 	ComposantAir * o3 = new ComposantAir();
@@ -441,7 +447,7 @@ int main() {
 				cin >> lat2;
 				cout << "Entrez la seconde longitude" << endl;
 				cin >> long2;
-				cout << "L'indice ATMO de cette zone geographique est : " << op->qualiteAirMoyenne(dateDebut,dateFin,lat1,long1,lat2,long2,o3,no2,so2,pm10,tabCapteurs);
+				cout << "L'indice ATMO de cette zone geographique est : " << op->qualiteAirMoyenne(dateDebut,dateFin,lat1,long1,lat2,long2,o3,no2,so2,pm10,tabCapteurs) << endl;
 				ajouteFichierLog("Calcul de la qualite moyenne de l'air dans une certaine zone geographique");
 			}
 			else
@@ -521,26 +527,26 @@ int main() {
 			estFini=true;
 			break;
 		}
-	}*/
+	}
 
 	//TestMethode Date
-	/*cout << "Entrez une date (aaaa-mm-jjThh:mm:ss)"<<endl;
-	string date=lectureDate();
-	cout << date << endl;*/
+	//cout << "Entrez une date (aaaa-mm-jjThh:mm:ss)"<<endl;
+	//string date=lectureDate();
+	//cout << date << endl;
 
-	//bizarre ne renvoie les valeurs que du premier capteur, alors que plusieurs sont dans les plages temprelles et spatiales
+	//ok
+	//testCalculsComposantAir();
 	
-	
-	//pas ok
+	//ok
 	//testFonctionnementCapteurs();
 
-	//pas ok
+	//ok
 	//testValeursSimilaires();
 
-	//comment savoir si le resultat est bon?
+	//ok
 	//testQualiteAirMoyenne();
 
-	//meme cas que pour la qualite moyenne
+	//ok
 	//testQualiteAirPointFixe();
 
 	//ok
@@ -549,11 +555,11 @@ int main() {
 
 
 	
-	//Oblige pour qu'on voit que qql chose s'affiche !
-	char * a = new char[10];
-	cin >> a;
-	cout << a;
-	return 0;
+	//Oblige pour qu'on voit que qql chose s'affiche au debug!
+	//char * a = new char[10];
+	//cin >> a;
+	//cout << a;
+	//return 0;
 
 
 }
