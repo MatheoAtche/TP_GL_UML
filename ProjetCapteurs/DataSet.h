@@ -31,7 +31,7 @@ class DataSet
 public:
 	//----------------------------------------------------- Méthodes publiques
 
-	void lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10);
+	void lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, vector<Mesure*> * ptrMesures);
 	// Mode d'emploi :
 	// Parcours d un fichier de mesures et on remplit les objets o3, no2, so2 et pm10 en fonction des mesures lues
 	//Parametres :
@@ -40,15 +40,17 @@ public:
 	// - no2 : le composant no2
 	// - so2 : le composant so2
 	// - pm10 : le composant pm10
+	// - prtMesures : pour se souvenir des pointeurs crees
 	// Contrat :
 	// Fichier bien forme
 
-	void lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs);
+	void lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteursvector,vector <Capteur*> * ptrCapteurs);
 	// Mode d'emploi :
 	// Parcours d un fichier de capteurs et on remplit une map qui contient tous les capteurs
 	// Parametres :
 	// - nomFichier : nom du fichier a lire
 	// - tabCapteur : tableau contenant tous les capteurs
+	// - ptrCapteurs : pour se souvenir des capteurs crees
 	// Contrat :
 	// Fichier bien forme
 

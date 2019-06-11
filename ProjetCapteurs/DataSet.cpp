@@ -26,7 +26,7 @@ using namespace std;
 // On ouvre puis on parcourt le fichier. 
 // On identifie les donnees et on cree des mesures
 //Qu on ajoute a notre composant de l air aproprie
-void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10)
+void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2, ComposantAir* so2, ComposantAir* pm10, vector<Mesure*> * ptrMesures)
 //
 {
 
@@ -68,7 +68,8 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 			if (date != "" && valeurMesure != "" && idCapteur != "" && typeDonnee != "") {
 
 				Mesure * mesure = new Mesure(date, atof(valeurMesure.c_str()), idCapteur);
-
+				ptrMesures->push_back(mesure);
+				
 				if (typeDonnee == "O3") {
 					o3->addMesure(mesure);
 				}
@@ -84,7 +85,6 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 				else { //Dans aucun des derniers cas
 					cout << "Composant d'air " << typeDonnee << " inconnu" << endl;
 				}
-
 			}
 
 		}
@@ -95,7 +95,7 @@ void DataSet::lireMesures(string nomFichier, ComposantAir* o3, ComposantAir* no2
 } //----- Fin de lireMesures
 
 
-void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
+void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs, vector<Capteur*> * ptrCapteurs)
 // Algorithme :
 // On ouvre puis parcourt le fichier. 
 // On identifie les donnees et on cree des capteurs
@@ -138,6 +138,7 @@ void DataSet::lireCapteurs(string nomFichier, map<string, Capteur>* tabCapteurs)
 			//On vérifie que les données essentielles sont présentes
 			if (idCapteur != "" && latitude != "" && longitude != "") {
 				Capteur * capteur = new Capteur(idCapteur, atof(latitude.c_str()), atof(longitude.c_str()), description);
+				ptrCapteurs->push_back(capteur);
 				tabCapteurs->insert(make_pair(idCapteur, *capteur));
 			}
 			

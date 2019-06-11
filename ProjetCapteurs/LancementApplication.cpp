@@ -31,6 +31,27 @@ void ajouteFichierLog(string typeAction) {
 
 }
 
+// Pour liberer les ressources acquises avec le NEW lors des lectures de fichier
+void libereRessources(vector<Mesure*> * ptrMesures, vector<Capteur*>  * ptrCapteurs) {
+	
+	vector<Mesure*>::iterator itMesure;
+	vector<Capteur*>::iterator itCapteur;
+
+	int comp = 1;
+	int c = 1;
+
+	for (itMesure = (*ptrMesures).begin(); itMesure != (*ptrMesures).end(); ++itMesure)
+	{
+		delete *itMesure;
+	}
+
+	for (itCapteur = (*ptrCapteurs).begin(); itCapteur != (*ptrCapteurs).end(); ++itCapteur)
+	{
+		delete *itCapteur;
+	}
+
+}
+
 //Valide
 void testLireMesuresComposantAir() {
 
@@ -41,8 +62,11 @@ void testLireMesuresComposantAir() {
 	ComposantAir * no2 = new ComposantAir();
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
+	vector<Capteur*> ptrCapteurs;
+	vector<Mesure*> ptrMesures;
 
-	dataSet->lireMesures("Fichiers/MesuresCompletes.csv",o3,no2,so2,pm10);
+
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv",o3,no2,so2,pm10,&ptrMesures);
 
 	tabMesure_type mesuresO3 = o3->getTabMesure();
 	tabMesure_type::iterator it1;
@@ -61,6 +85,8 @@ void testLireMesuresComposantAir() {
 		}
 	}
 
+	libereRessources(&ptrMesures, &ptrCapteurs);
+
 }
 
 //Valide
@@ -70,13 +96,17 @@ void testLireCaracteristiquesCapteurs() {
 
 	DataSet * dataSet = new DataSet();
 	map<string, Capteur>* tabCapteurs = new map<string,Capteur>();
+	vector<Capteur*> ptrCapteurs;
+	vector<Mesure*> ptrMesures;
 
-	dataSet->lireCapteurs("Fichiers/Sensors.csv",tabCapteurs);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv",tabCapteurs,&ptrCapteurs);
 
 	for (map <string, Capteur>::iterator it = (*tabCapteurs).begin(); it != (*tabCapteurs).end(); it++) {
 		cout << "Premier terme : " << it->first << endl;
 		cout << "Longitude du deuxieme terme : " << (it->second).getLongitude() << endl;
 	}
+
+	libereRessources(&ptrMesures, &ptrCapteurs);
 
 }
 
@@ -90,6 +120,7 @@ void testLireComposantsAirs() {
 	ComposantAir * no2 = new ComposantAir();
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
+
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv",o3,no2,so2,pm10);
 	cout << "Pour O3 : " << endl;
@@ -114,10 +145,12 @@ void testCalculsComposantAir() {
 	ComposantAir * no2 = new ComposantAir();
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
+	vector<Capteur*> ptrCapteurs;
+	vector<Mesure*> ptrMesures;
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs,&ptrCapteurs);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10,&ptrMesures);
 
 	string dateDebut = "2017-01-01T00:00:10.0100000";
 	string dateFin = "2018-01-01T00:00:24.5880000";
@@ -138,6 +171,8 @@ void testCalculsComposantAir() {
 
 	double maximumO3 = o3->maximum(dateDebut, dateFin, lat1, longi1, lat2, longi2, tabCapteurs);
 	cout << "Maximum du composant o3 : " << maximumO3 << endl;
+
+	libereRessources(&ptrMesures, &ptrCapteurs);
 }
 
 //Valide
@@ -148,10 +183,12 @@ void testValeursSimilaires() {
 	ComposantAir * no2 = new ComposantAir();
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
+	vector<Capteur*> ptrCapteurs;
+	vector<Mesure*> ptrMesures;
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs,&ptrCapteurs);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10,&ptrMesures);
 
 	string dateDebut = "2017-01-01T00:00:10.0100000";
 	string dateFin = "2018-01-01T00:00:24.5880000";
@@ -164,6 +201,8 @@ void testValeursSimilaires() {
 		cout << "{" << it->first << ", ";
 		cout << it->second << "}" << endl;
 	}
+
+	libereRessources(&ptrMesures, &ptrCapteurs);
 
 }
 
@@ -220,12 +259,14 @@ void testFonctionnementCapteurs()
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
+	vector<Capteur*> ptrCapteurs;
+	vector<Mesure*> ptrMesures;
 	string dateDebut = "2017-01-01T00:00:10.0100000";
 	string dateFin = "2019-02-15T00:00:24.5880000";
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs,&ptrCapteurs);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10,&ptrMesures);
 
 	cout << "les capteurs non fonctionnels sont" << endl;
 	set<string> capteursNonFonctionnel = op->bonFonctionnementCapteurs(dateDebut,dateFin,o3,no2,so2,pm10);
@@ -234,6 +275,8 @@ void testFonctionnementCapteurs()
 	{
 		cout << *it << endl;
 	}
+
+	libereRessources(&ptrMesures, &ptrCapteurs);
 }
 
 void testQualiteAirMoyenne()
@@ -245,6 +288,8 @@ void testQualiteAirMoyenne()
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
+	vector<Capteur*> ptrCapteurs;
+	vector<Mesure*> ptrMesures;
 
 	string dateDebut = "2017-01-01T00:00:10.0100000";
 	string dateFin = "2018-01-01T00:00:24.5880000";
@@ -255,10 +300,12 @@ void testQualiteAirMoyenne()
 	double long2 = -34.0;
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs,&ptrCapteurs);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10,&ptrMesures);
 
 	cout << "Qualite de l'air : " << op->qualiteAirMoyenne(dateDebut,dateFin,lat1,long1,lat2,long2,o3,no2,so2,pm10,tabCapteurs) << endl;
+
+	libereRessources(&ptrMesures, &ptrCapteurs);
 }
 
 void testQualiteAirPointFixe()
@@ -270,6 +317,8 @@ void testQualiteAirPointFixe()
 	ComposantAir * so2 = new ComposantAir();
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
+	vector<Capteur*> ptrCapteurs;
+	vector<Mesure*> ptrMesures;
 
 	string dateDebut = "2017-01-01T00:00:10.0100000";
 	string dateFin = "2018-01-01T00:00:24.5880000";
@@ -278,10 +327,12 @@ void testQualiteAirPointFixe()
 	double longi = -34.7692487876719;
 
 	dataSet->lireComposantsAirs("Fichiers/AttributeType.csv", o3, no2, so2, pm10);
-	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs);
-	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10);
+	dataSet->lireCapteurs("Fichiers/Sensors.csv", tabCapteurs,&ptrCapteurs);
+	dataSet->lireMesures("Fichiers/MesuresCompletes.csv", o3, no2, so2, pm10,&ptrMesures);
 
 	cout << "La qualite de l'air autour du point demande est : " << op->qualiteAirPointFixe(dateDebut,dateFin,lat,longi,o3,no2,so2,pm10,tabCapteurs) << endl;
+
+	libereRessources(&ptrMesures, &ptrCapteurs);
 
 }
 
@@ -298,13 +349,14 @@ int main() {
 	ComposantAir * pm10 = new ComposantAir();
 	OperationsDonnees * op = new OperationsDonnees();
 	
-
+	vector<Capteur*> ptrCapteurs;
+	vector<Mesure*> ptrMesures;
 
 	//Lecture des donnees
 	cout << "Entrez le chemin du fichier contenant vos informations de capteurs" << endl;
 	string cheminCapteur;
 	cin >> cheminCapteur;
-	dataSet->lireCapteurs(cheminCapteur,tabCapteurs);
+	dataSet->lireCapteurs(cheminCapteur, tabCapteurs,&ptrCapteurs);
 
 	cout << "Entrez le chemin du fichier contenant vos informations sur les composants de l'air" << endl;
 	string cheminComposant;
@@ -322,7 +374,7 @@ int main() {
 	cout << "Entrez le chemin du fichier contenant vos mesures" << endl;
 	string cheminMesure;
 	cin >> cheminMesure;
-	dataSet->lireMesures(cheminMesure,o3,no2,so2,pm10);
+	dataSet->lireMesures(cheminMesure,o3,no2,so2,pm10,&ptrMesures);
 
 
 	//Menu
@@ -430,7 +482,7 @@ int main() {
 				cin >> lat1;
 				cout << "Entrez la longitude exacte" << endl;
 				cin >> long1;
-				cout << "L'indice ATMO de ce point est : " << op->qualiteAirPointFixe(dateDebut,dateFin,lat1,lat2,o3,no2,so2,pm10,tabCapteurs) << endl;
+				cout << "L'indice ATMO de ce point est : " << op->qualiteAirPointFixe(dateDebut,dateFin,lat1,long1,o3,no2,so2,pm10,tabCapteurs) << endl;
 				ajouteFichierLog("Calcul de la qualité de l'air à un point fixe");
 			}
 			else if (secondChoice==2)
@@ -529,6 +581,8 @@ int main() {
 		}
 	}
 
+	libereRessources(&ptrMesures,&ptrCapteurs);
+	
 	//TestMethode Date
 	//cout << "Entrez une date (aaaa-mm-jjThh:mm:ss)"<<endl;
 	//string date=lectureDate();
@@ -553,13 +607,13 @@ int main() {
 	//testLireMesuresComposantAir();
 	//cout << "Donnees chargees ! " << endl;
 
-
+	
 	
 	//Oblige pour qu'on voit que qql chose s'affiche au debug!
 	//char * a = new char[10];
 	//cin >> a;
 	//cout << a;
-	//return 0;
+	return 0;
 
 
 }

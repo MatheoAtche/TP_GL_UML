@@ -45,6 +45,7 @@ Capteur::Capteur(string sensor, double lat, double longi, string descri)
 
 Capteur::~Capteur()
 {
+
 #ifdef MAP
 	cout << "Appel au destructeur de <Capteur>" << endl;
 #endif
